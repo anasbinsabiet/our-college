@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <div class="settings-menu-links">
+            {{-- <div class="settings-menu-links">
                 <ul class="nav nav-tabs menu-tabs">
                     <li class="nav-item active">
                         <a class="nav-link" href="settings.html">General Settings</a>
@@ -41,7 +41,7 @@
                         <a class="nav-link" href="others-settings.html">Others</a>
                     </li>
                 </ul>
-            </div>
+            </div> --}}
 
             <div class="row">
                 <div class="col-md-6">
