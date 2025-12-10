@@ -10,7 +10,7 @@ use App\Models\Student;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
 
-class AccountsController extends Controller
+class CollectionController extends Controller
 {
     /** index page */
     public function index(Request $request)
@@ -35,16 +35,16 @@ class AccountsController extends Controller
 
         $students = Student::select('id', 'first_name', 'last_name')->get();
 
-        return view('accounts.feescollections', compact('feesInformation', 'students'));
+        return view('collections.index', compact('feesInformation', 'students'));
     }
 
     /** add Fees Collection */
-    public function addFeesCollection()
+    public function add()
     {
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = null;
-        return view('accounts.add-fees-collection',compact('students','feesType', 'collection'));
+        return view('collections.add',compact('students','feesType', 'collection'));
     }
     
     public function edit(Request $request, $id)
@@ -52,11 +52,11 @@ class AccountsController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = FeesInformation::findOrFail($id);
-        return view('accounts.add-fees-collection',compact('students','feesType','collection'));
+        return view('collections.add',compact('students','feesType','collection'));
     }
 
     /** save record */
-    public function saveRecord(Request $request)
+    public function store(Request $request)
     {   
         $request->validate([
             'student_id'  => 'required',
@@ -79,7 +79,7 @@ class AccountsController extends Controller
                     now()->format('d_m_Y'),
                     $file_extension
                 );
-                $request->file('file')->move('uploads', $fileName);
+                $request->file('file')->move('uploads/collections', $fileName);
             }
 
             FeesInformation::create([
@@ -100,6 +100,70 @@ class AccountsController extends Controller
             DB::rollBack();
 
             \Log::error('Save Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'student_id'  => 'required',
+            'fees_type'   => 'required',
+            'fees_amount' => 'required',
+            'paid_date'   => 'required',
+            'file'        => 'nullable|file|max:5120',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $collection = FeesInformation::findOrFail($id);
+            $oldFile = $collection->file;
+            $fileName = $oldFile;
+
+            // Handle new file upload
+            if ($request->hasFile('file')) {
+
+                // Delete old file if exists
+                if ($oldFile && file_exists(public_path('uploads/collections/' . $oldFile))) {
+                    unlink(public_path('uploads/collections/' . $oldFile));
+                }
+
+                $extension = $request->file('file')->extension();
+
+                $fileName = sprintf(
+                    'collection-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $extension
+                );
+
+                $request->file('file')->move(public_path('uploads/collections'), $fileName);
+            }
+
+            // Update record
+            $collection->update([
+                'student_id'  => $request->student_id,
+                'fees_type'   => $request->fees_type,
+                'fees_amount' => $request->fees_amount,
+                'paid_date'   => $request->paid_date,
+                'file'        => $fileName,
+            ]);
+
+            DB::commit();
+
+            Toastr::success('Updated successfully!', 'Success');
+            return redirect()->route('collection.index');
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            \Log::error('Update Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
             return back()->withErrors([

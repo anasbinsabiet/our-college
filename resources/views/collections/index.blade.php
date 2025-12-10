@@ -10,7 +10,7 @@
                     <div class="col">
                         <h3 class="page-title">Fees Collections</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li class="breadcrumb-item active">Fees Collections</li>
                         </ul>
                     </div>
@@ -21,22 +21,6 @@
                 <div class="col-sm-12">
                     <div class="card card-table">
                         <div class="card-body">
-
-                            <div class="page-header">
-                                <div class="row align-items-center">
-                                    <div class="col">
-                                        <h3 class="page-title">Fees Collections</h3>
-                                    </div>
-                                    <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="#" class="btn btn-outline-primary me-2">
-                                            <i class="fas fa-download"></i> Download
-                                        </a>
-                                        <a href="{{ route('collections/add') }}" class="btn btn-primary">
-                                            <i class="fas fa-plus"></i> Add New
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
                             <form class="student-group-form">
                                 <div class="row">
                                     <div class="col">
@@ -72,16 +56,14 @@
                                         </div>
                                     </div>
                                     <div class="col">
-                                        <div class="search-student-btn">
-                                            <button type="submit" class="btn btn-primary">Filter</button>
-                                            <a  href="{{ route('collections') }}" class="btn btn-secondary">Reset</a>
-                                        </div>
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                        <a  href="{{ route('collection.index') }}" class="btn btn-secondary">Reset</a>
+                                        <a href="{{ route('collection.create') }}" class="btn btn-primary">Add New</a>
                                     </div>
                                 </div>
                             </form>
                             <div class="table-responsive">
-                                <table
-                                    class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
+                                <table class="table border-0 star-student table-hover table-center mb-0 datatable table-striped">
                                     <thead class="student-thread">
                                         <tr>
                                             <th>ID</th>
@@ -105,10 +87,10 @@
                                                         {{ $value->file }}
                                                     </a>
                                                 </td>
-                                                <td>{{ $value->paid_date }}</td>s
+                                                <td>{{ $value->paid_date }}</td>
                                                 <td class="text-end">
                                                     <div class="actions">
-                                                        <a href="{{ route('collections.edit', $value->id) }}" class="btn btn-sm bg-danger-light">
+                                                        <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-danger-light">
                                                             <i class="far fa-edit me-2"></i>
                                                         </a>
                                                     </div>

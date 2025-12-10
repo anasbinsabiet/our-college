@@ -33,97 +33,32 @@
                 </li> --}}
                 @if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')
                 <li>
-                    <a href="{{ route('list/users') }}" {{set_active(['list/users'])}}><i class="fas fa-shield-alt"></i> <span>Users</span></a>
+                    <a href="{{ route('users') }}" {{set_active(['users'])}}><i class="fas fa-shield-alt"></i> <span>Users</span></a>
                 </li>
-                {{-- <li class="submenu {{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">
+                {{-- <li class="submenu {{set_active(['users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">
                     <a href="#">
                         <i class="fas fa-shield-alt"></i>
                         <span>User Management</span> 
                         <span class="menu-arrow"></span>
                     </a>
                     <ul>
-                        <li><a href="{{ route('list/users') }}" class="{{set_active(['list/users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">List Users</a></li>
+                        <li><a href="{{ route('users') }}" class="{{set_active(['users'])}} {{ (request()->is('view/user/edit/*')) ? 'active' : '' }}">List Users</a></li>
                     </ul>
                 </li> --}}
                 @endif
 
                 <li>
-                    <a href="{{ route('settings') }}" {{set_active(['settings'])}}><i class="fas fa-graduation-cap"></i> <span>Students</span></a>
+                    <a href="{{ route('student.index') }}" {{set_active(['student.index'])}}><i class="fas fa-graduation-cap"></i> <span>Students</span></a>
                 </li>
                 
                 <li>
-                    <a href="{{ route('teachers') }}" {{set_active(['teachers'])}}><i class="fas fa-chalkboard-teacher"></i> <span>Teachers</span></a>
-                </li>
-                
-                {{-- <li class="submenu {{set_active(['department/add/page','department/edit/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">
-                    <a href="#"><i class="fas fa-building"></i>
-                        <span> Departments</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a href="{{ route('department/list/page') }}" class="{{set_active(['department/list/page'])}} {{ request()->is('department/edit/*') ? 'active' : '' }}">Department List</a></li>
-                        <li><a href="{{ route('department/add/page') }}" class="{{set_active(['department/add/page'])}}">Department Add</a></li>
-                        <li><a>Department Edit</a></li>
-                    </ul>
-                </li>
-
-                <li class="submenu {{set_active(['subject/list/page','subject/add/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }}">
-                    <a href="#"><i class="fas fa-book-reader"></i>
-                        <span> Subjects</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a class="{{set_active(['subject/list/page'])}} {{ request()->is('subject/edit/*') ? 'active' : '' }}" href="{{ route('subject/list/page') }}">Subject List</a></li>
-                        <li><a class="{{set_active(['subject/add/page'])}}" href="{{ route('subject/add/page') }}">Subject Add</a></li>
-                        <li><a>Subject Edit</a></li>
-                    </ul>
-                </li>
-
-                <li class="submenu {{set_active(['invoice/list/page','invoice/paid/page',
-                    'invoice/overdue/page','invoice/draft/page','invoice/recurring/page',
-                    'invoice/cancelled/page','invoice/grid/page','invoice/add/page',
-                    'invoice/view/page','invoice/settings/page',
-                    'invoice/settings/tax/page','invoice/settings/bank/page'])}}" {{ request()->is('invoice/edit/*') ? 'active' : '' }}>
-                    <a href="#"><i class="fas fa-clipboard"></i>
-                        <span> Invoices</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a class="{{set_active(['invoice/list/page','invoice/paid/page','invoice/overdue/page','invoice/draft/page','invoice/recurring/page','invoice/cancelled/page'])}}" href="{{ route('invoice/list/page') }}">Invoices List</a></li>
-                        <li><a class="{{set_active(['invoice/grid/page'])}}" href="{{ route('invoice/grid/page') }}">Invoices Grid</a></li>
-                        <li><a class="{{set_active(['invoice/add/page'])}}" href="{{ route('invoice/add/page') }}">Add Invoices</a></li>
-                        <li><a class="{{ request()->is('invoice/edit/*') ? 'active' : '' }}" href="">Edit Invoices</a></li>
-                        <li> <a class="{{ request()->is('invoice/view/*') ? 'active' : '' }}" href="">Invoices Details</a></li>
-                        <li><a class="{{set_active(['invoice/settings/page','invoice/settings/tax/page','invoice/settings/bank/page'])}}" href="{{ route('invoice/settings/page') }}">Invoices Settings</a></li>
-                    </ul>
-                </li>  --}}
-
-                {{-- <li class="menu-title">
-                    <span>Management</span>
-                </li> --}}
-
-                {{-- <li class="submenu {{set_active(['collections','collections/add'])}}">
-                    <a href="#"><i class="fas fa-file-invoice-dollar"></i>
-                        <span> Accounts</span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul>
-                        <li><a class="{{set_active(['collections'])}}" href="{{ route('collections') }}">Fees Collection</a></li>
-                        <li><a href="expenses.html">Expenses</a></li>
-                        <li><a href="salary.html">Salary</a></li>
-                        <li><a class="{{set_active(['collections/add'])}}" href="{{ route('collections/add') }}">Add Fees</a></li>
-                        <li><a href="add-expenses.html">Add Expenses</a></li>
-                        <li><a href="add-salary.html">Add Salary</a></li>
-                    </ul>
-                </li> --}}
-                {{-- <li>
-                    <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
-                </li> --}}
-                <li>
-                    <a href="{{ route('collections') }}" {{set_active(['collections/add'])}}><i class="fas fa-comment-dollar"></i> <span>Student Fee</span></a>
+                    <a href="{{ route('teacher.index') }}" {{set_active(['teachers'])}}><i class="fas fa-chalkboard-teacher"></i> <span>Teachers</span></a>
                 </li>
                 <li>
-                    <a href="{{ route('collections') }}" {{set_active(['collections/add'])}}><i class="fas fa-comment-dollar"></i> <span>Daily Collection</span></a>
+                    <a href="{{ route('collection.index') }}" {{set_active(['collection.create'])}}><i class="fas fa-comment-dollar"></i> <span>Student Fee</span></a>
+                </li>
+                <li>
+                    <a href="{{ route('collection.index') }}" {{set_active(['collection.create'])}}><i class="fas fa-comment-dollar"></i> <span>Daily Collection</span></a>
                 </li>
                 <li>
                     <a href="{{ route('setting') }}" {{set_active(['setting'])}}><i class="fas fa-cog"></i> <span>Settings</span></a>

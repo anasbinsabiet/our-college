@@ -11,60 +11,59 @@ use App\Models\Teacher;
 use Brian2694\Toastr\Facades\Toastr;
 
 class TeacherController extends Controller
-{
-    /** add teacher page */
-    public function teacherAdd()
+{   
+    public function index(Request $request)
     {
-        $users = User::where('role_name','Teachers')->get();
-        return view('teacher.add-teacher',compact('users'));
+        $query = Teacher::query();
+
+        // Filter by ID
+        if ($request->filled('id')) {
+            $query->where('id', $request->id);
+        }
+
+        // Filter by phone number
+        if ($request->filled('full_name')) {
+            $query->where('full_name', 'like', '%' . $request->full_name . '%');
+        }
+        if ($request->filled('phone_number')) {
+            $query->where('phone_number', 'like', '%' . $request->phone_number . '%');
+        }
+
+        // Get filtered teachers
+        $teachers = $query->latest()->get();
+
+        return view('teacher.index', compact('teachers'));
+    }
+
+    /** add teacher page */
+    public function create()
+    {
+        $teacher = null;
+        return view('teacher.create',compact('teacher'));
     }
 
     /** teacher list */
-    public function teacherList()
-    {
-        $listTeacher = Teacher::join('users', 'teachers.user_id','users.user_id')
-                    ->select('users.date_of_birth','users.join_date','users.phone_number','teachers.*')->get();
-        return view('teacher.list-teachers',compact('listTeacher'));
-    }
-
-    /** teacher Grid */
-    public function teacherGrid()
-    {
-        $teacherGrid = Teacher::all();
-        return view('teacher.teachers-grid',compact('teacherGrid'));
-    }
+    
 
     /** save record */
-    public function saveRecord(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'full_name'     => 'required|string',
-            'gender'        => 'required|string',
-            'experience'    => 'required|string',
-            'date_of_birth' => 'required|string',
-            'qualification' => 'required|string',
-            'phone_number'  => 'required|string',
-            'address'       => 'required|string',
-            'city'          => 'required|string',
-            'state'         => 'required|string',
-            'zip_code'      => 'required|string',
-            'country'       => 'required|string',
+            'full_name'     => 'required',
+            'gender'        => 'required',
+            'phone_number'  => 'required',
         ]);
 
         try {
 
             $saveRecord = new Teacher;
             $saveRecord->full_name     = $request->full_name;
-            $saveRecord->user_id       = $request->teacher_id;
             $saveRecord->gender        = $request->gender;
-            $saveRecord->experience    = $request->experience;
-            $saveRecord->qualification = $request->qualification;
             $saveRecord->date_of_birth = $request->date_of_birth;
             $saveRecord->phone_number  = $request->phone_number;
-            $saveRecord->address       = $request->address;
-            $saveRecord->city          = $request->city;
-            $saveRecord->state         = $request->state;
-            $saveRecord->zip_code      = $request->zip_code;
+            $saveRecord->blood_group   = $request->blood_group;
+            $saveRecord->religion      = $request->religion;
+            $saveRecord->email         = $request->email;
             $saveRecord->country       = $request->country;
             $saveRecord->save();
    
@@ -79,34 +78,39 @@ class TeacherController extends Controller
     }
 
     /** edit record */
-    public function editRecord($user_id)
+    public function edit($id)
     {
-        $teacher = Teacher::join('users', 'teachers.user_id','users.user_id')
-                    ->select('users.date_of_birth','users.join_date','users.phone_number','teachers.*')
-                    ->where('users.user_id', $user_id)->first();
-        return view('teacher.edit-teacher',compact('teacher'));
+        $teacher = Teacher::findOrFail($id);
+        return view('teacher.create',compact('teacher'));
+    }
+    
+    public function show($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        return view('teacher.show',compact('teacher'));
     }
 
     /** update record teacher */
-    public function updateRecordTeacher(Request $request)
+    public function update(Request $request, $id)
     {
         DB::beginTransaction();
         try {
-
-            $updateRecord = [
-                'full_name'     => $request->full_name,
-                'gender'        => $request->gender,
-                'date_of_birth' => $request->date_of_birth,
-                'qualification' => $request->qualification,
-                'experience'    => $request->experience,
-                'phone_number'  => $request->phone_number,
-                'address'       => $request->address,
-                'city'          => $request->city,
-                'state'         => $request->state,
-                'zip_code'      => $request->zip_code,
-                'country'      => $request->country,
-            ];
-            Teacher::where('id',$request->id)->update($updateRecord);
+            $request->validate([
+                'full_name'     => 'required',
+                'gender'        => 'required',
+                'phone_number'  => 'required',
+            ]);
+            
+            $teacher = Teacher::findOrFail($id);
+            $teacher->full_name    = $request->full_name;
+            $teacher->gender        = $request->gender;
+            $teacher->date_of_birth = $request->date_of_birth;
+            $teacher->phone_number  = $request->phone_number;
+            $teacher->blood_group   = $request->blood_group;
+            $teacher->religion      = $request->religion;
+            $teacher->email         = $request->email;
+            $teacher->country       = $request->country;
+            $teacher->save();
             
             Toastr::success('Has been update successfully :)','Success');
             DB::commit();
@@ -121,7 +125,7 @@ class TeacherController extends Controller
     }
 
     /** delete record */
-    public function teacherDelete(Request $request)
+    public function delete(Request $request)
     {
         DB::beginTransaction();
         try {

@@ -9,114 +9,188 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class StudentController extends Controller
 {
-    /** index page student list */
-    public function student()
+    public function index(Request $request)
     {
-        $studentList = Student::all();
-        return view('student.student',compact('studentList'));
+        $query = Student::query();
+
+        // Filter by ID
+        if ($request->filled('id')) {
+            $query->where('id', $request->id);
+        }
+
+        // Filter by name (first_name and last_name)
+        if ($request->filled('name')) {
+            $names = explode(' ', $request->name);
+            $query->where(function($q) use ($names) {
+                foreach ($names as $name) {
+                    $q->where(function($q2) use ($name) {
+                        $q2->where('first_name', 'like', '%' . $name . '%')
+                        ->orWhere('last_name', 'like', '%' . $name . '%');
+                    });
+                }
+            });
+        }
+
+        // Filter by phone number
+        if ($request->filled('phone_number')) {
+            $query->where('phone_number', 'like', '%' . $request->phone_number . '%');
+        }
+
+        $students = $query->orderByDesc('id')->get();
+
+        return view('student.index', compact('students'));
     }
 
-    /** index page student grid */
-    public function studentGrid()
-    {
-        $studentList = Student::all();
-        return view('student.student-grid',compact('studentList'));
-    }
-
-    /** student add page */
-    public function studentAdd()
-    {
-        return view('student.add-student');
+    public function create()
+    {   
+        $student = null;
+        return view('student.create', compact('student'));
     }
     
     /** student save record */
-    public function studentSave(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required|string',
-            'last_name'     => 'required|string',
-            'gender'        => 'required|not_in:0',
-            'date_of_birth' => 'required|string',
-            'roll'          => 'required|string',
-            'blood_group'   => 'required|string',
-            'religion'      => 'required|string',
-            'email'         => 'required|email',
+            'first_name'    => 'required',
+            'roll'          => 'required',
             'class'         => 'required|string',
-            'section'       => 'required|string',
-            'admission_id'  => 'required|string',
-            'phone_number'  => 'required',
-            'upload'        => 'required|image',
+            'phone_number'  => 'required|string',
+            'file'          => 'nullable|image|max:5120',
         ]);
-        
-        DB::beginTransaction();
-        try {
-           
-            $upload_file = rand() . '.' . $request->upload->extension();
-            $request->upload->move(storage_path('app/public/student-photos/'), $upload_file);
-            if(!empty($request->upload)) {
-                $student = new Student;
-                $student->first_name   = $request->first_name;
-                $student->last_name    = $request->last_name;
-                $student->gender       = $request->gender;
-                $student->date_of_birth= $request->date_of_birth;
-                $student->roll         = $request->roll;
-                $student->blood_group  = $request->blood_group;
-                $student->religion     = $request->religion;
-                $student->email        = $request->email;
-                $student->class        = $request->class;
-                $student->section      = $request->section;
-                $student->admission_id = $request->admission_id;
-                $student->phone_number = $request->phone_number;
-                $student->upload = $upload_file;
-                $student->save();
 
-                Toastr::success('Has been add successfully :)','Success');
-                DB::commit();
+        try {
+            DB::beginTransaction();
+
+            $fileName = null;
+
+            if ($request->hasFile('file')) {
+                $extension = $request->file('file')->extension();
+
+                $fileName = sprintf(
+                    'student-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $extension
+                );
+
+                $request->file('file')->move('uploads/students', $fileName);
             }
 
-            return redirect()->back();
-           
-        } catch(\Exception $e) {
-            DB::rollback();
-            Toastr::error('fail, Add new student  :)','Error');
-            return redirect()->back();
+            Student::create([
+                'first_name'    => $request->first_name,
+                'last_name'     => $request->last_name,
+                'gender'        => $request->gender,
+                'date_of_birth' => $request->date_of_birth,
+                'roll'          => $request->roll,
+                'blood_group'   => $request->blood_group,
+                'religion'      => $request->religion,
+                'email'         => $request->email,
+                'class'         => $request->class,
+                'section'       => $request->section,
+                'phone_number'  => $request->phone_number,
+                'file'          => $fileName,
+            ]);
+
+            DB::commit();
+
+            Toastr::success('Student added successfully!', 'Success');
+            return back();
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            \Log::error('Student Save Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            Toastr::error('Failed to add student.', 'Error');
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
         }
     }
 
     /** view for edit student */
-    public function studentEdit($id)
+    public function edit($id)
     {
-        $studentEdit = Student::where('id',$id)->first();
-        return view('student.edit-student',compact('studentEdit'));
+        $student = Student::where('id',$id)->first();
+        return view('student.add',compact('student'));
+    }
+    
+    public function show($id)
+    {
+        $student = Student::where('id',$id)->first();
+        return view('student.show',compact('student'));
     }
 
     /** update record */
-    public function studentUpdate(Request $request)
+    public function update(Request $request, $id)
     {
-        DB::beginTransaction();
-        try {
+        $request->validate([
+            'first_name'    => 'required',
+            'roll'          => 'required',
+            'class'         => 'required|string',
+            'phone_number'  => 'required|string',
+            'file'          => 'nullable|image|max:5120',
+        ]);
 
-            if (!empty($request->upload)) {
-                unlink(storage_path('app/public/student-photos/'.$request->image_hidden));
-                $upload_file = rand() . '.' . $request->upload->extension();
-                $request->upload->move(storage_path('app/public/student-photos/'), $upload_file);
-            } else {
-                $upload_file = $request->image_hidden;
+        try {
+            DB::beginTransaction();
+
+            $student = Student::findOrFail($id);
+
+            $oldFile = $student->file;
+            $fileName = $oldFile;
+
+            // Handle file upload
+            if ($request->hasFile('file')) {
+
+                // Delete old file if exists
+                if ($oldFile && file_exists(storage_path('uploads/students/' . $oldFile))) {
+                    unlink(storage_path('uploads/students/' . $oldFile));
+                }
+
+                $extension = $request->file('file')->extension();
+
+                $fileName = sprintf(
+                    'student-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $extension
+                );
+
+                $request->file('file')->move('uploads/students', $fileName);
             }
-           
-            $updateRecord = [
-                'upload' => $upload_file,
-            ];
-            Student::where('id',$request->id)->update($updateRecord);
-            
-            Toastr::success('Has been update successfully :)','Success');
+            $student->first_name    = $request->first_name;
+            $student->last_name     = $request->last_name;
+            $student->gender        = $request->gender;
+            $student->date_of_birth = $request->date_of_birth;
+            $student->roll          = $request->roll;
+            $student->blood_group   = $request->blood_group;
+            $student->religion      = $request->religion;
+            $student->email         = $request->email;
+            $student->class         = $request->class;
+            $student->section       = $request->section;
+            $student->phone_number  = $request->phone_number;
+            $student->file          = $fileName; // or existing file if unchanged
+            $student->save();
+
             DB::commit();
-            return redirect()->back();
-           
-        } catch(\Exception $e) {
-            DB::rollback();
-            Toastr::error('fail, update student  :)','Error');
-            return redirect()->back();
+
+            Toastr::success('Student updated successfully!', 'Success');
+            return back();
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            \Log::error('Student Update Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            Toastr::error('Failed to update student', 'Error');
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
         }
     }
 

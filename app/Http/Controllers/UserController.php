@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Rules\MatchOldPassword;
 
 
-class UserManagementController extends Controller
+class UserController extends Controller
 {
     /** index page */
     public function index()
-    {
-        return view('usermanagement.list_users');
+    {   
+        $users = User::all();
+        return view('users.index', compact('users'));
     }
 
     /** user view */
@@ -29,7 +30,7 @@ class UserManagementController extends Controller
     {
         $users = User::where('user_id',$id)->first();
         $role  = DB::table('role_type_users')->get();
-        return view('usermanagement.user_update',compact('users','role'));
+        return view('users.create',compact('users','role'));
     }
 
     /** user Update */

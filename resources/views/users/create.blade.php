@@ -7,7 +7,7 @@
                     <div class="col">
                         <h3 class="page-title">Edit User</h3>
                         <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="time-table.html">Users</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('users') }}">Users</a></li>
                             <li class="breadcrumb-item active">Edit User</li>
                         </ul>
                     </div>
@@ -19,7 +19,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('user/update') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-12">
