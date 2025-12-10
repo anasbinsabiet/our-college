@@ -54,7 +54,6 @@
                                 <thead class="student-thread">
                                     <tr>
                                         <th>User ID</th>
-                                        <th>Profile</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
@@ -132,10 +131,6 @@
                 {
                     data: 'user_id',
                     name: 'user_id',
-                },
-                {
-                    data: 'avatar',
-                    name: 'avatar'
                 },
                 {
                     data: 'name',

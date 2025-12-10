@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 09, 2025 at 11:46 AM
+-- Generation Time: Dec 10, 2025 at 08:09 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -54,11 +54,30 @@ CREATE TABLE IF NOT EXISTS `fees_information` (
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fees_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `fees_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `paid_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fees_information`
+--
+
+INSERT INTO `fees_information` (`id`, `student_id`, `student_name`, `gender`, `fees_type`, `fees_amount`, `file`, `paid_date`, `created_at`, `updated_at`) VALUES
+(1, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-09 23:34:47', '2025-12-09 23:34:47'),
+(2, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:46:56', '2025-12-09 23:46:56'),
+(3, '1', NULL, NULL, 'Tuition Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:48:14', '2025-12-09 23:48:14'),
+(4, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:56:17', '2025-12-09 23:56:17'),
+(5, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:03:16', '2025-12-10 00:03:16'),
+(6, '1', NULL, NULL, 'Tuition Fees', '500', 'uploads69390e2a22deb.jpg', '10-12-2025', '2025-12-10 00:07:38', '2025-12-10 00:07:38'),
+(7, '1', NULL, NULL, 'Exam Fees', '1200', 'uploads69390e9963275.pdf', '10-12-2025', '2025-12-10 00:09:29', '2025-12-10 00:09:29'),
+(8, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-10 00:29:32', '2025-12-10 00:29:32'),
+(9, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:45', '2025-12-10 00:29:45'),
+(10, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:52', '2025-12-10 00:29:52'),
+(11, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:59', '2025-12-10 00:29:59'),
+(12, '1', NULL, NULL, 'Exam Fees', '456', 'collection-693919ca827c1-10_12_2025.png', '10-12-2025', '2025-12-10 00:57:14', '2025-12-10 00:57:14');
 
 -- --------------------------------------------------------
 
@@ -73,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `fees_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `fees_types`
@@ -82,9 +101,10 @@ CREATE TABLE IF NOT EXISTS `fees_types` (
 INSERT INTO `fees_types` (`id`, `fees_type`, `created_at`, `updated_at`) VALUES
 (1, 'Class Test', NULL, NULL),
 (2, 'Exam Fees', NULL, NULL),
-(3, 'Hostel Fees', NULL, NULL),
-(4, 'Transport Fees', NULL, NULL),
-(5, 'Mess Fees', NULL, NULL);
+(3, 'Tuition Fees', NULL, NULL),
+(4, 'Monthly Fees', NULL, NULL),
+(5, 'Registration Fees', NULL, NULL),
+(6, 'Others', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -320,13 +340,8 @@ CREATE TABLE IF NOT EXISTS `role_type_users` (
 --
 
 INSERT INTO `role_type_users` (`id`, `role_type`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', NULL, NULL),
-(2, 'Super Admin', NULL, NULL),
-(3, 'Normal User', NULL, NULL),
-(4, 'Teachers', NULL, NULL),
-(5, 'Student', NULL, NULL),
-(6, 'Staff', NULL, NULL),
-(7, 'Client', NULL, NULL);
+(1, 'User', NULL, NULL),
+(2, 'Admin', NULL, NULL);
 
 -- --------------------------------------------------------
 

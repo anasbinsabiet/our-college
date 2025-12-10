@@ -52,14 +52,8 @@
                                         <h3 class="page-title">Students</h3>
                                     </div>
                                     <div class="col-auto text-end float-end ms-auto download-grp">
-                                        <a href="{{ route('settings') }}" class="btn btn-outline-gray me-2 active">
-                                            <i class="fa fa-list" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{ route('student/grid') }}" class="btn btn-outline-gray me-2">
-                                            <i class="fa fa-th" aria-hidden="true"></i>
-                                        </a>
                                         <a href="#" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i> Download</a>
-                                        <a href="{{ route('student/add/page') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                        <a href="{{ route('student/add/page') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
                                     </div>
                                 </div>
                             </div>
@@ -95,14 +89,7 @@
                                             <td>STD{{ ++$key }}</td>
                                             <td hidden class="id">{{ $list->id }}</td>
                                             <td hidden class="avatar">{{ $list->upload }}</td>
-                                            <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="student-details.html"class="avatar avatar-sm me-2">
-                                                        <img class="avatar-img rounded-circle" src="{{ Storage::url('student-photos/'.$list->upload) }}" alt="">
-                                                    </a>
-                                                    <a href="student-details.html">{{ $list->first_name }} {{ $list->last_name }}</a>
-                                                </h2>
-                                            </td>
+                                            <td>{{ $list->first_name }} {{ $list->last_name }}</td>
                                             <td>{{ $list->class }} {{ $list->section }}</td>
                                             <td>{{ $list->date_of_birth }}</td>
                                             <td>Soeng Soeng</td>
@@ -112,9 +99,6 @@
                                                 <div class="actions">
                                                     <a href="{{ url('student/edit/'.$list->id) }}" class="btn btn-sm bg-danger-light">
                                                         <i class="far fa-edit me-2"></i>
-                                                    </a>
-                                                    <a class="btn btn-sm bg-danger-light student_delete" data-bs-toggle="modal" data-bs-target="#studentUser">
-                                                        <i class="far fa-trash-alt me-2"></i>
                                                     </a>
                                                 </div>
                                             </td>

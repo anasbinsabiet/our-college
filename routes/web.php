@@ -96,7 +96,7 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
 
     // ------------------------ student -------------------------------//
     Route::controller(StudentController::class)->group(function () {
-        Route::get('settings', 'student')->middleware('auth')->name('settings'); // list student
+        Route::get('students', 'student')->middleware('auth')->name('settings'); // list student
         Route::get('student/grid', 'studentGrid')->middleware('auth')->name('student/grid'); // grid student
         Route::get('student/add/page', 'studentAdd')->middleware('auth')->name('student/add/page'); // page student
         Route::post('student/add/save', 'studentSave')->name('student/add/save'); // save record student
@@ -162,7 +162,8 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
     // ----------------------- accounts ----------------------------//
     Route::controller(AccountsController::class)->group(function () {
         Route::get('collections', 'index')->middleware('auth')->name('collections'); // collections
-        Route::get('add/fees/collection/page', 'addFeesCollection')->middleware('auth')->name('add/fees/collection/page'); // add/fees/collection
+        Route::get('collections/add', 'addFeesCollection')->middleware('auth')->name('collections/add');
+        Route::get('collections/edit/{id}', 'edit')->middleware('auth')->name('collections.edit');
         Route::post('fees/collection/save', 'saveRecord')->middleware('auth')->name('fees/collection/save'); // fees/collection/save
     });
 });

@@ -379,8 +379,8 @@ return new class extends Migration
             [
                 'title' => 'Add Fees',
                 'icon'  => null,
-                'route' => 'add/fees/collection/page',
-                'active_routes' => json_encode(['add/fees/collection/page']),
+                'route' => 'collections/add',
+                'active_routes' => json_encode(['collections/add']),
                 'pattern'   => null,
                 'parent_id' => $accountsMenuId,
                 'order'     => 4,

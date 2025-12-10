@@ -30,8 +30,8 @@
         <div class="login-wrapper">
             <div class="container">
                 <div class="loginbox">
-                    <div class="login-left">
-                        <img class="img-fluid" src="{{ URL::to('assets/img/login.png') }}" alt="Logo">
+                    <div class="login-left" style="display: block;">
+                        <img class="img-fluid" src="{{ URL::to('assets/img/login.jpg') }}" alt="Logo">
                     </div>
                     @yield('content')
                 </div>

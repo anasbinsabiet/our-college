@@ -96,13 +96,13 @@
                         <li> <a class="{{ request()->is('invoice/view/*') ? 'active' : '' }}" href="">Invoices Details</a></li>
                         <li><a class="{{set_active(['invoice/settings/page','invoice/settings/tax/page','invoice/settings/bank/page'])}}" href="{{ route('invoice/settings/page') }}">Invoices Settings</a></li>
                     </ul>
-                </li> --}}
+                </li>  --}}
 
                 {{-- <li class="menu-title">
                     <span>Management</span>
                 </li> --}}
 
-                {{-- <li class="submenu {{set_active(['collections','add/fees/collection/page'])}}">
+                {{-- <li class="submenu {{set_active(['collections','collections/add'])}}">
                     <a href="#"><i class="fas fa-file-invoice-dollar"></i>
                         <span> Accounts</span>
                         <span class="menu-arrow"></span>
@@ -111,7 +111,7 @@
                         <li><a class="{{set_active(['collections'])}}" href="{{ route('collections') }}">Fees Collection</a></li>
                         <li><a href="expenses.html">Expenses</a></li>
                         <li><a href="salary.html">Salary</a></li>
-                        <li><a class="{{set_active(['add/fees/collection/page'])}}" href="{{ route('add/fees/collection/page') }}">Add Fees</a></li>
+                        <li><a class="{{set_active(['collections/add'])}}" href="{{ route('collections/add') }}">Add Fees</a></li>
                         <li><a href="add-expenses.html">Add Expenses</a></li>
                         <li><a href="add-salary.html">Add Salary</a></li>
                     </ul>
@@ -120,10 +120,10 @@
                     <a href="holiday.html"><i class="fas fa-holly-berry"></i> <span>Holiday</span></a>
                 </li> --}}
                 <li>
-                    <a href="{{ route('collections') }}" {{set_active(['add/fees/collection/page'])}}><i class="fas fa-comment-dollar"></i> <span>Student Fee</span></a>
+                    <a href="{{ route('collections') }}" {{set_active(['collections/add'])}}><i class="fas fa-comment-dollar"></i> <span>Student Fee</span></a>
                 </li>
                 <li>
-                    <a href="{{ route('collections') }}" {{set_active(['add/fees/collection/page'])}}><i class="fas fa-comment-dollar"></i> <span>Daily Collection</span></a>
+                    <a href="{{ route('collections') }}" {{set_active(['collections/add'])}}><i class="fas fa-comment-dollar"></i> <span>Daily Collection</span></a>
                 </li>
                 <li>
                     <a href="{{ route('setting') }}" {{set_active(['setting'])}}><i class="fas fa-cog"></i> <span>Settings</span></a>

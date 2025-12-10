@@ -193,20 +193,9 @@ class UserManagementController extends Controller
                             <a class="dropdown-item" href="'.url('users/add/edit/'.$record->user_id).'">
                                 <i class="far fa-edit me-2"></i> Edit
                             </a>
-                            <a class="dropdown-item" href="'.url('users/delete/'.$record->id).'">
-                            <i class="fas fa-trash-alt m-r-5"></i> Delete
                         </a>
                         </div>
                     </div>
-                </td>
-            ';
-            $avatar = '
-                <td>
-                    <h2 class="table-avatar">
-                        <a class="avatar-sm me-2">
-                            <img class="avatar-img rounded-circle avatar" data-avatar='.$record->avatar.' src="/images/'.$record->avatar.'"alt="'.$record->name.'">
-                        </a>
-                    </h2>
                 </td>
             ';
             if ($record->status === 'Active') {
@@ -225,16 +214,12 @@ class UserManagementController extends Controller
                         <a href="'.url('view/user/edit/'.$record->user_id).'" class="btn btn-sm bg-danger-light">
                             <i class="far fa-edit me-2"></i>
                         </a>
-                        <a class="btn btn-sm bg-danger-light delete user_id" data-bs-toggle="modal" data-user_id="'.$record->user_id.'" data-bs-target="#delete">
-                        <i class="fe fe-trash-2"></i>
-                        </a>
                     </div>
                 </td>
             ';
            
             $data_arr [] = [
                 "user_id"      => $record->user_id,
-                "avatar"       => $avatar,
                 "name"         => $record->name,
                 "email"        => $record->email,
                 "position"     => $record->position,

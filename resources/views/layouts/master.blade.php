@@ -44,7 +44,7 @@
                 <a class="home-btn" href="{{ url('/') }}" target="_blank">
                     <i class="fas fa-home"></i>
                 </a>
-                <form>
+                <form class="search-form">
                     <input type="text" class="form-control" placeholder="Search here">
                     <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                 </form>

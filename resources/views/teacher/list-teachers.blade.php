@@ -51,13 +51,9 @@
                                     <h3 class="page-title">Teachers</h3>
                                 </div>
                                 <div class="col-auto text-end float-end ms-auto download-grp">
-                                    <a href="teachers.html" class="btn btn-outline-gray me-2 active">
-                                        <i class="fa fa-list" aria-hidden="true"></i>
-                                    <a href="{{ route('teacher/grid/page') }}" class="btn btn-outline-gray me-2">
-                                        <i class="fa fa-th" aria-hidden="true"></i>
                                     <a href="#" class="btn btn-outline-primary me-2"><i
                                             class="fas fa-download"></i> Download</a>
-                                    <a href="{{ route('teacher/add/page') }}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                                    <a href="{{ route('teacher/add/page') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
                                 </div>
                             </div>
                         </div>
@@ -117,9 +113,9 @@
                                                 <a href="{{ url('teacher/edit/'.$list->user_id) }}" class="btn btn-sm bg-danger-light">
                                                     <i class="far fa-edit me-2"></i>
                                                 </a>
-                                                <a class="btn btn-sm bg-danger-light teacher_delete" data-bs-toggle="modal" data-bs-target="#teacherDelete">
+                                                {{-- <a class="btn btn-sm bg-danger-light teacher_delete" data-bs-toggle="modal" data-bs-target="#teacherDelete">
                                                     <i class="far fa-trash-alt me-2"></i>
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </td>
                                     </tr>

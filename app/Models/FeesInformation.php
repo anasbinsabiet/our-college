@@ -15,5 +15,6 @@ class FeesInformation extends Model
         'fees_type',
         'fees_amount',
         'paid_date',
+        'file',
     ];
 }

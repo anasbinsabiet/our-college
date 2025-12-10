@@ -6,57 +6,106 @@ use Illuminate\Http\Request;
 use App\Models\FeesType;
 use App\Models\User;
 use App\Models\FeesInformation;
+use App\Models\Student;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class AccountsController extends Controller
 {
     /** index page */
-    public function index()
+    public function index(Request $request)
     {
-        $feesInformation = FeesInformation::join('users', 'fees_information.student_id', 'users.id')
-            ->select('fees_information.*','users.avatar')
-            ->get();
-        return view('accounts.feescollections',compact('feesInformation'));
+        $query = FeesInformation::join('students', 'fees_information.student_id', 'students.id')
+            ->select('fees_information.*', 'students.first_name', 'students.last_name')
+            ->orderByDesc('fees_information.id');
+
+        // Apply filters
+        $query->when($request->id, fn($q) => $q->where('fees_information.id', $request->id));
+        $query->when($request->student_id, fn($q) => $q->where('fees_information.student_id', $request->student_id));
+        $query->when($request->amount, fn($q) => $q->where('fees_information.fees_amount', $request->amount));
+        // Paid date filters individually
+        if ($request->paid_date_from) {
+            $query->where('fees_information.paid_date', '>=',$request->paid_date_from );
+        }
+
+        if ($request->paid_date_to) {
+            $query->where('fees_information.paid_date', '<=', $request->paid_date_to);
+        }
+        $feesInformation = $query->get();
+
+        $students = Student::select('id', 'first_name', 'last_name')->get();
+
+        return view('accounts.feescollections', compact('feesInformation', 'students'));
     }
 
     /** add Fees Collection */
     public function addFeesCollection()
     {
-        $users    = User::whereIn('role_name',['Student'])->get();
-        $feesType = FeesType::all();
-        return view('accounts.add-fees-collection',compact('users','feesType'));
+        $students    = Student::latest()->get();
+        $feesType    = FeesType::all();
+        $collection  = null;
+        return view('accounts.add-fees-collection',compact('students','feesType', 'collection'));
+    }
+    
+    public function edit(Request $request, $id)
+    {
+        $students    = Student::latest()->get();
+        $feesType    = FeesType::all();
+        $collection  = FeesInformation::findOrFail($id);
+        return view('accounts.add-fees-collection',compact('students','feesType','collection'));
     }
 
     /** save record */
     public function saveRecord(Request $request)
-    {
+    {   
         $request->validate([
-            'student_id'   => 'required|string',
-            'student_name' => 'required|string',
-            'gender'       => 'required|string',
-            'fees_type'    => 'required|string',
-            'fees_amount'  => 'required|string',
-            'paid_date'    => 'required|string',
+            'student_id'  => 'required',
+            'fees_type'   => 'required',
+            'fees_amount' => 'required',
+            'paid_date'   => 'required',
+            'file'        => 'nullable|file|max:5120',
         ]);
 
         try {
+            DB::beginTransaction();
 
-            $saveRecord = new FeesInformation;
-            $saveRecord->student_id   = $request->student_id;
-            $saveRecord->student_name = $request->student_name;
-            $saveRecord->gender       = $request->gender;
-            $saveRecord->fees_type    = $request->fees_type;
-            $saveRecord->fees_amount  = $request->fees_amount;
-            $saveRecord->paid_date    = $request->paid_date;
-            $saveRecord->save();
-   
-            Toastr::success('Has been add successfully :)','Success');
-            return redirect()->back();
-        } catch(\Exception $e) {
-            \Log::info($e);
-            DB::rollback();
-            Toastr::error('fail, Add new record  :)','Error');
-            return redirect()->back();
+            $fileName = null;
+
+            if ($request->hasFile('file')) {
+                $file_extension = $request->file('file')->extension();
+                $fileName = sprintf(
+                    'collection-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $file_extension
+                );
+                $request->file('file')->move('uploads', $fileName);
+            }
+
+            FeesInformation::create([
+                'student_id'  => $request->student_id,
+                'fees_type'   => $request->fees_type,
+                'fees_amount' => $request->fees_amount,
+                'paid_date'   => $request->paid_date,
+                'file'        => $fileName,
+            ]);
+
+            DB::commit();
+
+            Toastr::success('Has been added successfully!', 'Success');
+            return back();
+
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            \Log::error('Save Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
         }
     }
+
 }
