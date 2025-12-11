@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\FeesType;
 use App\Models\User;
-use App\Models\FeesInformation;
+use App\Models\Collection;
 use App\Models\Student;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
@@ -14,27 +14,27 @@ class CollectionController extends Controller
 {
     public function index(Request $request)
     {
-        $query = FeesInformation::join('students', 'fees_information.student_id', 'students.id')
-            ->select('fees_information.*', 'students.name' , 'students.phone')
-            ->orderByDesc('fees_information.id');
+        $query = Collection::join('students', 'collections.student_id', 'students.id')
+            ->select('collections.*', 'students.name' , 'students.phone')
+            ->orderByDesc('collections.id');
 
         // Apply filters
-        $query->when($request->id, fn($q) => $q->where('fees_information.id', $request->id));
-        $query->when($request->student_id, fn($q) => $q->where('fees_information.student_id', $request->student_id));
-        $query->when($request->amount, fn($q) => $q->where('fees_information.fees_amount', $request->amount));
+        $query->when($request->id, fn($q) => $q->where('collections.id', $request->id));
+        $query->when($request->student_id, fn($q) => $q->where('collections.student_id', $request->student_id));
+        $query->when($request->amount, fn($q) => $q->where('collections.fees_amount', $request->amount));
         // Paid date filters individually
         if ($request->paid_date_from) {
-            $query->where('fees_information.paid_date', '>=',$request->paid_date_from );
+            $query->where('collections.paid_date', '>=',$request->paid_date_from );
         }
 
         if ($request->paid_date_to) {
-            $query->where('fees_information.paid_date', '<=', $request->paid_date_to);
+            $query->where('collections.paid_date', '<=', $request->paid_date_to);
         }
-        $feesInformation = $query->get();
+        $Collection = $query->get();
 
         $students = Student::select('id', 'name', 'phone')->get();
 
-        return view('collections.index', compact('feesInformation', 'students'));
+        return view('collections.index', compact('Collection', 'students'));
     }
 
     public function create()
@@ -49,8 +49,17 @@ class CollectionController extends Controller
     {
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
-        $collection  = FeesInformation::findOrFail($id);
+        $collection  = Collection::findOrFail($id);
         return view('collections.create',compact('students','feesType','collection'));
+    }
+    
+    public function show(Request $request, $id)
+    {
+        
+        $feesType    = FeesType::all();
+        $collection  = Collection::findOrFail($id);
+        $student    = Student::findOrFail($collection->student_id);
+        return view('collections.show',compact('student','feesType','collection'));
     }
 
     public function store(Request $request)
@@ -79,7 +88,7 @@ class CollectionController extends Controller
                 $request->file('file')->move('uploads/collections', $fileName);
             }
 
-            FeesInformation::create([
+            Collection::create([
                 'student_id'  => $request->student_id,
                 'fees_type'   => $request->fees_type,
                 'fees_amount' => $request->fees_amount,
@@ -120,7 +129,7 @@ class CollectionController extends Controller
         try {
             DB::beginTransaction();
 
-            $collection = FeesInformation::findOrFail($id);
+            $collection = Collection::findOrFail($id);
             $oldFile = $collection->file;
             $fileName = $oldFile;
 

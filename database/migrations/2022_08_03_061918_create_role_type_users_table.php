@@ -13,13 +13,13 @@ class CreateRoleTypeUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_type_users', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('role_type')->nullable();
             $table->timestamps();
         });
 
-        DB::table('role_type_users')->insert([
+        DB::table('roles')->insert([
             ['role_type' => 'Admin'],
             ['role_type' => 'User']
         ]);
@@ -32,6 +32,6 @@ class CreateRoleTypeUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_type_users');
+        Schema::dropIfExists('roles');
     }
 }

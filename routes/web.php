@@ -3,14 +3,14 @@
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\Setting;
+use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
+use App\Models\Notice;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,7 +23,9 @@ function set_active( $route ) {
 }
 
 Route::get('/', function () {
-    return view('welcome');
+    $setting = Setting::findOrFail(1);
+    $notices = Notice::latest()->take(10)->get();
+    return view('welcome', compact('notices', 'setting'));
 });
 
 Route::get('/login', function () {
@@ -61,9 +63,6 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
     // -------------------------- main dashboard ----------------------//
     Route::controller(HomeController::class)->group(function () {
         Route::get('/dashboard', 'index')->middleware('auth')->name('dashboard');
-        Route::get('user/profile/page', 'userProfile')->middleware('auth')->name('user/profile/page');
-        Route::get('teacher/dashboard', 'teacherDashboardIndex')->middleware('auth')->name('teacher/dashboard');
-        Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
 
     Route::match(['get', 'post'], 'user/password-reset', [UserController::class, 'password_reset'])->name('password.reset');
@@ -77,11 +76,6 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
             'update' => 'user.update',
         ]
     ]);
-
-    // ------------------------ setting -------------------------------//
-    Route::controller(Setting::class)->group(function () {
-        Route::get('setting', 'index')->middleware('auth')->name('setting');
-    });
 
     Route::resource('teachers', TeacherController::class, [
         'names' => [
@@ -113,6 +107,29 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
             'show' => 'collection.show',
             'edit' => 'collection.edit',
             'update' => 'collection.update',
+        ]
+    ]);
+    
+    Route::resource('notices', NoticeController::class, [
+        'names' => [
+            'index' => 'notice.index',
+            'create' => 'notice.create',
+            'store' => 'notice.store',
+            'show' => 'notice.show',
+            'edit' => 'notice.edit',
+            'update' => 'notice.update',
+            'destroy' => 'notice.destroy',
+        ]
+    ]);
+
+    Route::resource('settings', SettingController::class, [
+        'names' => [
+            'index' => 'setting.index',
+            'create' => 'setting.create',
+            'store' => 'setting.store',
+            'show' => 'setting.show',
+            'edit' => 'setting.edit',
+            'update' => 'setting.update',
         ]
     ]);
 });

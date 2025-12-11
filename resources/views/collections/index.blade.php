@@ -76,7 +76,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($feesInformation as $key => $value)
+                                        @foreach($Collection as $key => $value)
                                             <tr>
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->name }} - {{ $value->phone }}</td>
@@ -90,6 +90,9 @@
                                                 <td>{{ $value->paid_date }}</td>
                                                 <td class="text-end">
                                                     <div class="actions">
+                                                        <a href="{{ route('collection.show', $value->id) }}" class="btn btn-sm bg-primary-light">
+                                                            <i class="far fa-eye me-2"></i>
+                                                        </a>
                                                         <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-danger-light">
                                                             <i class="far fa-edit me-2"></i>
                                                         </a>

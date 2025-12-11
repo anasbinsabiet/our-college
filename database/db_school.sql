@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 11, 2025 at 08:36 AM
+-- Generation Time: Dec 11, 2025 at 12:05 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -24,30 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Table structure for table `collections`
 --
 
-DROP TABLE IF EXISTS `departments`;
-CREATE TABLE IF NOT EXISTS `departments` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `department_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `head_of_department` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `department_start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `no_of_students` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fees_information`
---
-
-DROP TABLE IF EXISTS `fees_information`;
-CREATE TABLE IF NOT EXISTS `fees_information` (
+DROP TABLE IF EXISTS `collections`;
+CREATE TABLE IF NOT EXISTS `collections` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `student_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `student_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -64,10 +45,10 @@ CREATE TABLE IF NOT EXISTS `fees_information` (
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `fees_information`
+-- Dumping data for table `collections`
 --
 
-INSERT INTO `fees_information` (`id`, `student_id`, `student_name`, `gender`, `fees_type`, `fees_amount`, `file`, `paid_date`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+INSERT INTO `collections` (`id`, `student_id`, `student_name`, `gender`, `fees_type`, `fees_amount`, `file`, `paid_date`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
 (1, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-09 23:34:47', '2025-12-09 23:34:47', NULL, NULL),
 (2, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:46:56', '2025-12-09 23:46:56', NULL, NULL),
 (3, '1', NULL, NULL, 'Tuition Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:48:14', '2025-12-09 23:48:14', NULL, NULL),
@@ -80,6 +61,25 @@ INSERT INTO `fees_information` (`id`, `student_id`, `student_name`, `gender`, `f
 (10, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:52', '2025-12-10 00:29:52', NULL, NULL),
 (11, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:59', '2025-12-10 00:29:59', NULL, NULL),
 (12, '1', NULL, NULL, 'Exam Fees', '4560', 'collection-6939507ae5875-10_12_2025.pdf', '10-12-2025', '2025-12-10 00:57:14', '2025-12-10 04:50:34', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+DROP TABLE IF EXISTS `departments`;
+CREATE TABLE IF NOT EXISTS `departments` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `department_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `department_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `head_of_department` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `department_start_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_of_students` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -107,126 +107,6 @@ INSERT INTO `fees_types` (`id`, `fees_type`, `created_at`, `updated_at`) VALUES
 (4, 'Monthly Fees', NULL, NULL),
 (5, 'Registration Fees', NULL, NULL),
 (6, 'Others', NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_additional_charges`
---
-
-DROP TABLE IF EXISTS `invoice_additional_charges`;
-CREATE TABLE IF NOT EXISTS `invoice_additional_charges` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `service_charge` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_customer_names`
---
-
-DROP TABLE IF EXISTS `invoice_customer_names`;
-CREATE TABLE IF NOT EXISTS `invoice_customer_names` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `customer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `po_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `due_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `enable_tax` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `recurring_incoice` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `by_month` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `month` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `invoice_from` longtext COLLATE utf8mb4_unicode_ci,
-  `invoice_to` longtext COLLATE utf8mb4_unicode_ci,
-  `status` longtext COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_details`
---
-
-DROP TABLE IF EXISTS `invoice_details`;
-CREATE TABLE IF NOT EXISTS `invoice_details` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `items` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `quantity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `discount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_discounts`
---
-
-DROP TABLE IF EXISTS `invoice_discounts`;
-CREATE TABLE IF NOT EXISTS `invoice_discounts` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `offer_new` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_payment_details`
---
-
-DROP TABLE IF EXISTS `invoice_payment_details`;
-CREATE TABLE IF NOT EXISTS `invoice_payment_details` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_holder_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ifsc_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `add_terms_and_Conditions` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `add_notes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_total_amounts`
---
-
-DROP TABLE IF EXISTS `invoice_total_amounts`;
-CREATE TABLE IF NOT EXISTS `invoice_total_amounts` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `invoice_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `taxable_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `round_off` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `upload_sign` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name_of_the_signatuaory` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -325,11 +205,58 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_type_users`
+-- Table structure for table `notices`
 --
 
-DROP TABLE IF EXISTS `role_type_users`;
-CREATE TABLE IF NOT EXISTS `role_type_users` (
+DROP TABLE IF EXISTS `notices`;
+CREATE TABLE IF NOT EXISTS `notices` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`id`, `title`, `file`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'xcdv xdf', 'notice-693a9f51834d9-11122025.png', 'xv dfdfg', 1, NULL, '2025-12-11 04:39:13', '2025-12-11 04:39:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+DROP TABLE IF EXISTS `personal_access_tokens`;
+CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -338,13 +265,45 @@ CREATE TABLE IF NOT EXISTS `role_type_users` (
 ) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `role_type_users`
+-- Dumping data for table `roles`
 --
 
-INSERT INTO `role_type_users` (`id`, `role_type`, `created_at`, `updated_at`) VALUES
+INSERT INTO `roles` (`id`, `role_type`, `created_at`, `updated_at`) VALUES
 (1, 'User', NULL, NULL),
 (2, 'Accountant', NULL, NULL),
 (3, 'Admin', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+DROP TABLE IF EXISTS `settings`;
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `favicon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `title`, `description`, `logo`, `favicon`, `banner`, `phone`, `mobile`, `email`, `address`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'HBD Services', 'HBD Services Group', 'logo-693aa7a923364.png', 'favicon-693aa52b359e2.png', NULL, NULL, NULL, NULL, NULL, 1, 1, '2025-12-11 04:54:55', '2025-12-11 05:14:49');
 
 -- --------------------------------------------------------
 

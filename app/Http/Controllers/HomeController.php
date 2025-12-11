@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -22,9 +27,31 @@ class HomeController extends Controller
     * @return \Illuminate\Contracts\Support\Renderable
     */
     /** home dashboard */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard');
+        $query = Collection::query();
+        if ($request->from && $request->to) {
+            $query->whereBetween('paid_date', [
+                Carbon::parse($request->from)->toDateString(),
+                Carbon::parse($request->to)->toDateString(),
+            ]);
+        }
+        $chart = $query->selectRaw('paid_date, SUM(fees_amount) AS total')
+            ->groupBy('paid_date')
+            ->orderBy('paid_date')
+            ->get();
+        return view('dashboard', [
+            'users'       => User::count(),
+            'students'    => Student::count(),
+            'teachers'    => Teacher::count(),
+            'collections' => Collection::count(),
+            'chart'       => [
+                'labels' => $chart->pluck('paid_date'),
+                'series' => $chart->pluck('total'),
+            ],
+            'from' => $request->from,
+            'to' => $request->to,
+        ]);
     }
 
     /** profile user */

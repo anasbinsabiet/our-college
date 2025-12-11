@@ -61,7 +61,7 @@
                             <div class="col-sm-6"><strong>User ID:</strong> {{ $student->user_id ?? 'N/A' }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Full Name:</strong> {{ $student->first_name }} {{ $student->last_name }}</div>
+                            <div class="col-sm-12"><strong>Full Name:</strong> {{ $student->name }} {{ $student->last_name }}</div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-sm-12"><strong>Email:</strong> {{ $student->email }}</div>

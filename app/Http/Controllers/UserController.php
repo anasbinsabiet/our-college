@@ -23,7 +23,7 @@ class UserController extends Controller
     public function create()
     {
         $user = null;
-        $role  = DB::table('role_type_users')->get();
+        $role  = DB::table('roles')->get();
         return view('users.create',compact('user','role'));
     }
 
@@ -93,7 +93,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $role  = DB::table('role_type_users')->get();
+        $role  = DB::table('roles')->get();
         return view('users.create',compact('user','role'));
     }
     
