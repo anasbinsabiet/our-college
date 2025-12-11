@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-{!! Toastr::message() !!}
+
 
 <div class="page-wrapper">
     <div class="content container-fluid">

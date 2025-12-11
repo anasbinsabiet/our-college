@@ -69,10 +69,7 @@ class NoticeController extends Controller
             ]);
 
             DB::commit();
-
-            Toastr::success('Notice created successfully!', 'Success');
-            return redirect()->route('notice.index');
-
+            return redirect()->route('notice.index')->with('success', 'Notice created successfully!');
         } catch (\Throwable $e) {
             return $e->getMessage();
             DB::rollBack();
@@ -122,10 +119,7 @@ class NoticeController extends Controller
             ]);
 
             DB::commit();
-
-            Toastr::success('Notice updated successfully!', 'Success');
-            return redirect()->route('notice.index');
-
+            return redirect()->route('notice.index')->with('success', 'Notice updated successfully!');
         } catch (\Throwable $e) {
 
             DB::rollBack();
@@ -144,8 +138,8 @@ class NoticeController extends Controller
 
             $notice->delete();
 
-            Toastr::success('Notice deleted!', 'Success');
-            return back();
+            return back()->with('success', 'Notice deleted!');
+
 
         } catch (\Throwable $e) {
             return back()->withErrors(['error' => $e->getMessage()]);

@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        {!! Toastr::message() !!}
+        
 
         <form action="{{ optional($setting)->id ? route('setting.update', $setting->id) : route('setting.store') }}"
               method="POST" enctype="multipart/form-data">

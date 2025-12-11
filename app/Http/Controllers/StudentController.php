@@ -82,19 +82,16 @@ class StudentController extends Controller
 
             DB::commit();
 
-            Toastr::success('Student added successfully!', 'Success');
-            return back();
-
+            return back()->with('success', 'Student added successfully!');
         } catch (\Throwable $e) {
             DB::rollBack();
 
             \Log::error('Student Save Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
-            Toastr::error('Failed to add student.', 'Error');
-            return back()->withErrors([
-                'error' => $e->getMessage()
-            ]);
+            return back()
+    ->with('error', 'Failed to add student.')
+    ->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -164,9 +161,7 @@ class StudentController extends Controller
 
             DB::commit();
 
-            Toastr::success('Student updated successfully!', 'Success');
-            return back();
-
+            return back()->with('success', 'Student updated successfully!');
         } catch (\Throwable $e) {
 
             DB::rollBack();
@@ -174,11 +169,7 @@ class StudentController extends Controller
             \Log::error('Student Update Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
-            Toastr::error('Failed to update student', 'Error');
-
-            return back()->withErrors([
-                'error' => $e->getMessage()
-            ]);
+            return back()->with('error', 'Failed to update student: ' . $e->getMessage());
         }
     }
 
@@ -192,14 +183,12 @@ class StudentController extends Controller
                 Student::destroy($request->id);
                 unlink(storage_path('app/public/student-photos/'.$request->avatar));
                 DB::commit();
-                Toastr::success('Student deleted successfully :)','Success');
-                return redirect()->back();
+                return redirect()->back()->with('success', 'Student deleted successfully :)');
             }
     
         } catch(\Exception $e) {
             DB::rollback();
-            Toastr::error('Student deleted fail :)','Error');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Student deleted fail :)');
         }
     }
 

@@ -100,8 +100,7 @@ class CollectionController extends Controller
 
             DB::commit();
 
-            Toastr::success('Has been added successfully!', 'Success');
-            return back();
+            return redirect()->back()->with('success', 'Updated successfully!');
 
         } catch (\Throwable $e) {
 
@@ -165,9 +164,7 @@ class CollectionController extends Controller
             ]);
 
             DB::commit();
-
-            Toastr::success('Updated successfully!', 'Success');
-            return redirect()->route('collection.index');
+            return redirect()->route('collection.index')->with('success', 'Updated successfully!');
 
         } catch (\Throwable $e) {
 

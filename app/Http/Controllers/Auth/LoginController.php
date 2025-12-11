@@ -59,21 +59,16 @@ class LoginController extends Controller
 
                 if ($user->status !== 'Active') {
                     Auth::logout();
-                    Toastr::error('Your account is inactive. Please contact admin.', 'Error');
-                    return redirect('login');
+                    return redirect('login')->with('error', 'Your account is inactive. Please contact admin.');
                 }
 
-                Toastr::success('Login successfully :)', 'Success');
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Login successfully :)');
             }
 
-            Toastr::error('Email or password is incorrect :)', 'Error');
-            return redirect('login');
-
+            return redirect('login')->with('error', 'Email or password is incorrect :)');
         } catch (\Exception $e) {
             DB::rollBack();
-            Toastr::error('Login failed', 'Error');
-            return back();
+            return back()->with('error', 'Login failed');
         }
     }
 
@@ -81,9 +76,7 @@ class LoginController extends Controller
     public function logout( Request $request)
     {
         Auth::logout();
-
-        Toastr::success('Logout successfully :)','Success');
-        return redirect('login');
+        return redirect('login')->with('success', 'Logout successfully :)');
     }
 
 }

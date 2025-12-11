@@ -71,17 +71,16 @@ class SettingController extends Controller
 
             DB::commit();
 
-            Toastr::success('Setting saved successfully!', 'Success');
-            return back();
+            return back()->with('success', 'Setting saved successfully!');
 
         } catch (\Throwable $e) {
             // return $e->getMessage();
             DB::rollBack();
 
             \Log::error($e->getMessage());
-            Toastr::error('Failed to save.', 'Error');
-
-            return back()->withErrors(['error' => $e->getMessage()]);
+            return back()
+    ->with('error', 'Failed to save.')
+    ->withErrors(['error' => $e->getMessage()]);
         }
     }
 
@@ -141,16 +140,17 @@ class SettingController extends Controller
 
             DB::commit();
 
-            Toastr::success('Setting updated successfully!', 'Success');
-            return back();
+            return back()->with('success', 'Setting updated successfully!');
 
         } catch (\Throwable $e) {
 
             DB::rollBack();
             \Log::error($e->getMessage());
 
-            Toastr::error('Failed to update setting.', 'Error');
-            return back()->withErrors(['error' => $e->getMessage()]);
+            return back()
+    ->with('error', 'Failed to update setting.')
+    ->withErrors(['error' => $e->getMessage()]);
+
         }
     }
 
@@ -173,15 +173,12 @@ class SettingController extends Controller
 
             DB::commit();
 
-            Toastr::success('Setting deleted successfully!', 'Success');
-            return back();
+            return back()->with('success', 'Setting deleted successfully!');
 
         } catch (\Throwable $e) {
 
             DB::rollBack();
-            Toastr::error('Failed to delete setting.', 'Error');
-
-            return back();
+            return back()->with('error', 'Failed to delete setting.');
         }
     }
 }

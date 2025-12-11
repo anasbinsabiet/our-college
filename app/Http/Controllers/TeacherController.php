@@ -67,13 +67,11 @@ class TeacherController extends Controller
             $saveRecord->country       = $request->country;
             $saveRecord->save();
    
-            Toastr::success('Has been add successfully :)','Success');
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Has been add successfully :)');
         } catch(\Exception $e) {
             \Log::info($e);
             DB::rollback();
-            Toastr::error('fail, Add new record  :)','Error');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'fail, Add new record  :)');
         }
     }
 
@@ -112,15 +110,13 @@ class TeacherController extends Controller
             $teacher->country       = $request->country;
             $teacher->save();
             
-            Toastr::success('Has been update successfully :)','Success');
             DB::commit();
-            return redirect()->back();
+return redirect()->back()->with('success', 'Has been update successfully :)');
            
         } catch(\Exception $e) {
             DB::rollback();
             \Log::info($e);
-            Toastr::error('fail, update record  :)','Error');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'fail, update record  :)');
         }
     }
 
@@ -129,16 +125,13 @@ class TeacherController extends Controller
     {
         DB::beginTransaction();
         try {
-
             Teacher::destroy($request->id);
             DB::commit();
-            Toastr::success('Deleted record successfully :)','Success');
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Deleted record successfully :)');
         } catch(\Exception $e) {
             DB::rollback();
             \Log::info($e);
-            Toastr::error('Deleted record fail :)','Error');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Deleted record fail :)');
         }
     }
 }

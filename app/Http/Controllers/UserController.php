@@ -73,20 +73,16 @@ class UserController extends Controller
 
             DB::commit();
 
-            Toastr::success('User created successfully!', 'Success');
-            return redirect()->route('student.index');
-
+            return redirect()->route('student.index')->with('success', 'User created successfully!');
         } catch (\Throwable $e) {
             DB::rollBack();
 
             \Log::error('User Store Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
-            Toastr::error('Failed to create user', 'Error');
-
             return back()->withErrors([
-                'error' => $e->getMessage()
-            ]);
+    'error' => $e->getMessage()
+])->with('error', 'Failed to create user');
         }
     }
     
@@ -154,9 +150,7 @@ class UserController extends Controller
 
             DB::commit();
 
-            Toastr::success('User updated successfully!', 'Success');
-            return back();
-
+            return back()->with('success', 'User updated successfully!');
         } catch (\Throwable $e) {
             // return $e->getMessage();
             DB::rollBack();
@@ -164,11 +158,10 @@ class UserController extends Controller
             \Log::error('user Update Error: ' . $e->getMessage());
             \Log::error($e->getTraceAsString());
 
-            Toastr::error('Failed to update user', 'Error');
-
             return back()->withErrors([
-                'error' => $e->getMessage()
-            ]);
+    'error' => $e->getMessage()
+])->with('error', 'Failed to update user');
+
         }
     }
 
@@ -186,18 +179,15 @@ class UserController extends Controller
                     unlink('images/'.$request->avatar);
                 }
             } else {
-                Toastr::error('User deleted fail :)','Error');
+                return redirect()->back()->with('error', 'User deleted fail :)');
             }
 
             DB::commit();
-            Toastr::success('User deleted successfully :)','Success');
-            return redirect()->back();
-    
+            return redirect()->back()->with('success', 'User deleted successfully :)');
         } catch(\Exception $e) {
             Log::info($e);
             DB::rollback();
-            Toastr::error('User deleted fail :)','Error');
-            return redirect()->back();
+            return redirect()->back()->with('error', 'User deleted fail :)');
         }
     }
 
@@ -211,8 +201,7 @@ class UserController extends Controller
 
         User::find(auth()->user()->id)->update(['password'=> Hash::make($request->new_password)]);
         DB::commit();
-        Toastr::success('User change successfully :)','Success');
-        return redirect()->intended('dashboard');
+        return redirect()->intended('dashboard')->with('success', 'User change successfully :)');
     }
 
     public function getUsersData(Request $request)
