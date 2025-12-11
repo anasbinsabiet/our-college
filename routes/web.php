@@ -15,18 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/** for side bar menu active */
 function set_active( $route ) {
     if( is_array( $route ) ){
         return in_array(Request::path(), $route) ? 'active' : '';
@@ -78,16 +66,17 @@ Route::group(['namespace' => 'App\Http\Controllers'],function()
         Route::get('student/dashboard', 'studentDashboardIndex')->middleware('auth')->name('student/dashboard');
     });
 
-    // ----------------------------- user controller ---------------------//
-    Route::controller(UserController::class)->group(function () {
-        Route::get('users', 'index')->middleware('auth')->name('users');
-        Route::post('change/password', 'changePassword')->name('change/password');
-        Route::get('view/user/edit/{id}', 'userView')->middleware('auth');
-        Route::post('user/update', 'userUpdate')->name('user.update');
-        Route::post('user/delete', 'userDelete')->name('user/delete');
-        Route::get('get-users-data', 'getUsersData')->name('get-users-data'); /** get all data users */
-
-    });
+    Route::match(['get', 'post'], 'user/password-reset', [UserController::class, 'password_reset'])->name('password.reset');
+    Route::resource('users', UserController::class, [
+        'names' => [
+            'index' => 'user.index',
+            'create' => 'user.create',
+            'store' => 'user.store',
+            'show' => 'user.show',
+            'edit' => 'user.edit',
+            'update' => 'user.update',
+        ]
+    ]);
 
     // ------------------------ setting -------------------------------//
     Route::controller(Setting::class)->group(function () {

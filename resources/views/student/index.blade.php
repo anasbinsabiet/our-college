@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search by Phone ..." name="phone_number" value="{{ request('phone_number') }}">
+                                            <input type="text" class="form-control" placeholder="Search by Phone ..." name="phone" value="{{ request('phone') }}">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -66,10 +66,10 @@
                                         @foreach ($students as $key=>$list )
                                         <tr>
                                             <td>{{ $list->id }}</td>
-                                            <td><a href="{{ route('student.show', $list->id) }}">{{ $list->first_name }} {{ $list->last_name }}</td>
+                                            <td><a href="{{ route('student.show', $list->id) }}">{{ $list->name }}</td>
                                             <td>{{ $list->class }} {{ $list->section }}</td>
                                             <td>{{ $list->date_of_birth }}</td>
-                                            <td>{{ $list->phone_number }}</td>
+                                            <td>{{ $list->phone }}</td>
                                             <td>{{ $list->email }}</td>
                                             <td class="text-end">
                                                 <div class="actions">

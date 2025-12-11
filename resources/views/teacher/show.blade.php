@@ -22,10 +22,10 @@
             <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h4 class="mb-1">{{ $teacher->full_name }}</h4>
+                        <h4 class="mb-1">{{ $teacher->name }}</h4>
                         <p class="text-muted">{{ $teacher->email }}</p>
                         <div class="d-flex justify-content-center gap-3 mt-3">
-                            <span class="badge bg-secondary"><i class="feather-phone"></i> {{ $teacher->phone_number }}</span>
+                            <span class="badge bg-secondary"><i class="feather-phone"></i> {{ $teacher->phone }}</span>
                             <span class="badge bg-secondary"><i class="feather-user"></i> {{ $teacher->gender }}</span>
                         </div>
                     </div>
@@ -50,13 +50,13 @@
                             <div class="col-sm-6"><strong>User ID:</strong> {{ $teacher->user_id ?? 'N/A' }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Full Name:</strong> {{ $teacher->full_name }}</div>
+                            <div class="col-sm-12"><strong>Full Name:</strong> {{ $teacher->name }}</div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-sm-12"><strong>Email:</strong> {{ $teacher->email }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Phone Number:</strong> {{ $teacher->phone_number }}</div>
+                            <div class="col-sm-12"><strong>Phone Number:</strong> {{ $teacher->phone }}</div>
                         </div>
                     </div>
                 </div>

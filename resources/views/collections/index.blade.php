@@ -30,10 +30,10 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <select name="student_id" class="form-control">
+                                            <select class="select select2s-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="student_id" class="form-control">
                                                 <option value="">Select Student</option>
                                                 @foreach($students as $student)
-                                                    <option value="{{ $student->id }}" @if($student->id == request('student_id')) selected @endif>{{ $student->first_name }} {{ $student->last_name }}</option>
+                                                    <option value="{{ $student->id }}" @if($student->id == request('student_id')) selected @endif>{{ $student->name }} - {{ $student->phone }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -79,7 +79,7 @@
                                         @foreach($feesInformation as $key => $value)
                                             <tr>
                                                 <td>{{ $value->id }}</td>
-                                                <td>{{ $value->first_name }} {{ $value->last_name }}</td>
+                                                <td>{{ $value->name }} - {{ $value->phone }}</td>
                                                 <td>{{ $value->fees_type }}</td>
                                                 <td>{{ $value->fees_amount ?? 0 }} &#2547;</td>
                                                 <td>

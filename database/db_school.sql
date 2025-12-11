@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2025 at 08:09 AM
+-- Generation Time: Dec 11, 2025 at 08:36 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS `fees_information` (
   `paid_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -65,19 +67,19 @@ CREATE TABLE IF NOT EXISTS `fees_information` (
 -- Dumping data for table `fees_information`
 --
 
-INSERT INTO `fees_information` (`id`, `student_id`, `student_name`, `gender`, `fees_type`, `fees_amount`, `file`, `paid_date`, `created_at`, `updated_at`) VALUES
-(1, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-09 23:34:47', '2025-12-09 23:34:47'),
-(2, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:46:56', '2025-12-09 23:46:56'),
-(3, '1', NULL, NULL, 'Tuition Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:48:14', '2025-12-09 23:48:14'),
-(4, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:56:17', '2025-12-09 23:56:17'),
-(5, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:03:16', '2025-12-10 00:03:16'),
-(6, '1', NULL, NULL, 'Tuition Fees', '500', 'uploads69390e2a22deb.jpg', '10-12-2025', '2025-12-10 00:07:38', '2025-12-10 00:07:38'),
-(7, '1', NULL, NULL, 'Exam Fees', '1200', 'uploads69390e9963275.pdf', '10-12-2025', '2025-12-10 00:09:29', '2025-12-10 00:09:29'),
-(8, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-10 00:29:32', '2025-12-10 00:29:32'),
-(9, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:45', '2025-12-10 00:29:45'),
-(10, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:52', '2025-12-10 00:29:52'),
-(11, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:59', '2025-12-10 00:29:59'),
-(12, '1', NULL, NULL, 'Exam Fees', '456', 'collection-693919ca827c1-10_12_2025.png', '10-12-2025', '2025-12-10 00:57:14', '2025-12-10 00:57:14');
+INSERT INTO `fees_information` (`id`, `student_id`, `student_name`, `gender`, `fees_type`, `fees_amount`, `file`, `paid_date`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-09 23:34:47', '2025-12-09 23:34:47', NULL, NULL),
+(2, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:46:56', '2025-12-09 23:46:56', NULL, NULL),
+(3, '1', NULL, NULL, 'Tuition Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:48:14', '2025-12-09 23:48:14', NULL, NULL),
+(4, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-09 23:56:17', '2025-12-09 23:56:17', NULL, NULL),
+(5, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:03:16', '2025-12-10 00:03:16', NULL, NULL),
+(6, '1', NULL, NULL, 'Tuition Fees', '500', 'uploads69390e2a22deb.jpg', '10-12-2025', '2025-12-10 00:07:38', '2025-12-10 00:07:38', NULL, NULL),
+(7, '1', NULL, NULL, 'Exam Fees', '1200', 'uploads69390e9963275.pdf', '10-12-2025', '2025-12-10 00:09:29', '2025-12-10 00:09:29', NULL, NULL),
+(8, '1', NULL, NULL, 'Exam Fees', '1200', NULL, '10-12-2025', '2025-12-10 00:29:32', '2025-12-10 00:29:32', NULL, NULL),
+(9, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:45', '2025-12-10 00:29:45', NULL, NULL),
+(10, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:52', '2025-12-10 00:29:52', NULL, NULL),
+(11, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:59', '2025-12-10 00:29:59', NULL, NULL),
+(12, '1', NULL, NULL, 'Exam Fees', '4560', 'collection-6939507ae5875-10_12_2025.pdf', '10-12-2025', '2025-12-10 00:57:14', '2025-12-10 04:50:34', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -256,13 +258,13 @@ INSERT INTO `menus` (`id`, `title`, `icon`, `route`, `active_routes`, `pattern`,
 (1, 'Dashboard', 'fas fa-tachometer-alt', '', '[\"dashboard\"]', NULL, NULL, 1, 1, NULL, NULL),
 (3, 'Teacher Dashboard', NULL, 'teacher/dashboard', '[\"teacher/dashboard\"]', NULL, 0, 2, 0, NULL, NULL),
 (4, 'Student Dashboard', NULL, 'student/dashboard', '[\"student/dashboard\"]', NULL, 0, 3, 0, NULL, NULL),
-(5, 'User Management', 'fas fa-shield-alt', NULL, '[\"users\"]', 'view/user/edit/*', NULL, 2, 1, NULL, NULL),
-(6, 'List Users', NULL, 'users', '[\"users\"]', 'view/user/edit/*', 5, 1, 1, NULL, NULL),
+(5, 'User Management', 'fas fa-shield-alt', NULL, '[\"list/users\"]', 'view/user/edit/*', NULL, 2, 1, NULL, NULL),
+(6, 'List Users', NULL, 'list/users', '[\"list/users\"]', 'view/user/edit/*', 5, 1, 1, NULL, NULL),
 (7, 'Settings', 'fas fa-cog', NULL, '[\"setting/page\"]', NULL, NULL, 3, 1, NULL, NULL),
 (8, 'General Settings', NULL, 'setting/page', '[\"setting/page\"]', NULL, 7, 1, 1, NULL, NULL),
-(9, 'Students', 'fas fa-graduation-cap', NULL, '[\"student/list\", \"student/grid\", \"student/add\"]', 'student/edit/*|student/profile/*', NULL, 4, 1, NULL, NULL),
+(9, 'Students', 'fas fa-graduation-cap', NULL, '[\"student/list\", \"student/grid\", \"student/add/page\"]', 'student/edit/*|student/profile/*', NULL, 4, 1, NULL, NULL),
 (10, 'Student List', NULL, 'student/list', '[\"student/list\", \"student/grid\"]', NULL, 9, 1, 1, NULL, NULL),
-(11, 'Student Add', NULL, 'student/add', '[\"student/add\"]', NULL, 9, 2, 1, NULL, NULL),
+(11, 'Student Add', NULL, 'student/add/page', '[\"student/add/page\"]', NULL, 9, 2, 1, NULL, NULL),
 (12, 'Student Edit', NULL, NULL, '[]', 'student/edit/*', 9, 3, 1, NULL, NULL),
 (13, 'Student View', NULL, NULL, '[]', 'student/profile/*', 9, 4, 1, NULL, NULL),
 (14, 'Teachers', 'fas fa-chalkboard-teacher', NULL, '[\"teacher/add/page\", \"teacher/list/page\"]', 'teacher/edit/*', NULL, 5, 1, NULL, NULL),
@@ -333,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `role_type_users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `role_type_users`
@@ -341,7 +343,8 @@ CREATE TABLE IF NOT EXISTS `role_type_users` (
 
 INSERT INTO `role_type_users` (`id`, `role_type`, `created_at`, `updated_at`) VALUES
 (1, 'User', NULL, NULL),
-(2, 'Admin', NULL, NULL);
+(2, 'Accountant', NULL, NULL),
+(3, 'Admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -353,8 +356,7 @@ DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `roll` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -364,19 +366,20 @@ CREATE TABLE IF NOT EXISTS `students` (
   `class` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `section` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `admission_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `upload` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `user_id`, `first_name`, `last_name`, `gender`, `date_of_birth`, `roll`, `blood_group`, `religion`, `email`, `class`, `section`, `admission_id`, `phone_number`, `upload`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Suchona Akter', 'Mim', 'Female', '09-12-2025', '23456543', 'B+', 'Others', 'sa@gmail.com', '11', 'B', '2345', '8801837632991', '267345295.png', '2025-12-09 04:38:32', '2025-12-09 04:38:32');
+INSERT INTO `students` (`id`, `user_id`, `name`, `gender`, `date_of_birth`, `roll`, `blood_group`, `religion`, `email`, `class`, `section`, `admission_id`, `phone`, `file`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Suchona Akter', 'Female', '09-12-2025', '23456543', 'B+', 'Others', 'sa@gmail.com', '11', 'B', '2345', '8801837632991', '', '2025-12-09 04:38:32', '2025-12-10 03:23:47'),
+(2, NULL, 'Abuls', 'Male', '10-12-2025', '23456543', 'B+', 'Muslim', 'sa@gmail.com', '9', 'B', NULL, '8801837632991', 'student-69395445aa583-10_12_2025.png', '2025-12-10 04:12:27', '2025-12-10 05:06:45');
 
 -- --------------------------------------------------------
 
@@ -409,17 +412,24 @@ CREATE TABLE IF NOT EXISTS `teachers` (
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `qualification` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `experience` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `religion` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `zip_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `blood_group` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `teachers`
+--
+
+INSERT INTO `teachers` (`id`, `user_id`, `full_name`, `gender`, `date_of_birth`, `qualification`, `religion`, `phone`, `address`, `city`, `email`, `blood_group`, `country`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Mims', 'Female', '10-12-2025', NULL, 'Christian', '8801837632991', NULL, NULL, 'sa@gmail.com', 'B+', NULL, '2025-12-10 05:55:52', '2025-12-10 06:03:52');
 
 -- --------------------------------------------------------
 
@@ -435,7 +445,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `join_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -447,14 +457,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `date_of_birth`, `join_date`, `phone_number`, `status`, `role_name`, `avatar`, `position`, `department`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '000001', 'Md Anisur Rahaman', 'anasbinsabiet@gmail.com', NULL, 'Tue, Dec 9, 2025 10:35 AM', NULL, NULL, 'Super Admin', 'photo_defaults.jpg', NULL, NULL, NULL, '$2y$10$sXY4PrhkBbfTjdoT2gO6YOpaZGN9Mk5/0nDMmtksDeoCSmwXmqesa', NULL, '2025-12-09 04:35:47', '2025-12-09 04:35:47');
+INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `date_of_birth`, `join_date`, `phone`, `status`, `role_name`, `avatar`, `position`, `department`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, '000001', 'Md Anisur Rahaman', 'anasbinsabiet@gmail.com', '10-12-2025', 'Tue, Dec 9, 2025 10:35 AM', '8801837632991', 'Active', 'Admin', 'user-693a67ee51c93-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$sXY4PrhkBbfTjdoT2gO6YOpaZGN9Mk5/0nDMmtksDeoCSmwXmqesa', NULL, '2025-12-09 04:35:47', '2025-12-11 00:42:54'),
+(2, '000002', 'Akkas', 'akkas@gmail.com', '10-12-2025', NULL, '01458779965', 'Inactive', 'Admin', 'user-693a6c68795e3-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$8nYVm4UZA1qwyn1nHxdTc.vPDDVJIKDEDI6XSGjufscmBzgF2SEk6', NULL, '2025-12-11 01:02:00', '2025-12-11 01:08:22');
 
 -- --------------------------------------------------------
 

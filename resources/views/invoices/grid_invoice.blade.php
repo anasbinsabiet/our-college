@@ -278,7 +278,7 @@
                             <div class="card-middle">
                                 <h2 class="card-middle-avatar">
                                     <a href="profile.html">
-                                        <img class="avatar avatar-sm me-2 avatar-img rounded-circle" src="{{ URL::to('/images/photo_defaults.jpg') }}" alt="User Image"> {{ $value->customer_name }}
+                                        <img class="avatar avatar-sm me-2 avatar-img rounded-circle" src="{{ URL::to('/images/photo_defaults.png') }}" alt="User Image"> {{ $value->customer_name }}
                                     </a>
                                 </h2>
                             </div>

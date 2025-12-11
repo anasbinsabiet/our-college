@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('class')->nullable();
             $table->string('section')->nullable();
             $table->string('admission_id')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->string('phone')->nullable();
             $table->string('upload')->nullable();
             $table->timestamps();
         });

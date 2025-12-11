@@ -38,10 +38,10 @@
                                         <div class="col-xl-4 col-md-6 col-sm-12 col-12">
                                             <div class="form-group">
                                                 <label>Customer Name</label>
-                                                <select class="select select2s-hidden-accessible @error('full_name') is-invalid @enderror" style="width: 100%;" tabindex="-1" aria-hidden="true" id="customer_name" name="customer_name">
+                                                <select class="select select2s-hidden-accessible @error('name') is-invalid @enderror" style="width: 100%;" tabindex="-1" aria-hidden="true" id="customer_name" name="customer_name">
                                                     <option>{{ $invoiceView->customer_name }}</option>
                                                     @foreach($users as $key => $names)
-                                                        <option value="{{ $names->name }}"data-teacher_id={{ $names->user_id }} {{ old('full_name') == $names->name ? "selected" :""}}>{{ $names->name }}</option>
+                                                        <option value="{{ $names->name }}"data-teacher_id={{ $names->user_id }} {{ old('name') == $names->name ? "selected" :""}}>{{ $names->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

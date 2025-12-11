@@ -20,7 +20,7 @@ class Student extends Model
         'class',
         'section',
         'admission_id',
-        'phone_number',
+        'phone',
         'upload',
     ];
 }

@@ -12,11 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class CollectionController extends Controller
 {
-    /** index page */
     public function index(Request $request)
     {
         $query = FeesInformation::join('students', 'fees_information.student_id', 'students.id')
-            ->select('fees_information.*', 'students.first_name', 'students.last_name')
+            ->select('fees_information.*', 'students.name' , 'students.phone')
             ->orderByDesc('fees_information.id');
 
         // Apply filters
@@ -33,18 +32,17 @@ class CollectionController extends Controller
         }
         $feesInformation = $query->get();
 
-        $students = Student::select('id', 'first_name', 'last_name')->get();
+        $students = Student::select('id', 'name', 'phone')->get();
 
         return view('collections.index', compact('feesInformation', 'students'));
     }
 
-    /** add Fees Collection */
-    public function add()
+    public function create()
     {
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = null;
-        return view('collections.add',compact('students','feesType', 'collection'));
+        return view('collections.create',compact('students','feesType', 'collection'));
     }
     
     public function edit(Request $request, $id)
@@ -52,10 +50,9 @@ class CollectionController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = FeesInformation::findOrFail($id);
-        return view('collections.add',compact('students','feesType','collection'));
+        return view('collections.create',compact('students','feesType','collection'));
     }
 
-    /** save record */
     public function store(Request $request)
     {   
         $request->validate([
@@ -88,6 +85,8 @@ class CollectionController extends Controller
                 'fees_amount' => $request->fees_amount,
                 'paid_date'   => $request->paid_date,
                 'file'        => $fileName,
+                'created_at'  => now(),
+                'created_by'  => auth()->user()->id
             ]);
 
             DB::commit();
@@ -152,6 +151,8 @@ class CollectionController extends Controller
                 'fees_amount' => $request->fees_amount,
                 'paid_date'   => $request->paid_date,
                 'file'        => $fileName,
+                'updated_at'  => now(),
+                'updated_by'  => auth()->user()->id
             ]);
 
             DB::commit();

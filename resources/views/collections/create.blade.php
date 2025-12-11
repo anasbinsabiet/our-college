@@ -32,16 +32,13 @@
                                 @endif                                
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="form-title"><span>Fees Information</span></h5>
-                                    </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Student Name</label>
                                             <select class="select select2s-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" id="student_id" name="student_id">
                                                 <option selected disabled>-- Select --</option>
                                                 @foreach($students as $key => $row)
-                                                    <option value="{{ $row->id }}" @if($row->id == optional($collection)->student_id) selected @endif>{{ $row->first_name }} {{ $row->last_name }}</option>
+                                                    <option value="{{ $row->id }}" @if($row->id == optional($collection)->student_id) selected @endif>{{ $row->first_name }} {{ $row->last_name }} - {{ $row->phone }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

@@ -27,35 +27,16 @@
                                     : route('student.store') }}" 
                                 method="POST" 
                                 enctype="multipart/form-data">
-                                @csrf
                                 @if(optional($student)->id)
                                     @method('PUT')
                                 @endif                                
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="form-title student-info">Student Information
-                                            <span>
-                                                <a href="javascript:;"><i class="feather-more-vertical"></i></a>
-                                            </span>
-                                        </h5>
-                                    </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
-                                            <label>First Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" placeholder="Enter First Name" value="{{ optional($student)->first_name }}">
-                                            @error('first_name')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-3">
-                                        <div class="form-group local-forms">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" placeholder="Enter Last Name" value="{{ optional($student)->last_name }}">
-                                            @error('last_name')
+                                            <label>Full Name <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter Full Name" value="{{ optional($student)->name }}">
+                                            @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -183,8 +164,8 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Phone <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('phone_number') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone_number" placeholder="Enter Phone Number" value="{{ optional($student)->phone_number }}">
-                                            @error('phone_number')
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($student)->phone }}">
+                                            @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

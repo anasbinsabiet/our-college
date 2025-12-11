@@ -32,18 +32,11 @@
                                 @endif                                
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12">
-                                        <h5 class="form-title teacher-info">Teacher Information
-                                            <span>
-                                                <a href="javascript:;"><i class="feather-more-vertical"></i></a>
-                                            </span>
-                                        </h5>
-                                    </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Full Name <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control @error('full_name') is-invalid @enderror" name="full_name" placeholder="Enter Full Name" value="{{ optional($teacher)->full_name }}">
-                                            @error('full_name')
+                                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter Full Name" value="{{ optional($teacher)->name }}">
+                                            @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -124,8 +117,8 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Phone <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('phone_number') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone_number" placeholder="Enter Phone Number" value="{{ optional($teacher)->phone_number }}">
-                                            @error('phone_number')
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($teacher)->phone }}">
+                                            @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

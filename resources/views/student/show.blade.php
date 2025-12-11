@@ -22,11 +22,13 @@
             <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body text-center">
-                        <img src="{{ asset('uploads/students/' . $student->file) }}" alt="Student Photo" class="img-fluid rounded-circle mb-3" width="150" height="150">
-                        <h4 class="mb-1">{{ $student->first_name }} {{ $student->last_name }}</h4>
+                        <img src="{{ $student->file 
+        ? asset('uploads/students/' . $student->file) 
+        : asset('assets/img/avatar.png') }}"  alt="Student Photo" class="img-fluid rounded-circle mb-3" width="150" height="150">
+                        <h4 class="mb-1">{{ $student->name }}</h4>
                         <p class="text-muted">{{ $student->email }}</p>
                         <div class="d-flex justify-content-center gap-3 mt-3">
-                            <span class="badge bg-secondary"><i class="feather-phone"></i> {{ $student->phone_number }}</span>
+                            <span class="badge bg-secondary"><i class="feather-phone"></i> {{ $student->phone }}</span>
                             <span class="badge bg-secondary"><i class="feather-user"></i> {{ $student->gender }}</span>
                         </div>
                         <div class="mt-3">
@@ -65,7 +67,7 @@
                             <div class="col-sm-12"><strong>Email:</strong> {{ $student->email }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Phone Number:</strong> {{ $student->phone_number }}</div>
+                            <div class="col-sm-12"><strong>Phone Number:</strong> {{ $student->phone }}</div>
                         </div>
                     </div>
                 </div>

@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0 mb-sm-3">Mobile</p>
-                                            <p class="col-sm-9">{{ Session::get('phone_number') }}</p>
+                                            <p class="col-sm-9">{{ Session::get('phone') }}</p>
                                         </div>
                                         <div class="row">
                                             <p class="col-sm-3 text-muted text-sm-end mb-0">Address</p>

@@ -18,22 +18,12 @@ class StudentController extends Controller
             $query->where('id', $request->id);
         }
 
-        // Filter by name (first_name and last_name)
-        if ($request->filled('name')) {
-            $names = explode(' ', $request->name);
-            $query->where(function($q) use ($names) {
-                foreach ($names as $name) {
-                    $q->where(function($q2) use ($name) {
-                        $q2->where('first_name', 'like', '%' . $name . '%')
-                        ->orWhere('last_name', 'like', '%' . $name . '%');
-                    });
-                }
-            });
-        }
-
         // Filter by phone number
-        if ($request->filled('phone_number')) {
-            $query->where('phone_number', 'like', '%' . $request->phone_number . '%');
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->phone . '%');
         }
 
         $students = $query->orderByDesc('id')->get();
@@ -51,10 +41,10 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name'    => 'required',
+            'name'    => 'required',
             'roll'          => 'required',
             'class'         => 'required|string',
-            'phone_number'  => 'required|string',
+            'phone'  => 'required|string',
             'file'          => 'nullable|image|max:5120',
         ]);
 
@@ -77,8 +67,7 @@ class StudentController extends Controller
             }
 
             Student::create([
-                'first_name'    => $request->first_name,
-                'last_name'     => $request->last_name,
+                'name'    => $request->name,
                 'gender'        => $request->gender,
                 'date_of_birth' => $request->date_of_birth,
                 'roll'          => $request->roll,
@@ -87,7 +76,7 @@ class StudentController extends Controller
                 'email'         => $request->email,
                 'class'         => $request->class,
                 'section'       => $request->section,
-                'phone_number'  => $request->phone_number,
+                'phone'  => $request->phone,
                 'file'          => $fileName,
             ]);
 
@@ -113,7 +102,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::where('id',$id)->first();
-        return view('student.add',compact('student'));
+        return view('student.create',compact('student'));
     }
     
     public function show($id)
@@ -126,10 +115,10 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name'    => 'required',
+            'name'    => 'required',
             'roll'          => 'required',
             'class'         => 'required|string',
-            'phone_number'  => 'required|string',
+            'phone'  => 'required|string',
             'file'          => 'nullable|image|max:5120',
         ]);
 
@@ -160,8 +149,7 @@ class StudentController extends Controller
 
                 $request->file('file')->move('uploads/students', $fileName);
             }
-            $student->first_name    = $request->first_name;
-            $student->last_name     = $request->last_name;
+            $student->name    = $request->name;
             $student->gender        = $request->gender;
             $student->date_of_birth = $request->date_of_birth;
             $student->roll          = $request->roll;
@@ -170,7 +158,7 @@ class StudentController extends Controller
             $student->email         = $request->email;
             $student->class         = $request->class;
             $student->section       = $request->section;
-            $student->phone_number  = $request->phone_number;
+            $student->phone  = $request->phone;
             $student->file          = $fileName; // or existing file if unchanged
             $student->save();
 

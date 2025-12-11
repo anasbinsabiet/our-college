@@ -22,11 +22,11 @@ class TeacherController extends Controller
         }
 
         // Filter by phone number
-        if ($request->filled('full_name')) {
-            $query->where('full_name', 'like', '%' . $request->full_name . '%');
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
         }
-        if ($request->filled('phone_number')) {
-            $query->where('phone_number', 'like', '%' . $request->phone_number . '%');
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->phone . '%');
         }
 
         // Get filtered teachers
@@ -49,18 +49,18 @@ class TeacherController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'full_name'     => 'required',
+            'name'     => 'required',
             'gender'        => 'required',
-            'phone_number'  => 'required',
+            'phone'  => 'required',
         ]);
 
         try {
 
             $saveRecord = new Teacher;
-            $saveRecord->full_name     = $request->full_name;
+            $saveRecord->name     = $request->name;
             $saveRecord->gender        = $request->gender;
             $saveRecord->date_of_birth = $request->date_of_birth;
-            $saveRecord->phone_number  = $request->phone_number;
+            $saveRecord->phone  = $request->phone;
             $saveRecord->blood_group   = $request->blood_group;
             $saveRecord->religion      = $request->religion;
             $saveRecord->email         = $request->email;
@@ -96,16 +96,16 @@ class TeacherController extends Controller
         DB::beginTransaction();
         try {
             $request->validate([
-                'full_name'     => 'required',
+                'name'     => 'required',
                 'gender'        => 'required',
-                'phone_number'  => 'required',
+                'phone'  => 'required',
             ]);
             
             $teacher = Teacher::findOrFail($id);
-            $teacher->full_name    = $request->full_name;
+            $teacher->name    = $request->name;
             $teacher->gender        = $request->gender;
             $teacher->date_of_birth = $request->date_of_birth;
-            $teacher->phone_number  = $request->phone_number;
+            $teacher->phone  = $request->phone;
             $teacher->blood_group   = $request->blood_group;
             $teacher->religion      = $request->religion;
             $teacher->email         = $request->email;

@@ -53,7 +53,7 @@
                 <i class="fas fa-bars"></i>
             </a>
             <ul class="nav user-menu">
-                <li class="nav-item dropdown noti-dropdown language-drop me-2">
+                {{-- <li class="nav-item dropdown noti-dropdown language-drop me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
                         <img src="{{ URL::to('assets/img/icons/header-icon-01.svg') }}" alt="">
                     </a>
@@ -145,7 +145,7 @@
                             <a href="#">View all Notifications</a>
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item zoom-screen me-2">
                     <a href="#" class="nav-link header-nav-list win-maximize">
@@ -156,25 +156,33 @@
                 <li class="nav-item dropdown has-arrow new-user-menus">
                     <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                         <span class="user-img">
-                            <img class="rounded-circle" src="/images/{{ Session::get('avatar') }}" width="31"alt="">
+                            <img src="{{ auth()->user()->avatar 
+                                        ? asset('uploads/users/' . auth()->user()->avatar) 
+                                        : asset('assets/img/avatar.png') }}" 
+                                    alt="User Avatar" 
+                                    class="avatar-img rounded-circle">   
                             <div class="user-text">
                                 <h6>{{ Session::get('name') }}</h6>
-                                <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
+                                <p class="text-muted mb-0">{{ auth()->user()->role_name }}</p>
                             </div>
                         </span>
                     </a>
                     <div class="dropdown-menu">
                         <div class="user-header">
                             <div class="avatar avatar-sm">
-                                <img src="/images/{{ Session::get('avatar') }}" alt="" class="avatar-img rounded-circle">
+                                <img src="{{ auth()->user()->avatar 
+                                        ? asset('uploads/users/' . auth()->user()->avatar) 
+                                        : asset('assets/img/avatar.png') }}" 
+                                    alt="User Avatar" 
+                                    class="avatar-img rounded-circle">                            
                             </div>
                             <div class="user-text">
                                 <h6>{{ Session::get('name') }}</h6>
-                                <p class="text-muted mb-0">{{ Session::get('role_name') }}</p>
+                                <p class="text-muted mb-0">{{ auth()->user()->role_name }}</p>
                             </div>
                         </div>
-                        <a class="dropdown-item" href="{{ route('user/profile/page') }}">My Profile</a>
-                        <a class="dropdown-item" href="inbox.html">Inbox</a>
+                        <a class="dropdown-item" href="{{ route('user.show', auth()->user()->id) }}">My Profile</a>
+                        <a class="dropdown-item" href="{{ route('user.edit', auth()->user()->id) }}">Edit Profile</a>
                         <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                 </li>

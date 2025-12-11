@@ -4,105 +4,181 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use Auth;
 use Session;
 use Log;
-use Carbon\Carbon;
 use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\MatchOldPassword;
 
 
 class UserController extends Controller
 {
-    /** index page */
     public function index()
     {   
         $users = User::all();
         return view('users.index', compact('users'));
     }
 
-    /** user view */
-    public function userView($id)
+    public function create()
     {
-        $users = User::where('user_id',$id)->first();
+        $user = null;
         $role  = DB::table('role_type_users')->get();
-        return view('users.create',compact('users','role'));
+        return view('users.create',compact('user','role'));
     }
 
-    /** user Update */
-    public function userUpdate(Request $request)
+    public function store(Request $request)
     {
-        DB::beginTransaction();
+        $request->validate([
+            'name'          => 'required|string|max:255',
+            'email'         => 'required|email|unique:users,email',
+            'phone'  => 'required',
+            'status'        => 'required',
+            'role_name'     => 'required',
+            'file'          => 'nullable|image|max:5120',
+        ]);
+
         try {
-            if (Session::get('role_name') === 'Admin' || Session::get('role_name') === 'Super Admin')
-            {
-                $user_id       = $request->user_id;
-                $name          = $request->name;
-                $email         = $request->email;
-                $role_name     = $request->role_name;
-                $position      = $request->position;
-                $phone         = $request->phone_number;
-                $date_of_birth = $request->date_of_birth;
-                $department    = $request->department;
-                $status        = $request->status;
+            DB::beginTransaction();
 
-                $image_name = $request->hidden_avatar;
-                $image = $request->file('avatar');
+            $fileName = null;
 
-                if($image_name =='photo_defaults.jpg') {
-                    if ($image != '') {
-                        $image_name = rand() . '.' . $image->getClientOriginalExtension();
-                        $image->move(public_path('/images/'), $image_name);
-                    }
-                } else {
-                    
-                    if($image != '') {
-                        unlink('images/'.$image_name);
-                        $image_name = rand() . '.' . $image->getClientOriginalExtension();
-                        $image->move(public_path('/images/'), $image_name);
-                    }
-                }
-            
-                $update = [
-                    'user_id'       => $user_id,
-                    'name'          => $name,
-                    'role_name'     => $role_name,
-                    'email'         => $email,
-                    'position'      => $position,
-                    'phone_number'  => $phone,
-                    'date_of_birth' => $date_of_birth,
-                    'department'    => $department,
-                    'status'        => $status,
-                    'avatar'        => $image_name,
-                ];
+            // Handle file upload
+            if ($request->hasFile('avatar')) {
+                $extension = $request->file('avatar')->extension();
 
-                User::where('user_id',$request->user_id)->update($update);
-            } else {
-                Toastr::error('User update fail :)','Error');
+                $fileName = sprintf(
+                    'user-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $extension
+                );
+
+                $request->file('avatar')->move(public_path('uploads/users'), $fileName);
             }
-            DB::commit();
-            Toastr::success('User updated successfully :)','Success');
-            return redirect()->back();
 
-        } catch(\Exception $e){
-            DB::rollback();
-            Toastr::error('User update fail :)','Error');
-            return redirect()->back();
+            // Create new user
+            $user = new User();
+            $user->name          = $request->name;
+            $user->email         = $request->email;
+            $user->phone  = $request->phone;
+            $user->date_of_birth = $request->date_of_birth;
+            $user->status        = $request->status;
+            $user->role_name     = $request->role_name;
+            $user->position      = $request->position;
+            $user->department    = $request->department;
+            $user->avatar        = $fileName;
+            $user->password      = bcrypt('12345678'); // default password
+            $user->save();
+
+            DB::commit();
+
+            Toastr::success('User created successfully!', 'Success');
+            return redirect()->route('student.index');
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            \Log::error('User Store Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            Toastr::error('Failed to create user', 'Error');
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+    
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        $role  = DB::table('role_type_users')->get();
+        return view('users.create',compact('user','role'));
+    }
+    
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show',compact('user',));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'    => 'required',
+            'email'          => 'required',
+            'phone'         => 'required',
+            'status'         => 'required',
+            'role_name'         => 'required',
+            'file'          => 'nullable|image|max:5120',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $user = user::findOrFail($id);
+
+            $oldFile = $user->avatar;
+            $fileName = $oldFile;
+
+            // Handle file upload
+            if ($request->hasFile('avatar')) {
+
+                // Delete old file if exists
+                if ($oldFile && file_exists(storage_path('uploads/users/' . $oldFile))) {
+                    unlink(storage_path('uploads/users/' . $oldFile));
+                }
+
+                $extension = $request->file('avatar')->extension();
+
+                $fileName = sprintf(
+                    'user-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $extension
+                );
+
+                $request->file('avatar')->move('uploads/users', $fileName);
+            }
+            $user->name    = $request->name;
+            $user->email         = $request->email;
+            $user->phone  = $request->phone;
+            $user->date_of_birth = $request->date_of_birth;
+            $user->status        = $request->status;
+            $user->role_name          = $request->role_name;
+            $user->position   = $request->position;
+            $user->department      = $request->department;
+            $user->avatar          = $fileName;
+            $user->save();
+
+            DB::commit();
+
+            Toastr::success('User updated successfully!', 'Success');
+            return back();
+
+        } catch (\Throwable $e) {
+            // return $e->getMessage();
+            DB::rollBack();
+
+            \Log::error('user Update Error: ' . $e->getMessage());
+            \Log::error($e->getTraceAsString());
+
+            Toastr::error('Failed to update user', 'Error');
+
+            return back()->withErrors([
+                'error' => $e->getMessage()
+            ]);
         }
     }
 
-    /** user delete */
     public function userDelete(Request $request)
     {
         DB::beginTransaction();
         try {
-            if (Session::get('role_name') === 'Super Admin' || Session::get('role_name') === 'Admin')
+            if (auth()->user()->role_name === 'Super Admin' || auth()->user()->role_name === 'Admin')
             {
-                if ($request->avatar == 'photo_defaults.jpg')
+                if ($request->avatar == 'photo_defaults.png')
                 {
                     User::destroy($request->user_id);
                 } else {
@@ -125,7 +201,6 @@ class UserController extends Controller
         }
     }
 
-    /** change password */
     public function changePassword(Request $request)
     {
         $request->validate([
@@ -140,7 +215,6 @@ class UserController extends Controller
         return redirect()->intended('dashboard');
     }
 
-    /** get users data */
     public function getUsersData(Request $request)
     {
         $draw            = $request->get('draw');
@@ -163,7 +237,7 @@ class UserController extends Controller
             $query->where('name', 'like', '%' . $searchValue . '%');
             $query->orWhere('email', 'like', '%' . $searchValue . '%');
             $query->orWhere('position', 'like', '%' . $searchValue . '%');
-            $query->orWhere('phone_number', 'like', '%' . $searchValue . '%');
+            $query->orWhere('phone', 'like', '%' . $searchValue . '%');
             $query->orWhere('status', 'like', '%' . $searchValue . '%');
         })->count();
 
@@ -175,7 +249,7 @@ class UserController extends Controller
                 $query->where('name', 'like', '%' . $searchValue . '%');
                 $query->orWhere('email', 'like', '%' . $searchValue . '%');
                 $query->orWhere('position', 'like', '%' . $searchValue . '%');
-                $query->orWhere('phone_number', 'like', '%' . $searchValue . '%');
+                $query->orWhere('phone', 'like', '%' . $searchValue . '%');
                 $query->orWhere('status', 'like', '%' . $searchValue . '%');
             })
             ->skip($start)
@@ -224,7 +298,7 @@ class UserController extends Controller
                 "name"         => $record->name,
                 "email"        => $record->email,
                 "position"     => $record->position,
-                "phone_number" => $record->phone_number,
+                "phone" => $record->phone,
                 "join_date"    => $record->join_date,
                 "status"       => $status, 
                 "modify"       => $modify, 
