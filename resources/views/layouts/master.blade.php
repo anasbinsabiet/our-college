@@ -1,6 +1,10 @@
+@php
+    use App\Models\Setting;
+    $setting = Setting::first();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,10 +50,10 @@
         <div class="header">
             <div class="header-left">
                 <a href="{{ route('dashboard') }}" class="logo">
-                    <img src="{{ URL::to('assets/img/logo.png') }}" alt="Logo">
+                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="logo logo-small">
-                    <img src="{{ URL::to('assets/img/logo-small.png') }}" alt="Logo" width="30" height="30">
+                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" alt="Logo" width="30" height="30">
                 </a>
             </div>
             <div class="menu-toggle">

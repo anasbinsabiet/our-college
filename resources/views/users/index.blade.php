@@ -24,22 +24,22 @@
                         <div class="card-body">
                             <form class="user-group-form">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-6">
+                                    <div class="col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Search by ID ..." name="id" value="{{ request('id') }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-6">
+                                    <div class="col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Search by Name ..." name="name" value="{{ request('name') }}">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 col-md-6">
+                                    <div class="col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Search by Phone ..." name="phone" value="{{ request('phone') }}">
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 col-12 mb-4">
                                         <div class="search-user-btn">
                                             <button type="submit" class="btn btn-primary">Search</button>
                                             <a  href="{{ route('user.index') }}" class="btn btn-secondary">Reset</a>

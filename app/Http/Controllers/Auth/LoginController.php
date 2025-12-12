@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
 
 class LoginController extends Controller
 {
@@ -36,8 +36,9 @@ class LoginController extends Controller
     }
     /** index page login */
     public function login()
-    {
-        return view('auth.login');
+    {   
+        $setting = Setting::first();
+        return view('auth.login', compact('setting'));
     }
 
     /** login with databases */

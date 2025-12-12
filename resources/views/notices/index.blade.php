@@ -8,7 +8,7 @@
 
         <div class="page-header">
             <div class="row align-items-center">
-                <div class="col">
+                <div class="col-md-3 col-6">
                     <h3 class="page-title">Notices</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
@@ -26,7 +26,7 @@
                         <form method="GET" action="{{ route('notice.index') }}">
                             <div class="row">
                                 <!-- ID -->
-                                <div class="col">
+                                <div class="col-md-3 col-6">
                                     <div class="form-group">
                                         <input type="text"
                                                name="id"
@@ -37,7 +37,7 @@
                                 </div>
 
                                 <!-- Title -->
-                                <div class="col">
+                                <div class="col-md-3 col-6">
                                     <div class="form-group">
                                         <input type="text"
                                                name="title"
@@ -48,7 +48,7 @@
                                 </div>
 
                                 <!-- From Date -->
-                                <div class="col">
+                                <div class="col-md-3 col-6">
                                     <div class="form-group local-forms calendar-icon">
                                         <label>Date From</label>
                                         <input type="text"
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <!-- To Date -->
-                                <div class="col">
+                                <div class="col-md-3 col-6">
                                     <div class="form-group local-forms calendar-icon">
                                         <label>Date To</label>
                                         <input type="text"
@@ -72,7 +72,7 @@
                                 </div>
 
                                 <!-- Buttons -->
-                                <div class="col">
+                                <div class="col-md-3 col-12">
                                     <button type="submit" class="btn btn-primary">Filter</button>
                                     <a href="{{ route('notice.index') }}" class="btn btn-secondary">Reset</a>
                                     <a href="{{ route('notice.create') }}" class="btn btn-primary">Add New</a>

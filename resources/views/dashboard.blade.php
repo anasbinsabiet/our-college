@@ -67,7 +67,7 @@
                                     <h3>{{ $collections }}</h3>
                                 </div>
                                 <div class="db-icon">
-                                    <i class="fas fa-dollar-sign fa-2x text-danger"></i>
+                                    <i class="fas fa-money-check fa-2x text-secondary"></i>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                 <div class="col-md-12 col-lg-6">
                     <div class="card card-chart">
                         <div class="card-header d-flex justify-content-between">
-                            <h5 class="card-title">Fees Collections</h5>
+                            <h5 class="card-title mr-2">Fees Collections</h5>
                             <form class="d-flex gap-2" method="GET" action="{{ route('dashboard') }}">
                                 <input type="text" class="form-control datetimepicker" placeholder="From" name="from"
                                     class="form-control" value="{{ $from }}">

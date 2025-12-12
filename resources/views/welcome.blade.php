@@ -15,8 +15,7 @@
     <nav>
       <a href="#" class="logo">
         <img
-          src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}"
-          width="320px" />
+          src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" />
       </a>
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn">
@@ -57,53 +56,41 @@
     <span class="scroll">Scroll</span>
   </section>
   <section class="services" id="courses">
-    <!--heading----------->
     <div class="services-heading">
-      <h2>OUR PROFESSIONAL COURSES</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
+        <h2>OUR PROFESSIONAL COURSES</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
     </div>
-    <!--box-container----------------->
-    <div class="box-container">
-      <!--box-1-------->
-      <div class="box">
-        <img src="{{ URL::to('frontend/images/icon5.png') }}">
-        <font>Batchlor of Computer Application</font>
-        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua
-        </p>
-        <!--btn--------->
-        <a href="#">Apply Now</a>
-      </div>
-      <!--box-2-------->
-      <div class="box">
-        <img src="{{ URL::to('frontend/images/icon5.png') }}">
-        <font>Batchlor of Business Administration</font>
-        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.
-        </p>
-        <!--btn--------->
-        <a href="#">Apply Now</a>
-      </div>
-      <!--box-3-------->
-      <div class="box">
-        <img src="{{ URL::to('frontend/images/icon5.png') }}">
-        <font>Bio-Technology</font>
-        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua
-        </p>
-        <!--btn--------->
-        <a href="#">Apply Now</a>
-      </div>
-      <!--box-4-------->
-      <div class="box">
-        <img src="{{ URL::to('frontend/images/icon5.png') }}">
-        <font>Computer Science</font>
-        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.
-        </p>
-        <!--btn--------->
-        <a href="#">Apply Now</a>
-      </div>
-      <!--box-1-------->
 
+    <div class="box-container">
+        <div class="box">
+            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <h4>Batchlor of Computer Application</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
+            <a href="#">Apply Now</a>
+        </div>
+
+        <div class="box">
+            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <h4>Batchlor of Business Administration</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.</p>
+            <a href="#">Apply Now</a>
+        </div>
+
+        <div class="box">
+            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <h4>Bio-Technology</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
+            <a href="#">Apply Now</a>
+        </div>
+
+        <div class="box">
+            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <h4>Computer Science</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.</p>
+            <a href="#">Apply Now</a>
+        </div>
     </div>
-  </section>
+</section>
   <section class="notice-section" id="notice">
     <div class="notice-wrapper">
         <h2 class="notice-title">Latest Notices</h2>

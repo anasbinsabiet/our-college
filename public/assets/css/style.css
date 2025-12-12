@@ -3484,11 +3484,6 @@ footer p {
     -ms-flex-pack: center
 }
 
-.bg-comman .db-icon {
-    background-color: #edf4ff;
-    border-radius: 8px
-}
-
 .db-info h3 {
     font-size: 22px;
     font-weight: 600;
@@ -10430,7 +10425,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     }
 
     .login-wrapper .loginbox .login-left {
-        display: none
+        display: none !important;
     }
 
     .login-wrapper .loginbox {

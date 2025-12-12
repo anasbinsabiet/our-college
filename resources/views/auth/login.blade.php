@@ -1,11 +1,9 @@
 
 @extends('layouts.app')
 @section('content')
-{{-- message --}}
-
 <div class="login-right">
     <div class="login-right-wrap">
-        <h1>Welcome to Dashbord</h1>
+        <h1>Welcome to {{ optional($setting)->name ?? 'Our College' }}</h1>
         <p class="account-subtitle">Need an account? <a href="{{ route('register') }}">Sign Up</a></p>
         <h2>Sign in</h2>
         <form action="{{ route('login') }}" method="POST">
