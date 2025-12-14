@@ -9,23 +9,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="shortcut icon" href="{{ URL::to('assets/img/favicon.png') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/feather/feather.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/icons/flags/flags.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/css/bootstrap-datetimepicker.min.cs') }}s">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/icons/feather/feather.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/simple-calendar/simple-calendar.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/plugins/select2/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('assets/css/custom.css') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/feather.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/fontawesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/simple-calendar/simple-calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
 	{{-- message toastr --}}
-	<link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
-	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
-	<script src="{{ URL::to('assets/js/toastr.min.js') }}"></script>
+	<link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
+	<script src="{{ asset('assets/js/toastr_jquery.min.js') }}"></script>
+	<script src="{{ asset('assets/js/toastr.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             @if(session('success'))
@@ -50,10 +47,10 @@
         <div class="header">
             <div class="header-left">
                 <a href="{{ route('dashboard') }}" class="logo">
-                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" alt="Logo">
+                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : asset('assets/img/logo.png') }}" alt="Logo">
                 </a>
                 <a href="{{ route('dashboard') }}" class="logo logo-small">
-                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" alt="Logo" width="30" height="30">
+                    <img src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : asset('assets/img/logo.png') }}" alt="Logo" width="30" height="30">
                 </a>
             </div>
             <div class="menu-toggle">
@@ -77,7 +74,7 @@
             <ul class="nav user-menu">
                 {{-- <li class="nav-item dropdown noti-dropdown language-drop me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="{{ URL::to('assets/img/icons/header-icon-01.svg') }}" alt="">
+                        <img src="{{ asset('assets/img/icons/header-icon-01.svg') }}" alt="">
                     </a>
                     <div class="dropdown-menu ">
                         <div class="noti-content">
@@ -91,7 +88,7 @@
 
                 <li class="nav-item dropdown noti-dropdown me-2">
                     <a href="#" class="dropdown-toggle nav-link header-nav-list" data-bs-toggle="dropdown">
-                        <img src="{{ URL::to('assets/img/icons/header-icon-05.svg') }}" alt="">
+                        <img src="{{ asset('assets/img/icons/header-icon-05.svg') }}" alt="">
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -104,7 +101,7 @@
                                     <a href="#">
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ URL::to('assets/img/logo-small.png') }}">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/logo-small.png') }}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Carlson Tech</span> has
@@ -119,7 +116,7 @@
                                     <a href="#">
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ URL::to('assets/img/logo-small.png') }}">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/logo-small.png') }}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details">
@@ -137,7 +134,7 @@
                                     <a href="#">
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ URL::to('assets/img/logo-small.png') }}">
+                                                <img class="avatar-img rounded-circle" alt="User Image" src="{{ asset('assets/img/logo-small.png') }}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">John Hendry</span> sent a cancellation request <span class="noti-title">Apple iPhone XR</span></p>
@@ -151,7 +148,7 @@
                                     <a href="#">
                                         <div class="media d-flex">
                                             <span class="avatar avatar-sm flex-shrink-0">
-                                                <img class="avatar-img rounded-circle" alt="" src="{{ URL::to('assets/img/logo-small.png') }}">
+                                                <img class="avatar-img rounded-circle" alt="" src="{{ asset('assets/img/logo-small.png') }}">
                                             </span>
                                             <div class="media-body flex-grow-1">
                                                 <p class="noti-details"><span class="noti-title">Mercury Software Inc</span> added a new product <span class="noti-title">Apple MacBook Pro</span></p>
@@ -171,7 +168,7 @@
 
                 <li class="nav-item zoom-screen me-2">
                     <a href="#" class="nav-link header-nav-list win-maximize">
-                        <img src="{{ URL::to('assets/img/icons/header-icon-04.svg') }}" alt="">
+                        <img src="{{ asset('assets/img/icons/header-icon-04.svg') }}" alt="">
                     </a>
                 </li>
 
@@ -220,20 +217,20 @@
     
     </div>
 
-    <script src="{{ URL::to('assets/js/jquery-3.6.0.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ URL::to('assets/js/feather.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/apexchart/chart-data.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/simple-calendar/jquery.simple-calendar.js') }}"></script>
-    <script src="{{ URL::to('assets/js/calander.js') }}"></script>
-    <script src="{{ URL::to('assets/js/circle-progress.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ URL::to('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/datatables/datatables.min.js') }}"></script>
-    <script src="{{ URL::to('assets/plugins/select2/js/select2.min.js') }}"></script>
-    <script src="{{ URL::to('assets/js/script.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
+    <script src="{{ asset('assets/plugins/simple-calendar/jquery.simple-calendar.js') }}"></script>
+    <script src="{{ asset('assets/js/calander.js') }}"></script>
+    <script src="{{ asset('assets/js/circle-progress.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
     @yield('script')
     <script>
         $(document).ready(function() {

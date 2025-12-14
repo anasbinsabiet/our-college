@@ -5,17 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE-edge">
   <meta name="viewport" content="width=device-width, intial-scale=1.0">
   <title>{{ optional($setting)->title ?? 'Our College' }}</title>
-  <link rel="stylesheet" href="{{ URL::to('frontend/css/style.css') }}">
-  <link rel="stylesheet" href="{{ URL::to('frontend/css/custom.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
   <link rel="shortcut icon"
-    href="{{ optional($setting)->favicon ? asset('uploads/settings/' . $setting->favicon) : URL::to('frontend/images/favicon.png') }}">
+    href="{{ optional($setting)->favicon ? asset('uploads/settings/' . $setting->favicon) : asset('frontend/images/favicon.png') }}">
 </head>
 <body>
-  <section class="main" style="background-image: url({{ URL::to('frontend/images/hero-bg.png') }});">
+  <section class="main" style="background-image: url({{ asset('frontend/images/hero-bg.png') }});">
     <nav>
       <a href="#" class="logo">
         <img
-          src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : URL::to('assets/img/logo.png') }}" />
+          src="{{ optional($setting)->logo ? asset('uploads/settings/' . $setting->logo) : asset('assets/img/logo.png') }}" />
       </a>
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn">
@@ -41,7 +41,7 @@
         <a href="#contact" class="main-login" style="border-radius: 5px;">Apply Now</a>
       </div>
       <div class="home-img" style="width: 500px;">
-        <img src="{{ URL::to('frontend/images/hero.png') }}" width="500px" style="text-shadow: 20px 22px;" />
+        <img src="{{ asset('frontend/images/hero.png') }}" width="500px" style="text-shadow: 20px 22px;" />
         <marquee width="100%" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
           <a href="#" style="color: white;">Addmission open of 13th August 2021, Stream BCA, BBA, Bio-Tech and Computer
             Science.</a>
@@ -63,28 +63,28 @@
 
     <div class="box-container">
         <div class="box">
-            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
             <h4>Batchlor of Computer Application</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
             <a href="#">Apply Now</a>
         </div>
 
         <div class="box">
-            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
             <h4>Batchlor of Business Administration</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.</p>
             <a href="#">Apply Now</a>
         </div>
 
         <div class="box">
-            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
             <h4>Bio-Technology</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua</p>
             <a href="#">Apply Now</a>
         </div>
 
         <div class="box">
-            <img src="{{ URL::to('frontend/images/icon5.png') }}" alt="">
+            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
             <h4>Computer Science</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua.</p>
             <a href="#">Apply Now</a>
@@ -128,7 +128,7 @@
 
       <!-- Left Image -->
       <div class="cta-image">
-        <img src="{{ URL::to('assets/img/login.jpg') }}" alt="University Playground">
+        <img src="{{ asset('assets/img/login.jpg') }}" alt="University Playground">
       </div>
 
       <!-- Right Form -->
