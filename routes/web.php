@@ -11,6 +11,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use App\Models\Notice;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,13 +29,6 @@ Route::get('/', function () {
     return view('welcome', compact('notices', 'setting'));
 });
 
-Route::get('/login', [LoginController::class, 'login']);
-
-// ---------------------- Auth Routes ----------------------
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
-});
-
 // ---------------------- Login / Register ----------------------
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -46,70 +40,74 @@ Route::post('/register', [RegisterController::class, 'storeUser'])->name('regist
 
 // ---------------------- User / Student / Teacher ----------------------
 Route::match(['get', 'post'], 'user/password-reset', [UserController::class, 'password_reset'])->name('password.reset');
+// ---------------------- Auth Routes ----------------------
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::resource('users', UserController::class, [
-    'names' => [
-        'index' => 'user.index',
-        'create' => 'user.create',
-        'store' => 'user.store',
-        'show' => 'user.show',
-        'edit' => 'user.edit',
-        'update' => 'user.update',
-    ]
-]);
+    Route::resource('users', UserController::class, [
+        'names' => [
+            'index' => 'user.index',
+            'create' => 'user.create',
+            'store' => 'user.store',
+            'show' => 'user.show',
+            'edit' => 'user.edit',
+            'update' => 'user.update',
+        ]
+    ]);
 
-Route::resource('teachers', TeacherController::class, [
-    'names' => [
-        'index' => 'teacher.index',
-        'create' => 'teacher.create',
-        'store' => 'teacher.store',
-        'show' => 'teacher.show',
-        'edit' => 'teacher.edit',
-        'update' => 'teacher.update',
-    ]
-]);
+    Route::resource('teachers', TeacherController::class, [
+        'names' => [
+            'index' => 'teacher.index',
+            'create' => 'teacher.create',
+            'store' => 'teacher.store',
+            'show' => 'teacher.show',
+            'edit' => 'teacher.edit',
+            'update' => 'teacher.update',
+        ]
+    ]);
 
-Route::resource('students', StudentController::class, [
-    'names' => [
-        'index' => 'student.index',
-        'create' => 'student.create',
-        'store' => 'student.store',
-        'show' => 'student.show',
-        'edit' => 'student.edit',
-        'update' => 'student.update',
-    ]
-]);
+    Route::resource('students', StudentController::class, [
+        'names' => [
+            'index' => 'student.index',
+            'create' => 'student.create',
+            'store' => 'student.store',
+            'show' => 'student.show',
+            'edit' => 'student.edit',
+            'update' => 'student.update',
+        ]
+    ]);
 
-Route::resource('collections', CollectionController::class, [
-    'names' => [
-        'index' => 'collection.index',
-        'create' => 'collection.create',
-        'store' => 'collection.store',
-        'show' => 'collection.show',
-        'edit' => 'collection.edit',
-        'update' => 'collection.update',
-    ]
-]);
+    Route::resource('collections', CollectionController::class, [
+        'names' => [
+            'index' => 'collection.index',
+            'create' => 'collection.create',
+            'store' => 'collection.store',
+            'show' => 'collection.show',
+            'edit' => 'collection.edit',
+            'update' => 'collection.update',
+        ]
+    ]);
 
-Route::resource('notices', NoticeController::class, [
-    'names' => [
-        'index' => 'notice.index',
-        'create' => 'notice.create',
-        'store' => 'notice.store',
-        'show' => 'notice.show',
-        'edit' => 'notice.edit',
-        'update' => 'notice.update',
-        'destroy' => 'notice.destroy',
-    ]
-]);
+    Route::resource('notices', NoticeController::class, [
+        'names' => [
+            'index' => 'notice.index',
+            'create' => 'notice.create',
+            'store' => 'notice.store',
+            'show' => 'notice.show',
+            'edit' => 'notice.edit',
+            'update' => 'notice.update',
+            'destroy' => 'notice.destroy',
+        ]
+    ]);
 
-Route::resource('settings', SettingController::class, [
-    'names' => [
-        'index' => 'setting.index',
-        'create' => 'setting.create',
-        'store' => 'setting.store',
-        'show' => 'setting.show',
-        'edit' => 'setting.edit',
-        'update' => 'setting.update',
-    ]
-]);
+    Route::resource('settings', SettingController::class, [
+        'names' => [
+            'index' => 'setting.index',
+            'create' => 'setting.create',
+            'store' => 'setting.store',
+            'show' => 'setting.show',
+            'edit' => 'setting.edit',
+            'update' => 'setting.update',
+        ]
+    ]);
+});

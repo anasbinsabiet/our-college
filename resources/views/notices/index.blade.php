@@ -1,24 +1,20 @@
 @extends('layouts.master')
 @section('content')
-
-
-
 <div class="page-wrapper">
     <div class="content container-fluid">
-
         <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col-md-3 col-6">
-                    <h3 class="page-title">Notices</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Notice List</li>
-                    </ul>
-                </div>
+            <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <ul class="breadcrumb mb-0">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">All Notices</li>
+                </ul>
+                <a href="{{ route('notice.create') }}">
+                    Add New
+                </a>
             </div>
         </div>
-
-        <!-- Filters -->
         <div class="row">
             <div class="col-sm-12">
                 <div class="card card-table">
@@ -75,7 +71,6 @@
                                 <div class="col-md-3 col-12">
                                     <button type="submit" class="btn btn-primary">Filter</button>
                                     <a href="{{ route('notice.index') }}" class="btn btn-secondary">Reset</a>
-                                    <a href="{{ route('notice.create') }}" class="btn btn-primary">Add New</a>
                                 </div>
                             </div>
                         </form>
@@ -115,8 +110,8 @@
                                             <td class="text-end">
                                                 <div class="actions">
                                                     <a href="{{ route('notice.edit', $notice->id) }}"
-                                                       class="btn btn-sm bg-primary-light">
-                                                        <i class="far fa-edit me-2"></i>
+                                                       class="btn btn-sm bg-primary-light mr-2">
+                                                        <i class="far fa-edit"></i>
                                                     </a>
 
                                                     <form action="{{ route('notice.destroy', $notice->id) }}"
@@ -124,9 +119,9 @@
                                                           style="display:inline-block;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button class="btn btn-sm bg-danger-light"
+                                                        <button class="btn btn-sm bg-danger"
                                                                 onclick="return confirm('Are you sure?')">
-                                                            <i class="far fa-trash-alt me-2"></i>
+                                                            <i class="far fa-trash-alt text-white"></i>
                                                         </button>
                                                     </form>
                                                 </div>

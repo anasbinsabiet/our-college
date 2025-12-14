@@ -1,14 +1,10 @@
 @extends('layouts.master')
 @section('content')
-    
-
     <div class="page-wrapper">
         <div class="content container-fluid">
-
             <div class="row">
-                <!-- Students -->
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                    <div class="card bg-comman w-100">
+                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route('student.index') }}">
+                    <div class="card bg-common w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
@@ -21,11 +17,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Teachers -->
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                    <div class="card bg-comman w-100">
+                </a>
+                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route('teacher.index') }}">
+                    <div class="card bg-common w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
@@ -38,11 +32,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Users -->
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                    <div class="card bg-comman w-100">
+                </a>
+                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route(name: 'user.index') }}">
+                    <div class="card bg-common w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
@@ -55,11 +47,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Collections -->
-                <div class="col-xl-3 col-sm-6 col-12 d-flex">
-                    <div class="card bg-comman w-100">
+                </a>
+                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route('collection.index') }}">
+                    <div class="card bg-common w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">
                                 <div class="db-info">
@@ -72,11 +62,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
-
-
-            <!-- Fees Chart -->
             <div class="row">
                 <div class="col-md-12 col-lg-6">
                     <div class="card card-chart">
@@ -96,10 +83,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         let feesChart;

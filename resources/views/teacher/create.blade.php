@@ -5,18 +5,14 @@
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
-                    <div class="col-sm-12">
-                        <div class="page-sub-header">
-                            <h3 class="page-title">{{ optional($teacher)->id ? 'Edit' : 'Add' }} Teachers</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('teacher.index') }}">Teacher List</a></li>
-                                <li class="breadcrumb-item active">Add teachers</li>
-                            </ul>
+                    <div class="col-12">
+                        <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <a class="breadcrumb-item active">{{ optional($teacher)->id ? 'Edit' : 'Add' }} Teacher</a>
+                            <a href="{{ route('teacher.index') }}">Teachers List</a>
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- message --}}
             
             <div class="row">
                 <div class="col-sm-12">
@@ -126,9 +122,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="teacher-submit">
+                                        <div class="student-submit d-flex">
+                                            <a class="btn btn-secondary mr-2" href="{{ route('teacher.index') }}">Cancel</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a class="btn btn-secondary" href="{{ route('teacher.index') }}">Cancel</a>
                                         </div>
                                     </div>
                                 </div>

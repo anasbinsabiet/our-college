@@ -48,7 +48,7 @@
         <div class="login-wrapper">
             <div class="container">
                 <div class="loginbox">
-                    <div class="login-left" style="display: block;">
+                    <div class="login-left d-none d-md-block">
                         <img class="img-fluid" src="{{ URL::to('assets/img/login.jpg') }}" alt="Logo">
                     </div>
                     @yield('content')

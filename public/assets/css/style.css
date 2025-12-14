@@ -3011,7 +3011,7 @@ footer p {
     font-weight: 500;
     margin-bottom: 0;
     padding: 0;
-    margin-left: auto
+    margin-left: 0 !important;
 }
 
 .page-header .breadcrumb a {
@@ -3764,11 +3764,6 @@ footer p {
 
 .star-student.table-striped tbody tr:nth-of-type(odd) {
     background-color: transparent
-}
-
-.star-student.table-striped tbody tr td,
-.star-student.table-striped tbody tr td a {
-    color: #666
 }
 
 .star-student.table-striped tbody tr td img {
@@ -4611,10 +4606,10 @@ table.table-inbox tbody tr.checked {
 
 .student-submit .btn-secondary {
     border-radius: 10px;
-    min-width: 160px;
+    min-width: 120px;
 }
 .student-submit .btn-primary {
-    min-width: 160px;
+    min-width: 120px;
     border-radius: 10px;
     background: #3d5ee1;
     border: 1px solid #3d5ee1
@@ -4743,7 +4738,7 @@ table.table-inbox tbody tr.checked {
 }
 
 .bg-six {
-    background-color: rgb(110 107 250/0.2);
+    background-color: rgb(120 107 250/0.2);
     border-color: #6e6bfa;
     border-radius: 30px 0
 }
@@ -5296,7 +5291,7 @@ table.table-inbox tbody tr.checked {
 .dash-widget1 .dash-btn .btn {
     font-size: 14px;
     font-weight: 500;
-    width: 110px;
+    width: 120px;
     margin-bottom: 10px;
     margin-right: 10px;
     color: #fff;
@@ -5352,7 +5347,7 @@ table.table-inbox tbody tr.checked {
 }
 
 .skip-group .btn-info {
-    min-width: 160px;
+    min-width: 120px;
     padding: 9px 15px;
     border-radius: 10px;
     font-size: 16px;
@@ -6491,7 +6486,7 @@ table.table-inbox tbody tr.checked {
     color: #fff;
     border-radius: 8px;
     padding: 10px 0;
-    min-width: 160px
+    min-width: 120px
 }
 
 .invoices-create-btn .invoices-preview-link {
@@ -7341,7 +7336,7 @@ table.table-inbox tbody tr.checked {
 }
 
 .invoice-setting-btn .btn {
-    min-width: 160px;
+    min-width: 120px;
     padding: 10px 0;
     color: #fff;
     border-radius: 8px
@@ -7618,7 +7613,7 @@ table.table-inbox tbody tr.checked {
 }
 
 .bank-details-btn .btn {
-    min-width: 160px;
+    min-width: 120px;
     border-radius: 8px;
     padding: 10px 0;
     color: #fff
@@ -10574,7 +10569,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     }
 
     .field-box .btn {
-        min-width: 160px;
+        min-width: 120px;
         padding: 8px 0;
         font-size: 14px
     }
@@ -10796,7 +10791,7 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     }
 
     .field-box .btn {
-        min-width: 160px;
+        min-width: 120px;
         padding: 8px 0;
         font-size: 14px
     }
@@ -11146,10 +11141,6 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     .view-link {
         font-size: 13px
     }
-
-    .page-header .breadcrumb {
-        display: none
-    }
 }
 
 @media(max-width:479px) {
@@ -11164,5 +11155,8 @@ body[data-layout-mode=dark] .alertify .ajs-footer .ajs-buttons .ajs-button.ajs-o
     .notifications .noti-content {
         width: 310px;
         height: 355px
+    }
+    .fa-2x {
+        font-size: 0.8em;
     }
 }

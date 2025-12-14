@@ -90,10 +90,28 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .profile-views {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    .form-group {
+        overflow: visible;
+    }
+
+    @media (max-width: 767.98px) {
+        .profile-views {
+            right: 12px;
+            font-size: 18px;
+        }
+    }
     .cta-form {
         padding: 30px;
     }
-
     .cta-form h2 {
         font-size: 26px;
     }

@@ -10,12 +10,10 @@
                 <div class="form-group">
                     <label>Full Name <span class="login-danger">*</span></label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name">
-                    <span class="profile-views"><i class="fas fa-user-circle"></i></span>
                 </div>
                 <div class="form-group">
                     <label>Email <span class="login-danger">*</span></label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
-                    <span class="profile-views"><i class="fas fa-envelope"></i></span>
                 </div>
                 {{-- insert defaults --}}
                 <input type="hidden" class="image" name="image" value="photo_defaults.png">
@@ -37,12 +35,12 @@
                 <div class="form-group">
                     <label>Password <span class="login-danger">*</span></label>
                     <input type="password" class="form-control pass-input  @error('password') is-invalid @enderror" name="password">
-                    <span class="profile-views feather-eye toggle-password"></span>
+                    <span class="profile-views feather-eye"><i class="toggle-password" data-feather="eye"></i></span>
                 </div>
                 <div class="form-group">
                     <label>Confirm password <span class="login-danger">*</span></label>
                     <input type="password" class="form-control pass-confirm @error('password_confirmation') is-invalid @enderror" name="password_confirmation">
-                    <span class="profile-views feather-eye reg-toggle-password"></span>
+                    <span class="profile-views reg-feather-eye"><i class="reg-toggle-password" data-feather="eye"></i></span>
                 </div>
                 <div class=" dont-have">Already Registered? <a href="{{ route('login') }}">Login</a></div>
                 <div class="form-group mb-0">

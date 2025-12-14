@@ -4,16 +4,14 @@
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">{{ optional($user)->id ? 'Edit' : 'Add' }} User</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Users</a></li>
-                            <li class="breadcrumb-item active">{{ optional($user)->id ? 'Edit' : 'Add' }} User</li>
-                        </ul>
+                    <div class="col-12">
+                        <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <a class="breadcrumb-item active">{{ optional($user)->id ? 'Edit' : 'Add' }} User</a>
+                            <a href="{{ route('user.index') }}">User List</a>
+                        </div>
                     </div>
                 </div>
             </div>
-            {{-- message --}}
             
             <div class="row">
                 <div class="col-sm-12">
@@ -32,18 +30,18 @@
                                     <div class="col-12 col-md-3">
                                         <div class="form-group local-forms">
                                             <label>Name <span class="login-danger">*</span></label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter Name" value="{{ optional($user)->name }}">
+                                            <input type="text" class="form-control" name="name" required placeholder="Enter Name" value="{{ optional($user)->name }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group local-forms">
                                             <label>Email <span class="login-danger">*</span></label>
-                                            <input type="text" class="form-control" name="email" placeholder="Enter Email" value="{{ optional($user)->email }}">
+                                            <input type="text" class="form-control" required name="email" placeholder="Enter Email" value="{{ optional($user)->email }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-3">
                                         <div class="form-group local-forms">
-                                            <label>Phone Number <span class="login-danger">*</span></label>
+                                            <label>Phone Number</label>
                                             <input type="text" class="form-control" name="phone" placeholder="Enter Phone" value="{{ optional($user)->phone }}">
                                         </div>
                                     </div>
@@ -81,11 +79,17 @@
                                             <input type="text" class="form-control" name="position" placeholder="Enter Position" value="{{ optional($user)->position }}">
                                         </div>
                                     </div>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group local-forms">
+                                            <label>Department</label>
+                                            <input type="text" class="form-control" name="department" placeholder="Enter Department" value="{{ optional($user)->department }}">
+                                        </div>
+                                    </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Photo (150px X 150px)</label>
                                             <input type="file" class="form-control" id="file" name="avatar" accept="image/*" onchange="previewImage(event)">
-                                            <div class="mt-2" style="position: absolute;">
+                                            <div class="mt-2">
                                                 <img id="file-preview" 
                                                     src="{{ optional($user)->avatar ? asset('uploads/users/' . optional($user)->avatar) : '#' }}" 
                                                     alt="Preview" 
@@ -112,16 +116,10 @@
                                             }
                                         }
                                     </script>
-                                    <div class="col-12 col-md-3">
-                                        <div class="form-group local-forms">
-                                            <label>Department</label>
-                                            <input type="text" class="form-control" name="department" placeholder="Enter Department" value="{{ optional($user)->department }}">
-                                        </div>
-                                    </div>
                                     <div class="col-12">
-                                        <div class="student-submit">
+                                        <div class="student-submit d-flex">
+                                            <a class="btn btn-secondary mr-2" href="{{ route('user.index') }}">Cancel</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a class="btn btn-secondary" href="{{ route('user.index') }}">Cancel</a>
                                         </div>
                                     </div>
                                 </div>

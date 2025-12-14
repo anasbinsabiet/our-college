@@ -1,19 +1,18 @@
 @extends('layouts.master')
 @section('content')
-    {{-- message --}}
-    
     <div class="page-wrapper">
         <div class="content container-fluid">
-
             <div class="page-header">
-                <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">Fees Collections</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Fees Collections</li>
-                        </ul>
-                    </div>
+                <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <ul class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Collections</li>
+                    </ul>
+                    <a href="{{ route('collection.create') }}">
+                        Add New
+                    </a>
                 </div>
             </div>
 
@@ -58,7 +57,6 @@
                                     <div class="col-md-3 col-12 mb-4">
                                         <button type="submit" class="btn btn-primary">Filter</button>
                                         <a  href="{{ route('collection.index') }}" class="btn btn-secondary">Reset</a>
-                                        <a href="{{ route('collection.create') }}" class="btn btn-primary">Add New</a>
                                     </div>
                                 </div>
                             </form>
@@ -90,10 +88,10 @@
                                                 <td>{{ $value->paid_date }}</td>
                                                 <td class="text-end">
                                                     <div class="actions">
-                                                        <a href="{{ route('collection.show', $value->id) }}" class="btn btn-sm bg-primary-light">
+                                                        <a href="{{ route('collection.show', $value->id) }}" class="btn btn-sm bg-primary-light mr-2">
                                                             <i class="far fa-eye me-2"></i>
                                                         </a>
-                                                        <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-danger-light">
+                                                        <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-primary-light">
                                                             <i class="far fa-edit me-2"></i>
                                                         </a>
                                                     </div>

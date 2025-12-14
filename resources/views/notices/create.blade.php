@@ -1,16 +1,14 @@
 @extends('layouts.master')
 @section('content')
-    
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
                 <div class="row align-items-center">
-                    <div class="col">
-                        <h3 class="page-title">{{ optional($notice)->id ? 'Edit' : 'Add' }} Notice</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('notice.index') }}">Notice List</a></li>
-                            <li class="breadcrumb-item active">Add Notice</li>
-                        </ul>
+                    <div class="col-12">
+                        <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <a class="breadcrumb-item active">{{ optional($notice)->id ? 'Edit' : 'Add' }} Notice</a>
+                            <a href="{{ route('notice.index') }}">Notice List</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,9 +52,9 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <div class="student-submit">
+                                        <div class="student-submit d-flex">
+                                            <a class="btn btn-secondary mr-2" href="{{ route('notice.index') }}">Cancel</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
-                                            <a class="btn btn-secondary" href="{{ route('notice.index') }}">Cancel</a>
                                         </div>
                                     </div>
                                 </div>

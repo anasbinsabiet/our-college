@@ -3,22 +3,12 @@
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col-sm-12">
-                    <div class="page-sub-header">
-                        <h3 class="page-title">User Details</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('user.index') }}">User List</a></li>
-                            <li class="breadcrumb-item active">User Details</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <a class="breadcrumb active">User Details</a>
+                <a href="{{ route('user.index') }}">User List</a>
             </div>
         </div>
-
-        {{-- Main Content --}}
         <div class="row">
-            {{-- Left Column: Personal Details --}}
             <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body text-center">
@@ -31,8 +21,6 @@
                     </div>
                 </div>
             </div>
-
-            {{-- Right Column: Detailed Info --}}
             <div class="col-lg-8 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -55,7 +43,7 @@
                     </div>
                 </div>
             </div>
-        </div> {{-- End Row --}}
+        </div>
     </div>
 </div>
 @endsection

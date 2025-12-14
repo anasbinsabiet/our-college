@@ -4,18 +4,14 @@
     <div class="content container-fluid">
         <div class="page-header">
             <div class="row align-items-center">
-                <div class="col">
-                    <h3 class="page-title">{{ optional($setting)->id ? 'Edit' : 'Create' }} Settings</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('setting.index') }}">Settings</a></li>
-                        <li class="breadcrumb-item active">General Settings</li>
-                    </ul>
+                <div class="col-12">
+                    <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                        <a class="breadcrumb-item active">{{ optional($setting)->id ? 'Edit' : 'Add' }} Setting</a>
+                        <a href="{{ route('dashboard') }}">Dashboard</a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        
-
         <form action="{{ optional($setting)->id ? route('setting.update', $setting->id) : route('setting.store') }}"
               method="POST" enctype="multipart/form-data">
             @csrf
@@ -168,11 +164,10 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card">
                         <div class="card-body text-end">
+                            <a href="{{ route('dashboard') }}" class="btn btn-secondary">Cancel</a>
                             <button type="submit" class="btn btn-primary">Save Settings</button>
-                            <a href="{{ route('setting.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </div>
                 </div> {{-- /.col-md-6 --}}

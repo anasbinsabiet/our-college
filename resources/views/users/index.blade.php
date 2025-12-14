@@ -4,23 +4,22 @@
     <div class="page-wrapper">
         <div class="content container-fluid">
             <div class="page-header">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="page-sub-header">
-                            <h3 class="page-title">Users</h3>
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                                <li class="breadcrumb-item active">All users</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <ul class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('dashboard') }}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">All Users</li>
+                    </ul>
+                    <a href="{{ route('user.create') }}">
+                        Add New
+                    </a>
                 </div>
             </div>
-            {{-- message --}}
             
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="card card-table comman-shadow">
+                    <div class="card card-table common-shadow">
                         <div class="card-body">
                             <form class="user-group-form">
                                 <div class="row">
@@ -43,7 +42,6 @@
                                         <div class="search-user-btn">
                                             <button type="submit" class="btn btn-primary">Search</button>
                                             <a  href="{{ route('user.index') }}" class="btn btn-secondary">Reset</a>
-                                            <a href="{{ route('user.create') }}" class="btn btn-primary">Add New</a>
                                         </div>
                                     </div>
                                 </div>

@@ -3,16 +3,9 @@
 <div class="page-wrapper">
     <div class="content container-fluid">
         <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col-sm-12">
-                    <div class="page-sub-header">
-                        <h3 class="page-title">Student Details</h3>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('student.index') }}">Student List</a></li>
-                            <li class="breadcrumb-item active">Student Details</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <a class="breadcrumb active">Student Details</a>
+                <a href="{{ route('student.index') }}">Student List</a>
             </div>
         </div>
 

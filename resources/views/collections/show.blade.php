@@ -2,32 +2,18 @@
 @section('content')
 <div class="page-wrapper">
     <div class="content container-fluid">
-
-        {{-- Page Header --}}
         <div class="page-header">
-            <div class="row align-items-center">
-                <div class="col">
-                    <h3 class="page-title">Fees Collection Details</h3>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('collection.index') }}">Collection List</a></li>
-                        <li class="breadcrumb-item active">View Fees</li>
-                    </ul>
-                </div>
-                <div class="col-auto float-end ml-auto">
-                    <a href="{{ route('collection.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </a>
-                </div>
+            <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <a class="breadcrumb active">Fees Details</a>
+                <a href="{{ route('collection.index') }}">Collection List</a>
             </div>
         </div>
-
-        {{-- Invoice Card --}}
         <div class="card">
             <div class="card-body">
                 <div class="invoice-box">
                     <div class="row mb-4">
                         <div class="col-sm-6">
-                            <h4>Fees Collection Invoice</h4>
+                            <h4>Fees Invoice</h4>
                         </div>
                         <div class="col-sm-6 text-end">
                             <strong>Date:</strong> {{ optional($collection)->paid_date ?? now()->format('d-m-Y') }}<br>

@@ -11,12 +11,16 @@
             <div class="form-group">
                 <label>Email<span class="login-danger">*</span></label>
                 <input type="email" placeholder="Enter Email" class="form-control @error('email') is-invalid @enderror" name="email">
-                <span class="profile-views"><i class="fas fa-envelope"></i></span>
             </div>
-            <div class="form-group">
+            <div class="form-group position-relative">
                 <label>Password <span class="login-danger">*</span></label>
-                <input type="password" placeholder="Enter Password" class="form-control pass-input @error('password') is-invalid @enderror" name="password">
-                <span class="profile-views feather-eye toggle-password"></span>
+                <input
+                    type="password"
+                    class="form-control pass-input @error('password') is-invalid @enderror"
+                    placeholder="Enter Password"
+                    name="password"
+                >
+                <span class="profile-views feather-eye"><i class="toggle-password" data-feather="eye"></i></span>
             </div>
             {{-- <div class="forgotpass">
                 <div class="remember-me">
