@@ -3,15 +3,14 @@
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
-use App\Models\Notice;
-use App\Models\Setting;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,13 +21,6 @@ function set_active($route) {
     return Request::path() == $route ? 'active' : '';
 }
 
-// ---------------------- Frontend Routes ----------------------
-Route::get('/', function () {
-    $setting = Setting::find(1);
-    $notices = Notice::latest()->take(10)->get();
-    return view('welcome', compact('notices', 'setting'));
-});
-
 // ---------------------- Login / Register ----------------------
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate']);
@@ -37,6 +29,11 @@ Route::post('change/password', [LoginController::class, 'changePassword'])->name
 
 Route::get('/register', [RegisterController::class, 'register'])->name('register');
 Route::post('/register', [RegisterController::class, 'storeUser'])->name('register.store');
+
+// ---------------------- Frontend Routes ----------------------
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/about', [FrontendController::class, 'about'])->name('about');
+
 
 // ---------------------- User / Student / Teacher ----------------------
 Route::match(['get', 'post'], 'user/password-reset', [UserController::class, 'password_reset'])->name('password.reset');
@@ -108,6 +105,17 @@ Route::group(['middleware' => 'auth'], function () {
             'show' => 'setting.show',
             'edit' => 'setting.edit',
             'update' => 'setting.update',
+        ]
+    ]);
+
+    Route::resource('contacts', ContactController::class, [
+        'names' => [
+            'index' => 'contact.index',
+            'create' => 'contact.create',
+            'store' => 'contact.store',
+            'show' => 'contact.show',
+            'edit' => 'contact.edit',
+            'update' => 'contact.update',
         ]
     ]);
 });

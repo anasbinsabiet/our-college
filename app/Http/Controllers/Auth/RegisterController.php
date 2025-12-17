@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 use Hash;
 use DB;
 use Carbon\Carbon;

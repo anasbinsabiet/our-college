@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 11, 2025 at 12:05 PM
+-- Generation Time: Dec 17, 2025 at 05:40 AM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
 
@@ -61,6 +61,35 @@ INSERT INTO `collections` (`id`, `student_id`, `student_name`, `gender`, `fees_t
 (10, '1', NULL, NULL, 'Exam Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:52', '2025-12-10 00:29:52', NULL, NULL),
 (11, '1', NULL, NULL, 'Tuition Fees', '500', NULL, '10-12-2025', '2025-12-10 00:29:59', '2025-12-10 00:29:59', NULL, NULL),
 (12, '1', NULL, NULL, 'Exam Fees', '4560', 'collection-6939507ae5875-10_12_2025.pdf', '10-12-2025', '2025-12-10 00:57:14', '2025-12-10 04:50:34', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts`
+--
+
+DROP TABLE IF EXISTS `contacts`;
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `contacts_email_index` (`email`),
+  KEY `contacts_created_by_index` (`created_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `phone`, `email`, `message`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+(1, 'mr test', '01312638606', 'anas@hbdservices.com', 'sdgbhfb', NULL, NULL, '2025-12-16 23:25:33', '2025-12-16 23:25:33');
 
 -- --------------------------------------------------------
 
@@ -303,7 +332,7 @@ CREATE TABLE IF NOT EXISTS `settings` (
 --
 
 INSERT INTO `settings` (`id`, `title`, `description`, `logo`, `favicon`, `banner`, `phone`, `mobile`, `email`, `address`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-(1, 'HBD Services', 'HBD Services Group', 'logo-693aa7a923364.png', 'favicon-693aa52b359e2.png', NULL, NULL, NULL, NULL, NULL, 1, 1, '2025-12-11 04:54:55', '2025-12-11 05:14:49');
+(1, 'Madhabdi College', 'Madhabdi College of Narsingdi, Bangladesh', 'logo-693aa7a923364.png', 'favicon-693aa52b359e2.png', NULL, NULL, NULL, NULL, NULL, 1, 1, '2025-12-11 04:54:55', '2025-12-11 21:47:43');
 
 -- --------------------------------------------------------
 
@@ -405,7 +434,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `join_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT 'Inactive',
   `role_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `position` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -423,8 +452,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `user_id`, `name`, `email`, `date_of_birth`, `join_date`, `phone`, `status`, `role_name`, `avatar`, `position`, `department`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '000001', 'Md Anisur Rahaman', 'anasbinsabiet@gmail.com', '10-12-2025', 'Tue, Dec 9, 2025 10:35 AM', '8801837632991', 'Active', 'Admin', 'user-693a67ee51c93-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$sXY4PrhkBbfTjdoT2gO6YOpaZGN9Mk5/0nDMmtksDeoCSmwXmqesa', NULL, '2025-12-09 04:35:47', '2025-12-11 00:42:54'),
-(2, '000002', 'Akkas', 'akkas@gmail.com', '10-12-2025', NULL, '01458779965', 'Inactive', 'Admin', 'user-693a6c68795e3-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$8nYVm4UZA1qwyn1nHxdTc.vPDDVJIKDEDI6XSGjufscmBzgF2SEk6', NULL, '2025-12-11 01:02:00', '2025-12-11 01:08:22');
+(1, '000001', 'Md Anisur Rahaman', 'anasbinsabiet@gmail.com', '10-12-2025', 'Tue, Dec 9, 2025 10:35 AM', '8801837632991', 'Active', 'Admin', 'user-693a67ee51c93-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$/10MihyPX560ze/YqZXjvuU4bweItDvtaBy5Kx6NUoIq5.Ffv1MdS', NULL, '2025-12-09 04:35:47', '2025-12-16 22:40:35'),
+(2, '000002', 'Akkas', 'akkas@gmail.com', '10-12-2025', NULL, '01458779965', 'Active', 'Admin', 'user-693a6c68795e3-11_12_2025.png', 'mn', 'mngjhmgjh', NULL, '$2y$10$8nYVm4UZA1qwyn1nHxdTc.vPDDVJIKDEDI6XSGjufscmBzgF2SEk6', NULL, '2025-12-11 01:02:00', '2025-12-13 21:46:24');
 
 -- --------------------------------------------------------
 

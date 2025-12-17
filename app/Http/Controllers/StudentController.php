@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 
 class StudentController extends Controller
 {
@@ -28,13 +28,13 @@ class StudentController extends Controller
 
         $students = $query->orderByDesc('id')->get();
 
-        return view('student.index', compact('students'));
+        return view('backend.student.index', compact('students'));
     }
 
     public function create()
     {   
         $student = null;
-        return view('student.create', compact('student'));
+        return view('backend.student.create', compact('student'));
     }
     
     /** student save record */
@@ -99,13 +99,13 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::where('id',$id)->first();
-        return view('student.create',compact('student'));
+        return view('backend.student.create',compact('student'));
     }
     
     public function show($id)
     {
         $student = Student::where('id',$id)->first();
-        return view('student.show',compact('student'));
+        return view('backend.student.show',compact('student'));
     }
 
     /** update record */
@@ -190,12 +190,5 @@ class StudentController extends Controller
             DB::rollback();
             return redirect()->back()->with('error', 'Student deleted fail :)');
         }
-    }
-
-    /** student profile page */
-    public function studentProfile($id)
-    {
-        $studentProfile = Student::where('id',$id)->first();
-        return view('student.student-profile',compact('studentProfile'));
     }
 }

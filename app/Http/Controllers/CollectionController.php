@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FeesType;
-use App\Models\User;
 use App\Models\Collection;
 use App\Models\Student;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 use Illuminate\Support\Facades\DB;
 
 class CollectionController extends Controller
@@ -34,7 +33,7 @@ class CollectionController extends Controller
 
         $students = Student::select('id', 'name', 'phone')->get();
 
-        return view('collections.index', compact('Collection', 'students'));
+        return view('backend.collections.index', compact('Collection', 'students'));
     }
 
     public function create()
@@ -42,7 +41,7 @@ class CollectionController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = null;
-        return view('collections.create',compact('students','feesType', 'collection'));
+        return view('backend.collections.create',compact('students','feesType', 'collection'));
     }
     
     public function edit(Request $request, $id)
@@ -50,7 +49,7 @@ class CollectionController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = Collection::findOrFail($id);
-        return view('collections.create',compact('students','feesType','collection'));
+        return view('backend.collections.create',compact('students','feesType','collection'));
     }
     
     public function show(Request $request, $id)
@@ -59,7 +58,7 @@ class CollectionController extends Controller
         $feesType    = FeesType::all();
         $collection  = Collection::findOrFail($id);
         $student    = Student::findOrFail($collection->student_id);
-        return view('collections.show',compact('student','feesType','collection'));
+        return view('backend.collections.show',compact('student','feesType','collection'));
     }
 
     public function store(Request $request)

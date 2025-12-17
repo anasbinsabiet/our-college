@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use Hash;
-use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Teacher;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 
 class TeacherController extends Controller
 {   
@@ -32,14 +29,14 @@ class TeacherController extends Controller
         // Get filtered teachers
         $teachers = $query->latest()->get();
 
-        return view('teacher.index', compact('teachers'));
+        return view('backend.teacher.index', compact('teachers'));
     }
 
     /** add teacher page */
     public function create()
     {
         $teacher = null;
-        return view('teacher.create',compact('teacher'));
+        return view('backend.teacher.create',compact('teacher'));
     }
 
     /** teacher list */
@@ -79,13 +76,13 @@ class TeacherController extends Controller
     public function edit($id)
     {
         $teacher = Teacher::findOrFail($id);
-        return view('teacher.create',compact('teacher'));
+        return view('backend.teacher.create',compact('teacher'));
     }
     
     public function show($id)
     {
         $teacher = Teacher::findOrFail($id);
-        return view('teacher.show',compact('teacher'));
+        return view('backend.teacher.show',compact('teacher'));
     }
 
     /** update record teacher */
@@ -111,7 +108,7 @@ class TeacherController extends Controller
             $teacher->save();
             
             DB::commit();
-return redirect()->back()->with('success', 'Has been update successfully :)');
+            return redirect()->back()->with('success', 'Has been update successfully :)');
            
         } catch(\Exception $e) {
             DB::rollback();

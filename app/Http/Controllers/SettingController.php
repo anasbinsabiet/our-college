@@ -5,20 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 
 class SettingController extends Controller
 {
     public function index(Request $request)
     {
         $setting = Setting::findOrFail(1);
-        return view('setting.index', compact('setting'));
+        return view('backend.setting.index', compact('setting'));
     }
 
     public function create()
     {
         $setting = null;
-        return view('setting.create', compact('setting'));
+        return view('backend.setting.create', compact('setting'));
     }
 
     public function store(Request $request)

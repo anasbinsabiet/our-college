@@ -90,6 +90,12 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+    .header-left {
+        margin-top: 120px;
+    }
+    .about-us-title {
+        margin-top: 0px !important;
+    }
     .profile-views {
         position: absolute;
         right: 15px;
@@ -314,4 +320,24 @@ footer {
     padding: 25px;
     background: #1a202c;
     color: #fff;
+}
+.about-us-title {
+    margin-top: 65px;
+}
+/* Bootstrap SaaS Hero */
+.hero-bs {
+    background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.95),
+        rgba(2, 132, 199, 0.9)
+    ),
+    url('../images/hero-bg.png') center/cover no-repeat;
+}
+
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+.hero-image {
+    max-width: min(250px, 95%);
 }

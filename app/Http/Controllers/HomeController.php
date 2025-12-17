@@ -40,7 +40,7 @@ class HomeController extends Controller
             ->groupBy('paid_date')
             ->orderBy('paid_date')
             ->get();
-        return view('dashboard', [
+        return view('backend.dashboard', [
             'users'       => User::count(),
             'students'    => Student::count(),
             'teachers'    => Teacher::count(),

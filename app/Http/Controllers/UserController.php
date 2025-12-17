@@ -7,7 +7,7 @@ use DB;
 use Session;
 use Log;
 use App\Models\User;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 use Illuminate\Support\Facades\Hash;
 use App\Rules\MatchOldPassword;
 
@@ -17,14 +17,14 @@ class UserController extends Controller
     public function index()
     {   
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('backend.users.index', compact('users'));
     }
 
     public function create()
     {
         $user = null;
         $role  = DB::table('roles')->get();
-        return view('users.create',compact('user','role'));
+        return view('backend.users.create',compact('user','role'));
     }
 
     public function store(Request $request)
@@ -35,7 +35,7 @@ class UserController extends Controller
             'phone'  => 'required',
             'status'        => 'required',
             'role_name'     => 'required',
-            'file'          => 'nullable|image|max:5120',
+            'avatar'          => 'nullable|image|max:5120',
         ]);
 
         try {
@@ -90,13 +90,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $role  = DB::table('roles')->get();
-        return view('users.create',compact('user','role'));
+        return view('backend.users.create',compact('user','role'));
     }
     
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show',compact('user',));
+        return view('backend.users.show',compact('user',));
     }
 
     public function update(Request $request, $id)
@@ -107,7 +107,8 @@ class UserController extends Controller
             'phone'         => 'required',
             'status'         => 'required',
             'role_name'         => 'required',
-            'file'          => 'nullable|image|max:5120',
+            'password'  => 'nullable|confirmed|min:6',
+            'avatar'          => 'nullable|image|max:5120',
         ]);
 
         try {
@@ -137,6 +138,9 @@ class UserController extends Controller
 
                 $request->file('avatar')->move('uploads/users', $fileName);
             }
+            if ($request->filled('password')) {
+                $password = Hash::make($request->password);
+            }
             $user->name    = $request->name;
             $user->email         = $request->email;
             $user->phone  = $request->phone;
@@ -145,6 +149,7 @@ class UserController extends Controller
             $user->role_name          = $request->role_name;
             $user->position   = $request->position;
             $user->department      = $request->department;
+            $user->password          = $password;
             $user->avatar          = $fileName;
             $user->save();
 

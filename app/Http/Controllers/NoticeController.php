@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Notice;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
+ 
 use Illuminate\Support\Facades\DB;
 
 class NoticeController extends Controller
@@ -30,12 +30,12 @@ class NoticeController extends Controller
         $notices = $query->get();
         $users   = User::select('id', 'name')->get();
 
-        return view('notices.index', compact('notices', 'users'));
+        return view('backend.notices.index', compact('notices', 'users'));
     }
 
     public function create()
     {
-        return view('notices.create', [
+        return view('backend.notices.create', [
             'notice' => null
         ]);
     }
@@ -71,7 +71,7 @@ class NoticeController extends Controller
             DB::commit();
             return redirect()->route('notice.index')->with('success', 'Notice created successfully!');
         } catch (\Throwable $e) {
-            return $e->getMessage();
+            // return $e->getMessage();
             DB::rollBack();
             return back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -80,7 +80,7 @@ class NoticeController extends Controller
     public function edit($id)
     {
         $notice = Notice::findOrFail($id);
-        return view('notices.create', compact('notice'));
+        return view('backend.notices.create', compact('notice'));
     }
 
     public function update(Request $request, $id)
