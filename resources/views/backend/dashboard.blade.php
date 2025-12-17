@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </a>
-                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route(name: 'user.index') }}">
+                <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route('user.index') }}">
                     <div class="card bg-common w-100">
                         <div class="card-body">
                             <div class="db-widgets d-flex justify-content-between align-items-center">

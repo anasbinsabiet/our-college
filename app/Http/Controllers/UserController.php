@@ -138,9 +138,7 @@ class UserController extends Controller
 
                 $request->file('avatar')->move('uploads/users', $fileName);
             }
-            if ($request->filled('password')) {
-                $password = Hash::make($request->password);
-            }
+            
             $user->name    = $request->name;
             $user->email         = $request->email;
             $user->phone  = $request->phone;
@@ -149,8 +147,12 @@ class UserController extends Controller
             $user->role_name          = $request->role_name;
             $user->position   = $request->position;
             $user->department      = $request->department;
-            $user->password          = $password;
             $user->avatar          = $fileName;
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+
             $user->save();
 
             DB::commit();
