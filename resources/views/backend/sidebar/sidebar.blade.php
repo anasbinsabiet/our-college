@@ -22,9 +22,11 @@
                 <li>
                     <a href="{{ route('collection.index') }}" {{set_active(['collection.create'])}}><i class="fas fa-receipt"></i> <span>Fees Collection</span></a>
                 </li>
-                <li>
-                    <a href="{{ route('notice.index') }}" {{set_active(['notice.create'])}}><i class="fas fa-file"></i> <span>Notice Board</span></a>
-                </li>
+                @if (auth()->user()->role_name != 'Accountant')
+                    <li>
+                        <a href="{{ route('notice.index') }}" {{set_active(['notice.create'])}}><i class="fas fa-file"></i> <span>Notice Board</span></a>
+                    </li>
+                @endif
                 @if (auth()->user()->role_name == 'Admin')
                     <li>
                         <a href="{{ route('contact.index') }}" {{set_active(['contact.index'])}}><i class="fas fa-envelope"></i> <span>Contacts</span></a>

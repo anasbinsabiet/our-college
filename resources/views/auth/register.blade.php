@@ -1,5 +1,5 @@
 
-@extends('layouts.app')
+@extends('auth.auth-layout')
 @section('content')
     <div class="login-right">
         <div class="login-right-wrap">

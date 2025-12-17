@@ -35,6 +35,7 @@
                             <h5>Fees Details</h5>
                             <p>
                                 <strong>Fees Type:</strong> {{ optional($collection)->fees_type ?? '' }}<br>
+                                <strong>Bank:</strong> {{ optional($collection)->bank->name ?? 'N/A' }}<br>
                                 <strong>Amount:</strong> {{ optional($collection)->fees_amount ?? '0.00' }} BDT<br>
                                 <strong>Paid Date:</strong> {{ optional($collection)->paid_date ?? now()->format('d-m-Y') }}
                             </p>

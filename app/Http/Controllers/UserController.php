@@ -32,7 +32,6 @@ class UserController extends Controller
         $request->validate([
             'name'          => 'required|string|max:255',
             'email'         => 'required|email|unique:users,email',
-            'phone'  => 'required',
             'status'        => 'required',
             'role_name'     => 'required',
             'avatar'          => 'nullable|image|max:5120',
@@ -100,11 +99,10 @@ class UserController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    {   
         $request->validate([
             'name'    => 'required',
             'email'          => 'required',
-            'phone'         => 'required',
             'status'         => 'required',
             'role_name'         => 'required',
             'password'  => 'nullable|confirmed|min:6',
@@ -166,8 +164,8 @@ class UserController extends Controller
             \Log::error($e->getTraceAsString());
 
             return back()->withErrors([
-    'error' => $e->getMessage()
-])->with('error', 'Failed to update user');
+                'error' => $e->getMessage()
+            ])->with('error', 'Failed to update user');
 
         }
     }

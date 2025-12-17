@@ -39,6 +39,16 @@
                                     </div>
                                     <div class="col-md-3 col-6">
                                         <div class="form-group">
+                                            <select class="select select2s-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="bank_id" class="form-control">
+                                                <option value="">Select Bank</option>
+                                                @foreach($banks as $bank)
+                                                    <option value="{{ $bank->id }}" @if($bank->id == request('bank_id')) selected @endif>{{ $bank->name }} - {{ $bank->phone }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="form-group">
                                             <input type="number" name="amount" value="{{ request('amount') }}" class="form-control" placeholder="Search by Amount ...">
                                         </div>
                                     </div>
@@ -67,6 +77,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Fees Type</th>
+                                            <th>Bank</th>
                                             <th>Amount</th>
                                             <th>File</th>
                                             <th>Paid Date</th>
@@ -74,11 +85,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($Collection as $key => $value)
+                                        @foreach($collections as $key => $value)
                                             <tr>
                                                 <td>{{ $value->id }}</td>
                                                 <td>{{ $value->name }} - {{ $value->phone }}</td>
                                                 <td>{{ $value->fees_type }}</td>
+                                                <td>{{ optional($value->bank)->name ?? '—' }}</td>
                                                 <td>{{ $value->fees_amount ?? 0 }} &#2547;</td>
                                                 <td>
                                                     <a href="{{ asset('uploads/' . $value->file) }}" download>
@@ -91,9 +103,11 @@
                                                         <a href="{{ route('collection.show', $value->id) }}" class="btn btn-sm bg-primary-light mr-2">
                                                             <i class="far fa-eye me-2"></i>
                                                         </a>
-                                                        <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-primary-light">
-                                                            <i class="far fa-edit me-2"></i>
-                                                        </a>
+                                                        @if(auth()->user()->role_name == 'Admin')
+                                                            <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-primary-light">
+                                                                <i class="far fa-edit me-2"></i>
+                                                            </a>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>

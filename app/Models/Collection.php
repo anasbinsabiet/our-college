@@ -10,11 +10,22 @@ class Collection extends Model
     use HasFactory;
     protected $fillable = [
         'student_id',
-        'student_name',
+        'bank_id',
         'gender',
         'fees_type',
         'fees_amount',
         'paid_date',
         'file',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
 }

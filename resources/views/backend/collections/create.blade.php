@@ -51,6 +51,20 @@
                                     </div>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
+                                            <label>Bank</label>
+                                            <select class="form-control select" id="bank_id" name="bank_id">
+                                                <option value="" disabled selected>-- Select Bank --</option>
+                                                @foreach ($banks as $id => $name)
+                                                    <option value="{{ $id }}"
+                                                        @selected($id == optional($collection)->bank_id)>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
                                             <label>Fees Amount</label>
                                             <input type="number" class="form-control" placeholder="Enter Amount" id="fees_amount" name="fees_amount" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" value="{{ optional($collection)->fees_amount }}">
                                         </div>

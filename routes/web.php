@@ -43,6 +43,8 @@ Route::post('/register', [RegisterController::class, 'storeUser'])->name('regist
 // ---------------------- Frontend Routes ----------------------
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
+Route::post('/contact', [FrontendController::class, 'contact'])->name('contact');
+
 
 
 // ---------------------- User / Student / Teacher ----------------------

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use Illuminate\Http\Request;
 use App\Models\FeesType;
 use App\Models\Collection;
@@ -13,13 +14,18 @@ class CollectionController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Collection::join('students', 'collections.student_id', 'students.id')
+        $query = Collection::with([
+                'bank:id,name',
+                'student:id,name,phone'
+            ])
+            ->join('students', 'collections.student_id', 'students.id')
             ->select('collections.*', 'students.name' , 'students.phone')
             ->orderByDesc('collections.id');
 
         // Apply filters
         $query->when($request->id, fn($q) => $q->where('collections.id', $request->id));
         $query->when($request->student_id, fn($q) => $q->where('collections.student_id', $request->student_id));
+        $query->when($request->bank_id, fn($q) => $q->where('collections.bank_id', $request->bank_id));
         $query->when($request->amount, fn($q) => $q->where('collections.fees_amount', $request->amount));
         // Paid date filters individually
         if ($request->paid_date_from) {
@@ -29,11 +35,11 @@ class CollectionController extends Controller
         if ($request->paid_date_to) {
             $query->where('collections.paid_date', '<=', $request->paid_date_to);
         }
-        $Collection = $query->get();
-
+        $collections = $query->get();
         $students = Student::select('id', 'name', 'phone')->get();
+        $banks = Bank::select('id', 'name')->get();
 
-        return view('backend.collections.index', compact('Collection', 'students'));
+        return view('backend.collections.index', compact('collections', 'students', 'banks'));
     }
 
     public function create()
@@ -41,7 +47,10 @@ class CollectionController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = null;
-        return view('backend.collections.create',compact('students','feesType', 'collection'));
+        $banks = Bank::latest()
+                ->pluck('name', 'id')
+                ->toArray();
+        return view('backend.collections.create',compact('students','feesType', 'collection', 'banks'));
     }
     
     public function edit(Request $request, $id)
@@ -49,7 +58,10 @@ class CollectionController extends Controller
         $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = Collection::findOrFail($id);
-        return view('backend.collections.create',compact('students','feesType','collection'));
+        $banks = Bank::latest()
+                ->pluck('name', 'id')
+                ->toArray();
+        return view('backend.collections.create',compact('students','feesType','collection', 'banks'));
     }
     
     public function show(Request $request, $id)
@@ -92,6 +104,7 @@ class CollectionController extends Controller
                 'fees_type'   => $request->fees_type,
                 'fees_amount' => $request->fees_amount,
                 'paid_date'   => $request->paid_date,
+                'bank_id'     => $request->bank_id,
                 'file'        => $fileName,
                 'created_at'  => now(),
                 'created_by'  => auth()->user()->id
@@ -115,7 +128,8 @@ class CollectionController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
+    {   
+        // return $request->all();
         $request->validate([
             'student_id'  => 'required',
             'fees_type'   => 'required',
@@ -157,6 +171,7 @@ class CollectionController extends Controller
                 'fees_type'   => $request->fees_type,
                 'fees_amount' => $request->fees_amount,
                 'paid_date'   => $request->paid_date,
+                'bank_id'     => $request->bank_id,
                 'file'        => $fileName,
                 'updated_at'  => now(),
                 'updated_by'  => auth()->user()->id

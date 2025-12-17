@@ -181,7 +181,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
     btn.innerText = 'Sending...';
 
     try {
-        const response = await fetch("{{ route('contact.store') }}", {
+        const response = await fetch("{{ route('contact') }}", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
