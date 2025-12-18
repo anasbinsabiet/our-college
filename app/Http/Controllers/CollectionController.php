@@ -15,11 +15,10 @@ class CollectionController extends Controller
     public function index(Request $request)
     {
         $query = Collection::with([
-                'bank:id,name',
-                'student:id,name,phone'
+                'bank:id,name'
             ])
-            ->join('students', 'collections.student_id', 'students.id')
-            ->select('collections.*', 'students.name' , 'students.phone')
+            ->select('collections.*')
+            ->where('collections.collection_type', 'Office')
             ->orderByDesc('collections.id');
 
         // Apply filters
@@ -39,7 +38,33 @@ class CollectionController extends Controller
         $students = Student::select('id', 'name', 'phone')->get();
         $banks = Bank::select('id', 'name')->get();
 
-        return view('backend.collections.index', compact('collections', 'students', 'banks'));
+        return view('backend.collections.index', compact('collections', 'banks'));
+    }
+    
+    public function bankCollection(Request $request)
+    {   
+        $query = Collection::with([
+                'bank:id,name',
+            ])
+            ->select('collections.*')
+            ->where('collections.collection_type', 'Bank')
+            ->orderByDesc('collections.id');
+
+        // Apply filters
+        $query->when($request->id, fn($q) => $q->where('collections.id', $request->id));
+        $query->when($request->bank_id, fn($q) => $q->where('collections.bank_id', $request->bank_id));
+        // Paid date filters individually
+        if ($request->paid_date_from) {
+            $query->where('collections.paid_date', '>=',$request->paid_date_from );
+        }
+
+        if ($request->paid_date_to) {
+            $query->where('collections.paid_date', '<=', $request->paid_date_to);
+        }
+        $collections = $query->get();
+        $banks = Bank::select('id', 'name')->get();
+
+        return view('backend.collections.bank', compact('collections', 'banks'));
     }
 
     public function create()
@@ -53,6 +78,17 @@ class CollectionController extends Controller
         return view('backend.collections.create',compact('students','feesType', 'collection', 'banks'));
     }
     
+    public function createBank()
+    {
+        $students    = Student::latest()->get();
+        $feesType    = FeesType::all();
+        $collection  = null;
+        $banks = Bank::latest()
+                ->pluck('name', 'id')
+                ->toArray();
+        return view('backend.collections.create-bank',compact('students','feesType', 'collection', 'banks'));
+    }
+    
     public function edit(Request $request, $id)
     {
         $students    = Student::latest()->get();
@@ -64,21 +100,31 @@ class CollectionController extends Controller
         return view('backend.collections.create',compact('students','feesType','collection', 'banks'));
     }
     
-    public function show(Request $request, $id)
+    public function editBankCollection(Request $request, $id)
     {
-        
+        $students    = Student::latest()->get();
         $feesType    = FeesType::all();
         $collection  = Collection::findOrFail($id);
-        $student    = Student::findOrFail($collection->student_id);
-        return view('backend.collections.show',compact('student','feesType','collection'));
+        $banks = Bank::latest()
+                ->pluck('name', 'id')
+                ->toArray();
+        return view('backend.collections.create-bank',compact('students','feesType','collection', 'banks'));
+    }
+    
+    public function show(Request $request, $id)
+    {
+        // return 'ok';
+        $feesType    = FeesType::all();
+        $collection  = Collection::findOrFail($id);
+        return view('backend.collections.show',compact('feesType','collection'));
     }
 
     public function store(Request $request)
-    {   
+    {       
+        // return response()->json($request->all());
         $request->validate([
-            'student_id'  => 'required',
-            'fees_type'   => 'required',
-            'fees_amount' => 'required',
+            'collection_type'      => 'required',
+            'bank_id'      => 'required',
             'paid_date'   => 'required',
             'file'        => 'nullable|file|max:5120',
         ]);
@@ -100,19 +146,20 @@ class CollectionController extends Controller
             }
 
             Collection::create([
-                'student_id'  => $request->student_id,
-                'fees_type'   => $request->fees_type,
-                'fees_amount' => $request->fees_amount,
-                'paid_date'   => $request->paid_date,
-                'bank_id'     => $request->bank_id,
-                'file'        => $fileName,
+                'student_id'  => $request->student_id ?? null,
+                'fees_type'   => $request->fees_type  ?? null,
+                'fees_amount' => $request->fees_amount  ?? null,
+                'paid_date'   => $request->paid_date  ?? null,
+                'bank_id'     => $request->bank_id  ?? null,
+                'collection_type'     => $request->collection_type  ?? null,
+                'file'        => $fileName  ?? null,
                 'created_at'  => now(),
                 'created_by'  => auth()->user()->id
             ]);
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Updated successfully!');
+            return redirect()->back()->with('success', 'Created successfully!');
 
         } catch (\Throwable $e) {
 
@@ -131,9 +178,8 @@ class CollectionController extends Controller
     {   
         // return $request->all();
         $request->validate([
-            'student_id'  => 'required',
-            'fees_type'   => 'required',
-            'fees_amount' => 'required',
+            'collection_type'  => 'required',
+            'bank_id'  => 'required',
             'paid_date'   => 'required',
             'file'        => 'nullable|file|max:5120',
         ]);
@@ -167,18 +213,19 @@ class CollectionController extends Controller
 
             // Update record
             $collection->update([
-                'student_id'  => $request->student_id,
-                'fees_type'   => $request->fees_type,
-                'fees_amount' => $request->fees_amount,
-                'paid_date'   => $request->paid_date,
-                'bank_id'     => $request->bank_id,
-                'file'        => $fileName,
+                'student_id'  => $request->student_id ?? null,
+                'fees_type'   => $request->fees_type ?? null,
+                'fees_amount' => $request->fees_amount ?? null,
+                'paid_date'   => $request->paid_date ?? null,
+                'bank_id'     => $request->bank_id ?? null,
+                'collection_type'     => $request->collection_type ?? null,
+                'file'        => $fileName ?? null,
                 'updated_at'  => now(),
                 'updated_by'  => auth()->user()->id
             ]);
 
             DB::commit();
-            return redirect()->route('collection.index')->with('success', 'Updated successfully!');
+            return redirect()->back()->with('success', 'Updated successfully!');
 
         } catch (\Throwable $e) {
 

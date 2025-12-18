@@ -10,7 +10,9 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SyllabusController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,11 +26,14 @@ Route::get("clear", function () {
     return "Cache cleared";
 });
 
-function set_active($route) {
-    if (is_array($route)) {
-        return in_array(Request::path(), $route) ? 'active' : '';
+if (! function_exists('set_active')) {
+    function set_active($route)
+    {
+        if (is_array($route)) {
+            return in_array(Request::path(), $route) ? 'active' : '';
+        }
+        return Request::path() === $route ? 'active' : '';
     }
-    return Request::path() == $route ? 'active' : '';
 }
 
 // ---------------------- Login / Register ----------------------
@@ -74,6 +79,17 @@ Route::group(['middleware' => 'auth'], function () {
             'update' => 'teacher.update',
         ]
     ]);
+    
+    Route::resource('members', MemberController::class, [
+        'names' => [
+            'index' => 'member.index',
+            'create' => 'member.create',
+            'store' => 'member.store',
+            'show' => 'member.show',
+            'edit' => 'member.edit',
+            'update' => 'member.update',
+        ]
+    ]);
 
     Route::resource('students', StudentController::class, [
         'names' => [
@@ -96,6 +112,11 @@ Route::group(['middleware' => 'auth'], function () {
             'update' => 'collection.update',
         ]
     ]);
+    Route::get('collections/{id}', [CollectionController::class, 'show'])->name('collection.show');
+
+    Route::get('bank-collection', [CollectionController::class, 'bankCollection'])->name('bank.collection');
+    Route::get('bank-collection/create', [CollectionController::class, 'createBank'])->name('bank.collection.create');
+    Route::get('bank-collection/{id}/edit', [CollectionController::class, 'editBankCollection'])->name('edit.bank.collection');
 
     Route::resource('notices', NoticeController::class, [
         'names' => [
@@ -106,6 +127,18 @@ Route::group(['middleware' => 'auth'], function () {
             'edit' => 'notice.edit',
             'update' => 'notice.update',
             'destroy' => 'notice.destroy',
+        ]
+    ]);
+    
+    Route::resource('syllabuses', SyllabusController::class, [
+        'names' => [
+            'index' => 'syllabus.index',
+            'create' => 'syllabus.create',
+            'store' => 'syllabus.store',
+            'show' => 'syllabus.show',
+            'edit' => 'syllabus.edit',
+            'update' => 'syllabus.update',
+            'destroy' => 'syllabus.destroy',
         ]
     ]);
 

@@ -31,8 +31,13 @@
             <li><a href="{{ route('home') }}#notice">Notice Board</a></li>
             <li><a href="{{ route('home') }}#courses">Courses</a></li>
             <li><a href="{{ route('home') }}#contact">Contact</a></li>
-            <li><a class="active" href="{{ route('login') }}"
-                    style="width:auto; border-radius: 5px; cursor: pointer;">Login</a></li>
+            @auth
+                <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
+            @else
+                <li>
+                    <a class="active" href="{{ route('login') }}" style="width:auto; border-radius: 5px; cursor: pointer;">Login</a>
+                </li>
+            @endauth
         </ul>
     </nav>
     <main>

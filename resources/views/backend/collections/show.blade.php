@@ -23,20 +23,20 @@
 
                     {{-- Student Info --}}
                     <div class="row mb-4">
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <h5>Student Details</h5>
                             <p>
                                 <strong>Name:</strong> {{ optional($student)->name ?? '' }}<br>
                                 <strong>Phone:</strong> {{ optional($student)->phone ?? '' }}<br>
                                 <strong>Email:</strong> {{ optional($student)->email ?? '' }}
                             </p>
-                        </div>
-                        <div class="col-sm-6 text-end">
+                        </div> --}}
+                        <div class="col-sm-12 text-end">
                             <h5>Fees Details</h5>
                             <p>
-                                <strong>Fees Type:</strong> {{ optional($collection)->fees_type ?? '' }}<br>
+                                {{-- <strong>Fees Type:</strong> {{ optional($collection)->fees_type ?? '' }}<br> --}}
                                 <strong>Bank:</strong> {{ optional($collection)->bank->name ?? 'N/A' }}<br>
-                                <strong>Amount:</strong> {{ optional($collection)->fees_amount ?? '0.00' }} BDT<br>
+                                {{-- <strong>Amount:</strong> {{ optional($collection)->fees_amount ?? '0.00' }} BDT<br> --}}
                                 <strong>Paid Date:</strong> {{ optional($collection)->paid_date ?? now()->format('d-m-Y') }}
                             </p>
                         </div>
@@ -47,7 +47,7 @@
                     <div class="row mb-4">
                         <div class="col-sm-12">
                             <strong>Attached File:</strong>
-                            <a href="{{ asset('uploads/' . $collection->file) }}" download class="text-primary">
+                            <a href="{{ asset('uploads/collections/' . $collection->file) }}" download class="text-primary">
                                 {{ $collection->file }}
                             </a>
                         </div>

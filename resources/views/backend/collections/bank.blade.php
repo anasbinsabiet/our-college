@@ -8,9 +8,9 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">Office Collections</li>
+                        <li class="breadcrumb-item active">Bank Collections</li>
                     </ul>
-                    <a href="{{ route('collection.create') }}">
+                    <a href="{{ route('bank.collection.create') }}">
                         Add New
                     </a>
                 </div>
@@ -101,7 +101,7 @@
                                                             <i class="fas fa-download me-2"></i>
                                                         </a>
                                                         @if(auth()->user()->role_name == 'Admin')
-                                                            <a href="{{ route('collection.edit', $value->id) }}" class="btn btn-sm bg-primary-light">
+                                                            <a href="{{ route('edit.bank.collection', $value->id) }}" class="btn btn-sm bg-primary-light">
                                                                 <i class="far fa-edit me-2"></i>
                                                             </a>
                                                         @endif

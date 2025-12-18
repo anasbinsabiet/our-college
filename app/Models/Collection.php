@@ -13,6 +13,7 @@ class Collection extends Model
         'bank_id',
         'gender',
         'fees_type',
+        'collection_type',
         'fees_amount',
         'paid_date',
         'file',

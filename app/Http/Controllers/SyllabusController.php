@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notice;
+use App\Models\Syllabus;
 use App\Models\User;
 use Illuminate\Http\Request;
  
 use Illuminate\Support\Facades\DB;
 
-class NoticeController extends Controller
+class SyllabusController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Notice::query()->orderByDesc('id');
+        $query = Syllabus::query()->orderByDesc('id');
 
         // ===== Filters =====
         $query->when($request->id, fn($q) => $q->where('id', $request->id));
@@ -27,16 +27,16 @@ class NoticeController extends Controller
             $query->whereDate('created_at', '<=', $request->date_to);
         }
 
-        $notices = $query->get();
+        $syllabuses = $query->get();
         $users   = User::select('id', 'name')->get();
 
-        return view('backend.notices.index', compact('notices', 'users'));
+        return view('backend.syllabus.index', compact('syllabuses', 'users'));
     }
 
     public function create()
     {
-        return view('backend.notices.create', [
-            'notice' => null
+        return view('backend.syllabus.create', [
+            'syllabus' => null
         ]);
     }
 
@@ -56,11 +56,11 @@ class NoticeController extends Controller
 
             if ($request->hasFile('file')) {
                 $extension = $request->file('file')->extension();
-                $fileName  = 'notice-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
-                $request->file('file')->move(public_path('uploads/notices'), $fileName);
+                $fileName  = 'Syllabus-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
+                $request->file('file')->move(public_path('uploads/syllabuses'), $fileName);
             }
 
-            Notice::create([
+            Syllabus::create([
                 'title'       => $request->title,
                 'department' => $request->department,
                 'file'        => $fileName,
@@ -69,7 +69,7 @@ class NoticeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('notice.index')->with('success', 'Notice created successfully!');
+            return redirect()->route('Syllabus.index')->with('success', 'Syllabus created successfully!');
         } catch (\Throwable $e) {
             // return $e->getMessage();
             DB::rollBack();
@@ -79,14 +79,14 @@ class NoticeController extends Controller
 
     public function edit($id)
     {
-        $notice = Notice::findOrFail($id);
-        return view('backend.notices.create', compact('notice'));
+        $syllabus = Syllabus::findOrFail($id);
+        return view('backend.syllabus.create', compact('syllabus'));
     }
     
     public function show($id)
     {
-        $notice = Notice::findOrFail($id);
-        return view('backend.notices.show', compact('notice'));
+        $syllabus = Syllabus::findOrFail($id);
+        return view('backend.syllabus.show', compact('syllabus'));
     }
 
     public function update(Request $request, $id)
@@ -100,23 +100,23 @@ class NoticeController extends Controller
         try {
             DB::beginTransaction();
 
-            $notice  = Notice::findOrFail($id);
-            $oldFile = $notice->file;
+            $Syllabus  = Syllabus::findOrFail($id);
+            $oldFile = $Syllabus->file;
             $fileName = $oldFile;
 
             if ($request->hasFile('file')) {
 
-                if ($oldFile && file_exists(public_path('uploads/notices/' . $oldFile))) {
-                    unlink(public_path('uploads/notices/' . $oldFile));
+                if ($oldFile && file_exists(public_path('uploads/syllabuses/' . $oldFile))) {
+                    unlink(public_path('uploads/syllabuses/' . $oldFile));
                 }
 
                 $extension = $request->file('file')->extension();
-                $fileName  = 'notice-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
+                $fileName  = 'Syllabus-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
 
-                $request->file('file')->move(public_path('uploads/notices'), $fileName);
+                $request->file('file')->move(public_path('uploads/syllabuses'), $fileName);
             }
 
-            $notice->update([
+            $Syllabus->update([
                 'title'       => $request->title,
                 'department' => $request->department,
                 'file'        => $fileName,
@@ -125,7 +125,7 @@ class NoticeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('notice.index')->with('success', 'Notice updated successfully!');
+            return redirect()->route('syllabus.index')->with('success', 'Syllabus updated successfully!');
         } catch (\Throwable $e) {
 
             DB::rollBack();
@@ -136,15 +136,15 @@ class NoticeController extends Controller
     public function destroy($id)
     {
         try {
-            $notice = Notice::findOrFail($id);
+            $Syllabus = Syllabus::findOrFail($id);
 
-            if ($notice->file && file_exists(public_path('uploads/notices/' . $notice->file))) {
-                unlink(public_path('uploads/notices/' . $notice->file));
+            if ($Syllabus->file && file_exists(public_path('uploads/syllabuses/' . $Syllabus->file))) {
+                unlink(public_path('uploads/syllabuses/' . $Syllabus->file));
             }
 
-            $notice->delete();
+            $Syllabus->delete();
 
-            return back()->with('success', 'Notice deleted!');
+            return back()->with('success', 'Syllabus deleted!');
 
 
         } catch (\Throwable $e) {

@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <a class="breadcrumb-item active">{{ optional($collection)->id ? 'Edit' : 'Add' }} Collection</a>
-                            <a href="{{ route('collection.index') }}">Collection List</a>
+                            <a href="{{ route('bank.collection') }}">Collection List</a>
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                                 @endif                             
                                 @csrf
                                 <div class="row">
-                                    <input type="hidden" class="form-control" id="collection_type" value="{{ optional($collection)->collection_type ?? 'Office' }}" name="collection_type">
+                                    <input type="hidden" class="form-control" id="collection_type" value="{{ optional($collection)->collection_type ?? 'Bank' }}" name="collection_type">
                                     {{-- <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Student Name</label>
@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="student-submit d-flex">
-                                            <a class="btn btn-secondary mr-2" href="{{ route('collection.index') }}">Cancel</a>
+                                            <a class="btn btn-secondary mr-2" href="{{ route('bank.collection') }}">Cancel</a>
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>

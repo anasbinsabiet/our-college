@@ -8,9 +8,9 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active">All Notices</li>
+                    <li class="breadcrumb-item active">All Syllabus</li>
                 </ul>
-                <a href="{{ route('notice.create') }}">
+                <a href="{{ route('syllabus.create') }}">
                     Add New
                 </a>
             </div>
@@ -19,7 +19,7 @@
             <div class="col-sm-12">
                 <div class="card card-table">
                     <div class="card-body">
-                        <form method="GET" action="{{ route('notice.index') }}">
+                        <form method="GET" action="{{ route('syllabus.index') }}">
                             <div class="row">
                                 <!-- ID -->
                                 <div class="col-md-3 col-6">
@@ -70,7 +70,7 @@
                                 <!-- Buttons -->
                                 <div class="col-md-3 col-12">
                                     <button type="submit" class="btn btn-primary">Filter</button>
-                                    <a href="{{ route('notice.index') }}" class="btn btn-secondary">Reset</a>
+                                    <a href="{{ route('syllabus.index') }}" class="btn btn-secondary">Reset</a>
                                 </div>
                             </div>
                         </form>
@@ -89,40 +89,40 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($notices as $notice)
+                                    @foreach($syllabuses as $syllabus)
                                         <tr>
-                                            <td>{{ $notice->id }}</td>
+                                            <td>{{ $syllabus->id }}</td>
 
-                                            <td>{{ $notice->title }}</td>
+                                            <td>{{ $syllabus->title }}</td>
 
-                                            <td>{{ Str::limit($notice->department, 40) }}</td>
+                                            <td>{{ Str::limit($syllabus->department, 40) }}</td>
 
                                             <td>
-                                                @if($notice->file)
-                                                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" download>
-                                                        {{ $notice->file }}
+                                                @if($syllabus->file)
+                                                    <a href="{{ asset('uploads/syllabuss/' . $syllabus->file) }}" download>
+                                                        {{ $syllabus->file }}
                                                     </a>
                                                 @else
                                                     <span class="text-muted">No File</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $notice->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $syllabus->created_at->format('d-m-Y') }}</td>
                                             <td class="text-end">
                                                 <div class="actions">
-                                                    <a href="{{ route('notice.show', $notice->id) }}"
+                                                    <a href="{{ route('syllabus.show', $syllabus->id) }}"
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="far fa-eye"></i>
                                                     </a>
-                                                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" download
+                                                    <a href="{{ asset('uploads/syllabuss/' . $syllabus->file) }}" download
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="fas fa-download"></i>
                                                     </a>
-                                                    <a href="{{ route('notice.edit', $notice->id) }}"
+                                                    <a href="{{ route('syllabus.edit', $syllabus->id) }}"
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="far fa-edit"></i>
                                                     </a>
 
-                                                    <form action="{{ route('notice.destroy', $notice->id) }}"
+                                                    <form action="{{ route('syllabus.destroy', $syllabus->id) }}"
                                                           method="POST"
                                                           style="display:inline-block;">
                                                         @csrf

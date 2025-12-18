@@ -5,7 +5,9 @@
         <div class="page-header">
             <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                 <a class="breadcrumb active">User Details</a>
-                <a href="{{ route('user.index') }}">User List</a>
+                @if (auth()->user()->role == 'Admin')
+                    <a href="{{ route('user.index') }}">User List</a>
+                @endif
             </div>
         </div>
         <div class="row">
