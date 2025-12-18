@@ -22,11 +22,6 @@
                         <div class="card-body">
                             <form class="student-group-form">
                                 <div class="row">
-                                    <div class="col-md-3 col-6">
-                                        <div class="form-group">
-                                            <input type="text" name="id" class="form-control" placeholder="Search by ID ..." value="{{ request('id') }}">
-                                        </div>
-                                    </div>
                                     {{-- <div class="col-md-3 col-6">
                                         <div class="form-group">
                                             <select class="select select2s-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" name="student_id" class="form-control">
@@ -66,7 +61,7 @@
                                     </div>
                                     <div class="col-md-3 col-12 mb-4">
                                         <button type="submit" class="btn btn-primary">Filter</button>
-                                        <a  href="{{ route('collection.index') }}" class="btn btn-secondary">Reset</a>
+                                        <a  href="{{ route('bank.collection') }}" class="btn btn-secondary">Reset</a>
                                     </div>
                                 </div>
                             </form>

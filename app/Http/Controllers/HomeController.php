@@ -45,6 +45,9 @@ class HomeController extends Controller
             'students'    => Student::count(),
             'teachers'    => Teacher::count(),
             'collections' => Collection::count(),
+            'todayCollections'   => Collection::whereDate('created_at', today())->sum('fees_amount'),
+            'thisWeekCollections'   => Collection::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('fees_amount'),
+            'thisMonthCollections'   => Collection::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->sum('fees_amount'),
             'chart'       => [
                 'labels' => $chart->pluck('paid_date'),
                 'series' => $chart->pluck('total'),

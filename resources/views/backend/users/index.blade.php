@@ -16,18 +16,12 @@
                     </a>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card card-table common-shadow">
                         <div class="card-body">
                             <form class="user-group-form">
                                 <div class="row">
-                                    <div class="col-md-3 col-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search by ID ..." name="id" value="{{ request('id') }}">
-                                        </div>
-                                    </div>
                                     <div class="col-md-3 col-6">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Search by Name ..." name="name" value="{{ request('name') }}">

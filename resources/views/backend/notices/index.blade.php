@@ -21,18 +21,6 @@
                     <div class="card-body">
                         <form method="GET" action="{{ route('notice.index') }}">
                             <div class="row">
-                                <!-- ID -->
-                                <div class="col-md-3 col-6">
-                                    <div class="form-group">
-                                        <input type="text"
-                                               name="id"
-                                               class="form-control"
-                                               placeholder="Search by ID..."
-                                               value="{{ request('id') }}">
-                                    </div>
-                                </div>
-
-                                <!-- Title -->
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
                                         <input type="text"

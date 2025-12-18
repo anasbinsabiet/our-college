@@ -25,11 +25,6 @@
                                 <div class="row">
                                     <div class="col-md-3 col-6">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search by ID ..." name="id" value="{{ request('id') }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-6">
-                                        <div class="form-group">
                                             <input type="text" class="form-control" placeholder="Search by Name ..." name="name" value="{{ request('name') }}">
                                         </div>
                                     </div>
