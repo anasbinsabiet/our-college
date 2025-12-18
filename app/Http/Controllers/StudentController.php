@@ -54,16 +54,26 @@ class StudentController extends Controller
             $fileName = null;
 
             if ($request->hasFile('file')) {
-                $extension = $request->file('file')->extension();
+                $file = $request->file('file');
+
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
 
                 $fileName = sprintf(
-                    'student-%s-%s.%s',
+                    'collection-%s-%s.%s',
                     uniqid(),
                     now()->format('d_m_Y'),
-                    $extension
+                    $file_extension
                 );
 
-                $request->file('file')->move('uploads/students', $fileName);
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/students');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move file
+                $file->move($uploadPath, $fileName);
             }
 
             Student::create([
@@ -129,22 +139,26 @@ class StudentController extends Controller
 
             // Handle file upload
             if ($request->hasFile('file')) {
+                $file = $request->file('file');
 
-                // Delete old file if exists
-                if ($oldFile && file_exists(storage_path('uploads/students/' . $oldFile))) {
-                    unlink(storage_path('uploads/students/' . $oldFile));
-                }
-
-                $extension = $request->file('file')->extension();
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
 
                 $fileName = sprintf(
-                    'student-%s-%s.%s',
+                    'collection-%s-%s.%s',
                     uniqid(),
                     now()->format('d_m_Y'),
-                    $extension
+                    $file_extension
                 );
 
-                $request->file('file')->move('uploads/students', $fileName);
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/students');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move file
+                $file->move($uploadPath, $fileName);
             }
             $student->name    = $request->name;
             $student->gender        = $request->gender;

@@ -89,7 +89,7 @@
 
                                             <td>
                                                 @if($syllabus->file)
-                                                    <a href="{{ asset('uploads/syllabuss/' . $syllabus->file) }}" download>
+                                                    <a href="{{ asset('uploads/syllabuses/' . $syllabus->file) }}" download>
                                                         {{ $syllabus->file }}
                                                     </a>
                                                 @else

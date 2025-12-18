@@ -42,18 +42,20 @@ class UserController extends Controller
 
             $fileName = null;
 
-            // Handle file upload
             if ($request->hasFile('avatar')) {
-                $extension = $request->file('avatar')->extension();
-
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension();
                 $fileName = sprintf(
                     'user-%s-%s.%s',
                     uniqid(),
                     now()->format('d_m_Y'),
                     $extension
                 );
-
-                $request->file('avatar')->move(public_path('uploads/users'), $fileName);
+                $uploadPath = public_path('uploads/users');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+                $file->move($uploadPath, $fileName);
             }
 
             // Create new user
@@ -117,15 +119,19 @@ class UserController extends Controller
             $oldFile = $user->avatar;
             $fileName = $oldFile;
 
-            // Handle file upload
             if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
 
                 // Delete old file if exists
-                if ($oldFile && file_exists(storage_path('uploads/users/' . $oldFile))) {
-                    unlink(storage_path('uploads/users/' . $oldFile));
+                if (!empty($oldFile)) {
+                    $oldFilePath = public_path('uploads/users/' . $oldFile);
+                    if (file_exists($oldFilePath)) {
+                        unlink($oldFilePath);
+                    }
                 }
 
-                $extension = $request->file('avatar')->extension();
+                // Use getClientOriginalExtension() for PHP <8.1 compatibility
+                $extension = $file->getClientOriginalExtension();
 
                 $fileName = sprintf(
                     'user-%s-%s.%s',
@@ -134,7 +140,17 @@ class UserController extends Controller
                     $extension
                 );
 
-                $request->file('avatar')->move('uploads/users', $fileName);
+                // Ensure upload directory exists
+                $uploadPath = public_path('uploads/users');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move uploaded file
+                $file->move($uploadPath, $fileName);
+
+                // Save new file name to user model or variable
+                $user->avatar = $fileName;
             }
             
             $user->name    = $request->name;

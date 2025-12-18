@@ -141,14 +141,26 @@ class CollectionController extends Controller
             $fileName = null;
 
             if ($request->hasFile('file')) {
-                $file_extension = $request->file('file')->extension();
+                $file = $request->file('file');
+
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
+
                 $fileName = sprintf(
                     'collection-%s-%s.%s',
                     uniqid(),
                     now()->format('d_m_Y'),
                     $file_extension
                 );
-                $request->file('file')->move('uploads/collections', $fileName);
+
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/collections');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move file
+                $file->move($uploadPath, $fileName);
             }
 
             Collection::create([

@@ -55,9 +55,26 @@ class SyllabusController extends Controller
             $fileName = null;
 
             if ($request->hasFile('file')) {
-                $extension = $request->file('file')->extension();
-                $fileName  = 'Syllabus-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
-                $request->file('file')->move(public_path('uploads/syllabuses'), $fileName);
+                $file = $request->file('file');
+
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
+
+                $fileName = sprintf(
+                    'syllabus-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $file_extension
+                );
+
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/syllabuses');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move file
+                $file->move($uploadPath, $fileName);
             }
 
             Syllabus::create([
@@ -105,15 +122,26 @@ class SyllabusController extends Controller
             $fileName = $oldFile;
 
             if ($request->hasFile('file')) {
+                $file = $request->file('file');
 
-                if ($oldFile && file_exists(public_path('uploads/syllabuses/' . $oldFile))) {
-                    unlink(public_path('uploads/syllabuses/' . $oldFile));
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
+
+                $fileName = sprintf(
+                    'collection-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $file_extension
+                );
+
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/syllabuses');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
                 }
 
-                $extension = $request->file('file')->extension();
-                $fileName  = 'Syllabus-' . uniqid() . '-' . now()->format('dmY') . '.' . $extension;
-
-                $request->file('file')->move(public_path('uploads/syllabuses'), $fileName);
+                // Move file
+                $file->move($uploadPath, $fileName);
             }
 
             $Syllabus->update([
