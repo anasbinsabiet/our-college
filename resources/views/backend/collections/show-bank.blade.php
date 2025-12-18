@@ -4,8 +4,8 @@
     <div class="content container-fluid">
         <div class="page-header">
             <div class="page-sub-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <a class="breadcrumb active">Office Collection Details</a>
-                <a href="{{ route('collection.index') }}">Collection List</a>
+                <a class="breadcrumb active">Bank Collection Details</a>
+                <a href="{{ route('bank.collection') }}">Collection List</a>
             </div>
         </div>
         <div class="card">

@@ -94,7 +94,7 @@
                                                 <td>{{ $value->paid_date }}</td>
                                                 <td class="text-end">
                                                     <div class="actions">
-                                                        <a href="{{ route('collection.show', $value->id) }}" class="btn btn-sm bg-primary-light mr-2">
+                                                        <a href="{{ route('show.bank.collection', $value->id) }}" class="btn btn-sm bg-primary-light mr-2">
                                                             <i class="far fa-eye me-2"></i>
                                                         </a>
                                                         <a href="{{ asset('uploads/collections/' . $value->file) }}" download class="btn btn-sm bg-primary-light mr-2">

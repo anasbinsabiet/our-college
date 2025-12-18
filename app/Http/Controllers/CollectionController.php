@@ -113,10 +113,16 @@ class CollectionController extends Controller
     
     public function show(Request $request, $id)
     {
-        // return 'ok';
         $feesType    = FeesType::all();
         $collection  = Collection::findOrFail($id);
         return view('backend.collections.show',compact('feesType','collection'));
+    }
+    
+    public function showBankCollection(Request $request, $id)
+    {
+        $feesType    = FeesType::all();
+        $collection  = Collection::findOrFail($id);
+        return view('backend.collections.show-bank',compact('feesType','collection'));
     }
 
     public function store(Request $request)

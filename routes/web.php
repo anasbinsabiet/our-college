@@ -112,11 +112,11 @@ Route::group(['middleware' => 'auth'], function () {
             'update' => 'collection.update',
         ]
     ]);
-    Route::get('collections/{id}', [CollectionController::class, 'show'])->name('collection.show');
 
     Route::get('bank-collection', [CollectionController::class, 'bankCollection'])->name('bank.collection');
     Route::get('bank-collection/create', [CollectionController::class, 'createBank'])->name('bank.collection.create');
     Route::get('bank-collection/{id}/edit', [CollectionController::class, 'editBankCollection'])->name('edit.bank.collection');
+    Route::get('bank-collection/{id}', [CollectionController::class, 'showBankCollection'])->name('show.bank.collection');
 
     Route::resource('notices', NoticeController::class, [
         'names' => [
