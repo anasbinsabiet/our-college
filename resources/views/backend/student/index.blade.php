@@ -49,9 +49,10 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Class</th>
-                                            <th>DOB</th>
+                                            <th>Roll</th>
+                                            <th>Dept</th>
+                                            <th>Session</th>
                                             <th>Mobile Number</th>
-                                            <th>Email</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -60,10 +61,11 @@
                                         <tr>
                                             <td>{{ $list->id }}</td>
                                             <td><a href="{{ route('student.show', $list->id) }}">{{ $list->name }}</a></td>
-                                            <td>{{ $list->class }} {{ $list->section }}</td>
-                                            <td>{{ $list->date_of_birth }}</td>
+                                            <td>{{ $list->class }}</td>
+                                            <td>{{ $list->roll }}</td>
+                                            <td>{{ $list->department }}</td>
+                                            <td>{{ $list->section }}</td>
                                             <td>{{ $list->phone }}</td>
-                                            <td>{{ $list->email }}</td>
                                             <td class="text-end">
                                                 <div class="actions">
                                                     <a href="{{ route('student.show', $list->id) }}" class="btn btn-sm bg-primary-light mr-2">

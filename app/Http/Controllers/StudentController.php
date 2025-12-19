@@ -86,6 +86,8 @@ class StudentController extends Controller
                 'email'         => $request->email,
                 'class'         => $request->class,
                 'section'       => $request->section,
+                'department'       => $request->department,
+                'semester'       => $request->semester,
                 'phone'  => $request->phone,
                 'file'          => $fileName,
             ]);
@@ -169,8 +171,10 @@ class StudentController extends Controller
             $student->email         = $request->email;
             $student->class         = $request->class;
             $student->section       = $request->section;
+            $student->department       = $request->department;
+            $student->semester       = $request->semester;
             $student->phone  = $request->phone;
-            $student->file          = $fileName; // or existing file if unchanged
+            $student->file          = $fileName;
             $student->save();
 
             DB::commit();

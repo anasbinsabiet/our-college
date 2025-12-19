@@ -48,20 +48,22 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Name</th>
+                                            <th>Designation</th>
                                             <th>Gender</th>
-                                            <th>DOB</th>
+                                            <th>Joining Date</th>
                                             <th>Mobile Number</th>
                                             <th>Email</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($teachers as $key=>$list )
+                                        @foreach ($teachers as $key=>$list )`
                                         <tr>
                                             <td>{{ $list->id }}</td>
                                             <td><a href="{{ route('teacher.show', $list->id) }}">{{ $list->name }}</td>
+                                            <td>{{ $list->designation }}</td>
                                             <td>{{ $list->gender }}</td>
-                                            <td>{{ $list->date_of_birth }}</td>
+                                            <td>{{ $list->joining_date }}</td>
                                             <td>{{ $list->phone }}</td>
                                             <td>{{ $list->email }}</td>
                                             <td class="text-end">

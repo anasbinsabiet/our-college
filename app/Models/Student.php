@@ -10,17 +10,17 @@ class Student extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'last_name',
         'gender',
         'date_of_birth',
         'roll',
         'blood_group',
         'religion',
+        'semester',
         'email',
         'class',
         'section',
-        'admission_id',
+        'department',
         'phone',
-        'upload',
+        'file',
     ];
 }

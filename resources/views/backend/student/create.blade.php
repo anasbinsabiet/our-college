@@ -69,7 +69,7 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Roll <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('roll') is-invalid @enderror" type="text" name="roll" placeholder="Enter Roll Number" value="{{ optional($student)->roll }}">
+                                            <input class="form-control @error('roll') is-invalid @enderror" type="number" name="roll" placeholder="Enter Roll Number" value="{{ optional($student)->roll }}">
                                             @error('roll')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -112,6 +112,17 @@
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
+                                            <label>Phone <span class="text-danger">*</span></label>
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($student)->phone }}">
+                                            @error('phone')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
                                             <label>E-Mail</label>
                                             <input class="form-control @error('email') is-invalid @enderror" type="text" name="email" placeholder="Enter Email Address" value="{{ optional($student)->email }}">
                                             @error('email')
@@ -143,29 +154,25 @@
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
-                                            <label>Section</label>
+                                            <label>Session</label>
                                             <select class="form-control select @error('section') is-invalid @enderror" name="section">
-                                                <option selected disabled>Select Section </option>
+                                                <option selected disabled>Select section </option>
                                                 <option value="A" {{ optional($student)->section == 'A' ? "selected" :""}}>A</option>
                                                 <option value="B" {{ optional($student)->section == 'B' ? "selected" :""}}>B</option>
                                                 <option value="C" {{ optional($student)->section == 'C' ? "selected" :""}}>C</option>
                                             </select>
-                                            @error('section')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
-                                            <label>Phone <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($student)->phone }}">
-                                            @error('phone')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <label>Department</label>
+                                            <input class="form-control" name="department" placeholder="Enter department" value="{{ optional($student)->department }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
+                                            <label>Semester</label>
+                                            <input class="form-control" name="semester" placeholder="Enter Semester" value="{{ optional($student)->semester }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-3">

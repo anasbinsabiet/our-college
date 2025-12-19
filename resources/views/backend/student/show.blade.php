@@ -17,7 +17,7 @@
                     <div class="card-body text-center">
                         <img src="{{ $student->file 
         ? asset('uploads/students/' . $student->file) 
-        : asset('assets/img/avatar.png') }}"  alt="Student Photo" class="img-fluid rounded-circle mb-3" width="150" height="150">
+        : asset('assets/img/avatar.png') }}"  alt="Student Photo" class="img-fluid rounded-circle mb-3" width="150" height="150" />
                         <h4 class="mb-1">{{ $student->name }}</h4>
                         <p class="text-muted">{{ $student->email }}</p>
                         <div class="d-flex justify-content-center gap-3 mt-3">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="mt-3">
                             <span class="badge bg-secondary">Class: {{ $student->class }}</span>
-                            <span class="badge bg-secondary">Section: {{ $student->section }}</span>
+                            <span class="badge bg-secondary">Session: {{ $student->section }}</span>
                         </div>
                     </div>
                 </div>
@@ -38,29 +38,27 @@
                     <div class="card-body">
                         <h5 class="card-title mb-4">Student Information</h5>
                         <div class="row mb-2">
-                            <div class="col-sm-6"><strong>Roll Number:</strong> {{ $student->roll }}</div>
-                            <div class="col-sm-6"><strong>Admission ID:</strong> {{ $student->admission_id }}</div>
+                            <div class="col-sm-6"><strong>Full Name:</strong> {{ $student->name }}</div>
+                            <div class="col-sm-6"><strong>Email:</strong> {{ $student->email }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-6"><strong>Blood Group:</strong> {{ $student->blood_group }}</div>
+                            <div class="col-sm-6"><strong>Phone Number:</strong> {{ $student->phone }}</div>
                             <div class="col-sm-6"><strong>Religion:</strong> {{ $student->religion }}</div>
                         </div>
                         <div class="row mb-2">
+                            <div class="col-sm-6"><strong>Roll Number:</strong> {{ $student->roll }}</div>
+                            <div class="col-sm-6"><strong>Department:</strong> {{ $student->department }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-6"><strong>Session:</strong> {{ $student->section }}</div>
+                            <div class="col-sm-6"><strong>Gender:</strong> {{ $student->gender }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-6"><strong>Blood Group:</strong> {{ $student->blood_group }}</div>
                             <div class="col-sm-6"><strong>Date of Birth:</strong> {{ $student->date_of_birth }}</div>
-                            <div class="col-sm-6"><strong>Created At:</strong> {{ $student->created_at->format('d-m-Y H:i') }}</div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-sm-6"><strong>Updated At:</strong> {{ $student->updated_at->format('d-m-Y H:i') }}</div>
-                            <div class="col-sm-6"><strong>User ID:</strong> {{ $student->user_id ?? 'N/A' }}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Full Name:</strong> {{ $student->name }} {{ $student->last_name }}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Email:</strong> {{ $student->email }}</div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-sm-12"><strong>Phone Number:</strong> {{ $student->phone }}</div>
+                            <div class="col-sm-6"><strong>Added Date:</strong> {{ $student->created_at->format('d-m-Y H:i') }}</div>
                         </div>
                     </div>
                 </div>

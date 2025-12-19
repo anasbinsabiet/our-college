@@ -85,9 +85,9 @@
                     </div>
                 </div>
             @endif
-            @if(auth()->user()->role_name == 'Accountant')
+            @if(auth()->user()->role_name != 'Admin')
                 <div class="row">
-                    <a class="col-xl-3 col-sm-6 col-6 d-flex" href="{{ route('bank.collection') }}">
+                    <a class="col-xl-3 col-sm-6 col-6 d-flex">
                         <div class="card bg-common w-100">
                             <div class="card-body">
                                 <div class="db-widgets d-flex justify-content-between align-items-center">

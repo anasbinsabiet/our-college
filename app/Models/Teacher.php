@@ -14,12 +14,14 @@ class Teacher extends Model
         'date_of_birth',
         'phone',
         'joining_date',
-        'qualification',
+        'leaving_date',
         'address',
-        'city',
+        'designation',
         'email',
         'religion',
         'country',
         'blood_group',
+        'status',
+        'created_by'
     ];
 }
