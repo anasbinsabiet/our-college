@@ -105,6 +105,17 @@ class SettingController extends Controller
             'logo'        => 'nullable|image|max:5120',
             'favicon'     => 'nullable|image|max:2048',
             'banner'      => 'nullable|image|max:5120',
+            'chairman_avatar' => 'nullable|image|max:5120',
+            'principal_avatar' => 'nullable|image|max:5120',
+
+            'chairman_name' => 'nullable|string|max:255',
+            'chairman_designation' => 'nullable|string|max:255',
+            'chairman_message' => 'nullable|string|max:500',
+            'principal_name' => 'nullable|string|max:255',
+            'principal_designation' => 'nullable|string|max:255',
+            'principal_message' => 'nullable|string|max:500',
+            'mission' => 'nullable|string|max:500',
+            'vision' => 'nullable|string|max:500',
         ]);
 
         try {
@@ -112,7 +123,7 @@ class SettingController extends Controller
 
             $uploadPath = public_path('uploads/settings/');
 
-            $files = ['logo', 'favicon', 'banner'];
+            $files = ['logo', 'favicon', 'banner', 'chairman_avatar', 'principal_avatar'];
 
             foreach ($files as $file) {
 
@@ -134,6 +145,15 @@ class SettingController extends Controller
             $setting->mobile      = $request->mobile;
             $setting->email       = $request->email;
             $setting->address     = $request->address;
+
+            $setting->chairman_name = $request->chairman_name;
+            $setting->chairman_designation = $request->chairman_designation;
+            $setting->chairman_message = $request->chairman_message;
+            $setting->principal_name = $request->principal_name;
+            $setting->principal_designation = $request->principal_designation;
+            $setting->principal_message = $request->principal_message;
+            $setting->mission = $request->mission;
+            $setting->vision = $request->vision;
 
             $setting->updated_by = auth()->id();
             $setting->save();

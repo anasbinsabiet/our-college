@@ -54,7 +54,7 @@
     <div class="box-container">
         <div class="box">
             <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Batchlor of Computer Application</h4>
+            <h4>Higher Secondary Certificate</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
                 aliqua
             </p>
@@ -63,7 +63,7 @@
 
         <div class="box">
             <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Batchlor of Business Administration</h4>
+            <h4>Secondary School Certificate</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
                 aliqua.
             </p>
@@ -72,7 +72,7 @@
 
         <div class="box">
             <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Bio-Technology</h4>
+            <h4>Junior School Certificate</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
                 aliqua
             </p>
@@ -81,7 +81,7 @@
 
         <div class="box">
             <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Computer Science</h4>
+            <h4>Primary School Certificate</h4>
             <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
                 aliqua.
             </p>
@@ -119,6 +119,12 @@
                 </div>
             @endforeach
         </div>
+
+        <center>
+            <a href="{{ route('notice') }}" class="btn btn-info text-white mt-4">
+                View All
+            </a>
+        </center>
     </div>
 </section>
 <section class="cta-section" id="contact">

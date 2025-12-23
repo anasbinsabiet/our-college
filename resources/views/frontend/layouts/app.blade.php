@@ -28,7 +28,7 @@
         </label>
         <ul class="menu" style="border-radius: 5px;">
             <li><a href="{{ route('about') }}">About</a></li>
-            <li><a href="{{ route('home') }}#notice">Notice Board</a></li>
+            <li><a href="{{ route('notice') }}">Notice Board</a></li>
             <li><a href="{{ route('home') }}#courses">Courses</a></li>
             <li><a href="{{ route('home') }}#contact">Contact</a></li>
             @auth

@@ -12,13 +12,19 @@ class FrontendController extends Controller
     public function index(Request $request)
     {
         $setting = Setting::find(1);
-        $notices = Notice::latest()->take(10)->get();
+        $notices = Notice::latest()->take(3)->get();
         return view('frontend.welcome', compact('notices', 'setting'));
     }
     public function about()
     {   
         $setting = Setting::find(1);
         return view('frontend.about',compact('setting'));
+    }
+    public function notice()
+    {   
+        $setting = Setting::find(1);
+        $notices = Notice::latest()->paginate(3);
+        return view('frontend.notice',compact('setting', 'notices'));
     }
 
     public function contact(Request $request)
