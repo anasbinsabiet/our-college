@@ -33,6 +33,26 @@
                                             <input type="text" class="form-control" placeholder="Search by Phone ..." name="phone" value="{{ request('phone') }}">
                                         </div>
                                     </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search by Roll ..." name="roll" value="{{ request('roll') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search by Department ..." name="department" value="{{ request('department') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search by Session ..." name="section" value="{{ request('section') }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search by Semester ..." name="semester" value="{{ request('semester') }}">
+                                        </div>
+                                    </div>
                                     <div class="col-md-3 col-12 mb-4">
                                         <div class="search-user-btn">
                                             <button type="submit" class="btn btn-primary">Search</button>
@@ -52,6 +72,7 @@
                                             <th>Roll</th>
                                             <th>Dept</th>
                                             <th>Session</th>
+                                            <th>Semester</th>
                                             <th>Mobile Number</th>
                                             <th class="text-end">Action</th>
                                         </tr>
@@ -65,6 +86,7 @@
                                             <td>{{ $list->roll }}</td>
                                             <td>{{ $list->department }}</td>
                                             <td>{{ $list->section }}</td>
+                                            <td>{{ $list->semester }}</td>
                                             <td>{{ $list->phone }}</td>
                                             <td class="text-end">
                                                 <div class="actions">

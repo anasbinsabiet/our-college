@@ -13,17 +13,23 @@ class StudentController extends Controller
     {
         $query = Student::query();
 
-        // Filter by ID
-        if ($request->filled('id')) {
-            $query->where('id', $request->id);
-        }
-
-        // Filter by phone number
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
         if ($request->filled('phone')) {
             $query->where('phone', 'like', '%' . $request->phone . '%');
+        }
+        if ($request->filled('roll')) {
+            $query->where('roll', 'like', '%' . $request->roll . '%');
+        }
+        if ($request->filled('department')) {
+            $query->where('department', 'like', '%' . $request->department . '%');
+        }
+        if ($request->filled('section')) {
+            $query->where('section', 'like', '%' . $request->section . '%');
+        }
+        if ($request->filled('semester')) {
+            $query->where('semester', 'like', '%' . $request->semester . '%');
         }
 
         $students = $query->orderByDesc('id')->get();
