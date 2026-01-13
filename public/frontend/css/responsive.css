@@ -603,6 +603,17 @@
     .sec-title-2 p,
 	.sec-title p {
         font-size: 14px;
+        text-align: center;
+    }
+    .post-img {
+        display: none;
+    }
+    .post-desc.notice-details {
+        width: 100% !important;
+        text-align: left;
+    }
+    .post-desc.notice-details {
+        padding-left: 0px !important;
     }
     .rs-partner.pb-170{
         padding-bottom: 150px !important;
@@ -680,7 +691,7 @@
         margin-top: 20px !important;
     }
     #rs-footer{
-        padding-top: 0;
+        padding-top: 50px;
     }
     #rs-footer > .container{
         padding-left: 0;
