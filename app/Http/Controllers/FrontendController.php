@@ -5,20 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Notice;
 use App\Models\Setting;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function index(Request $request)
+    // HomeController.php
+    public function index()
     {
-        $setting = Setting::find(1);
-        $notices = Notice::latest()->take(3)->get();
-        return view('frontend.welcome', compact('notices', 'setting'));
+        $setting = Setting::first();
+        $notices = Notice::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+        
+        $events = Notice::where('status', 1)
+            ->where('created_at', '>=', now())
+            ->orWhere('created_at', '>=', now()->subDays(30))
+            ->orderBy('created_at', 'asc')
+            ->take(6)
+            ->get();
+        
+        $sliders = Notice::where('status', 1)
+            // ->orderBy('order')
+            ->get();
+        
+        $teacherCount = Teacher::where('status', 1)->count();
+        $studentCount = Student::where('status', 1)->count();
+        
+        return view('frontend.welcome', compact(
+            'setting',
+            'notices',
+            'events',
+            'sliders',
+            'teacherCount',
+            'studentCount'
+        ));
     }
     public function about()
     {   
         $setting = Setting::find(1);
-        return view('frontend.about',compact('setting'));
+        $notices = Notice::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+        return view('frontend.about',compact('setting','notices'));
     }
     public function notice()
     {   

@@ -3,219 +3,548 @@
 @section('title', 'Home')
 
 @section('content')
-<section class="hero-bs position-relative text-white">
-    <div class="container">
-        <div class="row align-items-center min-vh-75">
-
-            {{-- Left Content --}}
-            <div class="col-lg-6 text-center text-lg-start mb-5 mb-lg-0 header-left">
-                <span class="badge bg-light text-dark px-3 py-2 rounded-pill mb-3 d-inline-block">
-                    🎓 Welcome to {{ optional($setting)->title ?? 'Our College' }}
-                </span>
-
-                <h1 class="display-5 fw-bold mt-3">
-                    Build Your Future With <br>
-                    <span class="text-info">Smart Education</span>
-                </h1>
-
-                <p class="lead text-light opacity-75 mt-3">
-                    We prepare students for intellectual, professional, and personal success
-                    through innovation, technology, and excellence.
-                </p>
-
-                <div class="d-flex gap-3 justify-content-center justify-content-lg-start mt-4 flex-wrap">
-                    <a href="#contact" class="btn btn-info btn-lg px-4">
-                        Apply Now
-                    </a>
-                    <a href="#courses" class="btn btn-outline-light btn-lg px-4">
-                        Explore Courses
-                    </a>
-                </div>
-            </div>
-
-            {{-- Right Image --}}
-            <div class="col-lg-6 text-center">
-                <img
-                    src="{{ asset('frontend/images/hero.png') }}"
-                    class="img-fluid hero-image"
-                    alt="Hero Image">
-            </div>
-
-        </div>
-    </div>
-</section>
-<section class="services" id="courses">
-    <div class="services-heading">
-        <h2>OUR PROFESSIONAL COURSES</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna aliqua
-        </p>
-    </div>
-
-    <div class="box-container">
-        <div class="box">
-            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Higher Secondary Certificate</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
-                aliqua
-            </p>
-            <a href="#">Apply Now</a>
-        </div>
-
-        <div class="box">
-            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Secondary School Certificate</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
-                aliqua.
-            </p>
-            <a href="#">Apply Now</a>
-        </div>
-
-        <div class="box">
-            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Junior School Certificate</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
-                aliqua
-            </p>
-            <a href="#">Apply Now</a>
-        </div>
-
-        <div class="box">
-            <img src="{{ asset('frontend/images/icon5.png') }}" alt="">
-            <h4>Primary School Certificate</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur ad asese do eiusmod tempor incididunt utarla oreetdolo magna
-                aliqua.
-            </p>
-            <a href="#">Apply Now</a>
-        </div>
-    </div>
-</section>
-<section class="notice-section" id="notice">
-    <div class="notice-wrapper">
-        <h2 class="notice-title">Latest Notices</h2>
-
-        <div class="notice-ticker">
-            <ul>
-                @foreach ($notices as $notice)
-                    <li>
-                        <a href="{{ asset('uploads/notices/' . $notice->file) }}" download>
-                            📄 {{ $notice->title }}
-                        </a>
-                        <span class="notice-date">{{ $notice->created_at->format('d M, Y') }}</span>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-
-        <div class="notice-list">
-            @foreach ($notices as $notice)
-                <div class="notice-card">
-                    <div>
-                        <h4>{{ $notice->title }}</h4>
-                        <span>{{ $notice->created_at->format('d M, Y') }}</span>
+<!-- Slider Area Start -->
+<div id="rs-slider" class="slider-overlay-2">     
+    <div id="home-slider" class="owl-carousel">
+        @if($sliders && $sliders->count() > 0)
+            @foreach($sliders as $slider)
+                <div class="item">
+                    <img src="{{ asset('uploads/sliders/' . $slider->image) }}" alt="{{ $slider->title }}" />
+                    <div class="slide-content">
+                        <div class="display-table">
+                            <div class="display-table-cell">
+                                <div class="container text-center">
+                                    <h1 class="slider-title">{{ $slider->title }}</h1>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" download class="notice-download-btn">
-                        Download PDF
-                    </a>
                 </div>
             @endforeach
-        </div>
+        @else
+            <div class="item">
+                <img src="{{ asset('assets/img/s1.jpg') }}" alt="Welcome to Our College" />
+                <div class="slide-content">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="container text-center">
+                                <h1 class="slider-title">Welcome to {{ optional($setting)->title ?? 'Our College' }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <img src="{{ asset('assets/img/s2.jpg') }}" alt="Quality Education" />
+                <div class="slide-content">
+                    <div class="display-table">
+                        <div class="display-table-cell">
+                            <div class="container text-center">
+                                <h1 class="slider-title">Quality Education for All</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    </div>         
+</div>
+<!-- Slider Area End -->
 
-        <center>
-            <a href="{{ route('notice') }}" class="btn btn-info text-white mt-4">
-                View All
-            </a>
-        </center>
+<!-- Services Start -->
+<!-- <div class="rs-services rs-services-style1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('principal-message') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <img src="{{ optional($setting)->principal_avatar ? asset('uploads/settings/' . $setting->principal_avatar) : asset('assets/img/logo.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Principal Corner</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('faculty-staff') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <img src="{{ asset('frontend/images/icons/faculty.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Faculty & Staffs</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('results') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">                             
+                            <img src="{{ asset('frontend/images/icons/results.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Results</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('alumni') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <img src="{{ asset('frontend/images/icons/alumni.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Alumni</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('clubs') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <img src="{{ asset('frontend/images/icons/clubs.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Clubs</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <a href="{{ url('admission') }}">
+                    <div class="services-item rs-animation-hover">
+                        <div class="services-icon">
+                            <img src="{{ asset('frontend/images/icons/admission.png') }}" class="mb-3" height="60">
+                        </div>
+                        <div class="services-desc">
+                            <h4 class="services-title">Admission Information</h4>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
-</section>
+</div> -->
+<!-- Services End -->
+
+<!-- Principal Message Start -->
+<div class="rs-history sec-spacer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12 mobile-mb-50">
+                <a href="{{ url('principal-message') }}">
+                    <img src="{{ optional($setting)->principal_avatar ? asset('uploads/settings/' . $setting->principal_avatar) : asset('assets/img/logo.png') }}" 
+                         alt="PRINCIPAL MESSAGE" class="img-fluid rounded shadow">
+                </a>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="abt-title">
+                    <h2>Principal Message</h2>
+                </div>
+                <div class="about-desc">
+                    @if(optional($setting)->principal_message)
+                        {!! optional($setting)->principal_message !!}
+                    @else
+                        <p>Welcome to our college - a premier institution committed to academic excellence and holistic development. We strive to provide quality education that nurtures both mind and character.</p>
+                        <p>Our mission is to create responsible citizens and future leaders who will contribute positively to society. Through innovative teaching methods and a supportive learning environment, we prepare students for success in their chosen fields.</p>
+                        <p>Join us in our journey of knowledge, growth, and transformation.</p>
+                    @endif
+                </div>
+                <a href="{{ url('principal-message') }}" class="btn btn-primary mt-3">Read More</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Principal Message End -->
+
+<!-- About Us Start -->
+<div id="rs-about" class="rs-about sec-spacer sec-color">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="about-desc">
+                    <h3>WELCOME TO {{ optional($setting)->title ?? 'Our College' }}</h3>      
+                    <p>{{ optional($setting)->welcome_message ?? 'We are committed to providing quality education that combines academic excellence with character building.' }}</p>
+                </div>
+                <div id="accordion" class="rs-accordion-style1">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h3 class="acdn-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                College History
+                            </h3>
+                        </div>
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body">
+                                @if(isset($history))
+                                    {!! $history->content !!}
+                                @else
+                                    <p>Our college was established with a vision to provide quality education to all sections of society. Over the years, we have grown into one of the leading educational institutions in the region.</p>
+                                    <p>With state-of-the-art infrastructure and dedicated faculty, we continue to uphold our tradition of excellence in education.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Our Mission
+                            </h3>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body">
+                                @if(isset($mission))
+                                    {!! $mission->content !!}
+                                @else
+                                    <p>To provide quality education that develops students intellectually, physically, emotionally, and spiritually, preparing them for lifelong learning and responsible citizenship.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header mb-0" id="headingThree">
+                            <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Our Vision
+                            </h3>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body">
+                                @if(isset($vision))
+                                    {!! $vision->content !!}
+                                @else
+                                    <p>To be a center of excellence in education that nurtures creativity, innovation, and critical thinking, producing leaders who will make a positive impact on society.</p>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="sidebar-area">
+                    <div class="latest-courses">
+                        <h3 class="title">Notice Board</h3>
+
+                        @foreach($notices->take(3) as $notice)
+                            <div class="post-item mb-3">
+                                <div class="post-img">
+                                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" target="_blank">
+                                        <img src="{{ asset('assets/img/pdf.png') }}" 
+                                             style="width:70px; height: 70px;" 
+                                             alt="PDF Icon" 
+                                             title="{{ $notice->title }}">
+                                    </a>
+                                </div>
+                                <div class="post-desc notice-details">
+                                    <h4>
+                                        <a href="{{ asset('uploads/notices/' . $notice->file) }}" target="_blank">
+                                            {{ Str::limit($notice->title, 40) }}
+                                        </a>
+                                    </h4>
+                                    <span class="price">
+                                        <span>
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            {{ $notice->created_at->format('d/m/Y') }}
+                                        </span>
+                                    </span>
+                                    ...
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div style="text-align: right; margin-top: 10px;">
+                            <a href="{{ url('notice') }}" class="btn btn-sm btn-outline-primary">More Notice</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About Us End -->
+
+<!-- Counter Up Section Start-->
+<div class="rs-counter pt-100 pb-70 bg3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <center>
+                    <h2 class="counter-title text-white">{{ optional($setting)->title ?? 'Our College' }}</h2>
+                    <p class="text-white">{{ optional($setting)->tagline ?? 'Excellence in Education Since Years' }}</p>
+                </center>
+            </div>
+            
+            <div class="col-lg-6 col-md-12">
+                <div class="counter-content">                            
+                    <div class="counter-img rs-image-effect-shine">
+                        <img src="{{ asset('assets/img/s3.jpg') }}" 
+                             alt="Campus View" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="rs-counter-list">
+                            <h2 class="counter-number plus" data-count="{{ $teacherCount ?? 94 }}">0</h2>                  
+                            <h4 class="counter-desc">TEACHERS</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rs-counter-list">
+                            <h2 class="counter-number plus" data-count="{{ $years ?? 25 }}">0</h2>
+                            <h4 class="counter-desc">Years</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="rs-counter-list">
+                            <h2 class="counter-number plus" data-count="{{ $studentCount ?? 1500 }}">0</h2>                  
+                            <h4 class="counter-desc">STUDENTS</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="rs-counter-list">
+                            <h2 class="counter-number plus" data-count="{{ $buildingCount ?? 3 }}">0</h2>
+                            <h4 class="counter-desc">Buildings</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Counter Down Section End -->
+
+<!-- Events Start -->
+<!-- <div id="rs-events" class="rs-events sec-spacer education_bg">
+    <div class="container">
+        <div class="sec-title mb-50 text-center">
+            <h2>Recent and Upcoming Events</h2>      
+            <p>Stay updated with our latest activities and events</p>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="rs-carousel owl-carousel">
+                    @foreach($events as $event)
+                        <div class="event-item">
+                            <div class="event-img">
+                                <img src="{{ asset('uploads/events/' . $event->image) }}" alt="{{ $event->title }}" />
+                                <a class="image-link" href="{{ url('event.details', $event->slug) }}" title="{{ $event->title }}">
+                                    <i class="fa fa-link"></i>
+                                </a>
+                            </div>
+                            <div class="events-details sec-color">
+                                <div class="event-date">
+                                    <i class="fa fa-calendar"></i>
+                                    <span>{{ $event?->date?->format('F d, Y') }}</span>
+                                </div>
+                                <h4 class="event-title">
+                                    <a href="{{ url('event.details', $event->slug) }}">{{ Str::limit($event->title, 50) }}</a>
+                                </h4>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- Events End -->
+
+<!-- Courses Section Start -->
+<div class="services pt-5" id="courses">
+    <div class="services-heading text-center mb-5 mt-5">
+        <h2>OUR PROFESSIONAL COURSES</h2>
+        <p>Comprehensive educational programs designed for academic excellence and career success</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Higher Secondary" class="mb-3" height="60">
+                    <h4>Higher Secondary Certificate</h4>
+                    <p>Advanced level education with specialized streams in Science, Commerce, and Arts</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Secondary School" class="mb-3" height="60">
+                    <h4>Degree</h4>
+                    <p>Comprehensive secondary education preparing students for higher studies</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Junior School" class="mb-3" height="60">
+                    <h4>Sociology</h4>
+                    <p>Foundational education building strong academic base for young learners</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
+                    <h4>Plotical Science</h4>
+                    <p>Early childhood education focusing on holistic development and basic skills</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
+                    <h4>Management</h4>
+                    <p>Early childhood education focusing on holistic development and basic skills</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4">
+                <div class="box text-center p-4 shadow-sm">
+                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
+                    <h4>Accounting</h4>
+                    <p>Early childhood education focusing on holistic development and basic skills</p>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Courses Section End -->
+
+<!-- Contact Section Start -->
 <section class="cta-section" id="contact">
-    <div class="cta-container">
-
-        <!-- Left Image -->
-        <div class="cta-image">
-            <img src="{{ asset('assets/img/login.jpg') }}" alt="University Playground">
-        </div>
-
-        <!-- Right Form -->
-        <div class="cta-form">
-            <h2>Get in Touch</h2>
-            <p>Have questions about courses, admission, or campus life? We are here to help.</p>
-
-            <form id="contactForm" class="cta-form-wrapper">
-                @csrf
-
-                <div class="alert alert-success d-none" id="contactSuccess">
-                    Message sent successfully. We will contact you soon.
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Left Image -->
+            <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                <div class="cta-image">
+                    <img src="{{ asset('assets/img/b1.jpg') }}" alt="Campus Life" class="img-fluid rounded shadow">
                 </div>
+            </div>
 
-                <div class="alert alert-danger d-none" id="contactError"></div>
+            <!-- Right Form -->
+            <div class="col-lg-6 col-md-6">
+                <div class="cta-form">
+                    <h2>Get in Touch</h2>
+                    <p>Have questions about courses, admission, or campus life? We are here to help.</p>
 
-                <div class="form-group mb-3">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                    <form id="contactForm" class="cta-form-wrapper">
+                        @csrf
+
+                        <div class="alert alert-success d-none" id="contactSuccess">
+                            Message sent successfully. We will contact you soon.
+                        </div>
+
+                        <div class="alert alert-danger d-none" id="contactError"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <textarea name="message" class="form-control" placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" id="contactBtn">
+                            Submit
+                        </button>
+                    </form>
                 </div>
-
-                <div class="form-group mb-3">
-                    <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
-                </div>
-
-                <div class="form-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email Address" required>
-                </div>
-
-                <div class="form-group mb-3">
-                    <textarea name="message" class="form-control" placeholder="Your Message" rows="4" required></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-info w-100 text-white" id="contactBtn">
-                    Submit
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 </section>
+<!-- Contact Section End -->
+<script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
 <script>
-document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    const form = this;
-    const btn = document.getElementById('contactBtn');
-    const successBox = document.getElementById('contactSuccess');
-    const errorBox = document.getElementById('contactError');
-
-    successBox.classList.add('d-none');
-    errorBox.classList.add('d-none');
-    btn.disabled = true;
-    btn.innerText = 'Sending...';
-
-    try {
-        const response = await fetch("{{ route('contact') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
-                "Accept": "application/json"
-            },
-            body: new FormData(form)
+    // Counter Animation
+    $(document).ready(function() {
+        $('.counter-number').each(function() {
+            $(this).prop('Counter', 0).animate({
+                Counter: $(this).data('count')
+            }, {
+                duration: 2000,
+                easing: 'swing',
+                step: function(now) {
+                    $(this).text(Math.ceil(now));
+                }
+            });
         });
+        
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
 
-        const data = await response.json();
+            const form = this;
+            const btn = document.getElementById('contactBtn');
+            const successBox = document.getElementById('contactSuccess');
+            const errorBox = document.getElementById('contactError');
 
-        if (!response.ok) {
-            throw data;
-        }
+            successBox.classList.add('d-none');
+            errorBox.classList.add('d-none');
+            btn.disabled = true;
+            btn.innerText = 'Sending...';
 
-        successBox.classList.remove('d-none');
-        form.reset();
+            try {
+                const response = await fetch("{{ url('contact.submit') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                        "Accept": "application/json"
+                    },
+                    body: new FormData(form)
+                });
 
-    } catch (error) {
-        let message = 'Something went wrong.';
-        if (error?.errors) {
-            message = Object.values(error.errors).flat().join('<br>');
-        }
-        errorBox.innerHTML = message;
-        errorBox.classList.remove('d-none');
-    } finally {
-        btn.disabled = false;
-        btn.innerText = 'Submit';
-    }
-});
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw data;
+                }
+
+                successBox.classList.remove('d-none');
+                form.reset();
+
+            } catch (error) {
+                let message = 'Something went wrong.';
+                if (error?.errors) {
+                    message = Object.values(error.errors).flat().join('<br>');
+                }
+                errorBox.innerHTML = message;
+                errorBox.classList.remove('d-none');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Submit';
+            }
+        });
+    });
 </script>
 @endsection

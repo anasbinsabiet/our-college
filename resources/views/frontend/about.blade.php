@@ -31,8 +31,8 @@
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body text-center p-4">
                     <img src="{{ optional($setting)->chairman_avatar ? asset('uploads/settings/' . $setting->chairman_avatar) : asset('assets/img/logo.png') }}"
-                         class="rounded-circle mb-3"
-                         height="120"
+                         class="mb-3"
+                         height="60"
                          alt="Chairman" />
 
                     <h5 class="fw-bold mb-1">{{ optional($setting)->chairman_name }}</h5>
@@ -50,8 +50,8 @@
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-body text-center p-4">
                     <img src="{{ optional($setting)->principal_avatar ? asset('uploads/settings/' . $setting->principal_avatar) : asset('assets/img/logo.png') }}"
-                         class="rounded-circle mb-3"
-                         height="120"
+                         class="mb-3"
+                         height="60"
                          alt="Principal">
 
                     <h5 class="fw-bold mb-1">{{ optional($setting)->principal_name }}</h5>
