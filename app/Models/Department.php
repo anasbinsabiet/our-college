@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Notice extends Model
+class Department extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'department_id',
-        'file',
+        'name',
+        'description',
+        'banner',
+        'status',
         'created_by',
         'updated_by',
     ];
-
-    public function department()
-    {
-        return $this->hasMany(Department::class, 'id', 'department_id');
-    }
 }

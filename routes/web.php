@@ -7,6 +7,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -47,8 +49,10 @@ Route::post('/register', [RegisterController::class, 'storeUser'])->name('regist
 
 // ---------------------- Frontend Routes ----------------------
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/notice', [FrontendController::class, 'notice'])->name('notice');
+Route::get('/department/{id}', [FrontendController::class, 'departmentView'])->name('notice');
 Route::post('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 
@@ -128,6 +132,30 @@ Route::group(['middleware' => 'auth'], function () {
             'edit' => 'notice.edit',
             'update' => 'notice.update',
             'destroy' => 'notice.destroy',
+        ]
+    ]);
+    
+    Route::resource('departments', DepartmentController::class, [
+        'names' => [
+            'index' => 'department.index',
+            'create' => 'department.create',
+            'store' => 'department.store',
+            'show' => 'department.show',
+            'edit' => 'department.edit',
+            'update' => 'department.update',
+            'destroy' => 'department.destroy',
+        ]
+    ]);
+    
+    Route::resource('galleries', GalleryController::class, [
+        'names' => [
+            'index' => 'gallery.index',
+            'create' => 'gallery.create',
+            'store' => 'gallery.store',
+            'show' => 'gallery.show',
+            'edit' => 'gallery.edit',
+            'update' => 'gallery.update',
+            'destroy' => 'gallery.destroy',
         ]
     ]);
     

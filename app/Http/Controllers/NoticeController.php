@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Notice;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class NoticeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Notice::query()->orderByDesc('id');
+        $query = Notice::with('department')->orderByDesc('id');
 
         // ===== Filters =====
         $query->when($request->id, fn($q) => $q->where('id', $request->id));
@@ -29,14 +30,16 @@ class NoticeController extends Controller
 
         $notices = $query->get();
         $users   = User::select('id', 'name')->get();
-
+        // return $notices;
         return view('backend.notices.index', compact('notices', 'users'));
     }
 
     public function create()
-    {
+    {   
+        $departments = Department::select('id', 'name')->get();
         return view('backend.notices.create', [
-            'notice' => null
+            'notice' => null,
+            'departments' => $departments
         ]);
     }
 
@@ -45,7 +48,7 @@ class NoticeController extends Controller
         // return $request->all();
         $request->validate([
             'title'       => 'required|max:255',
-            'department' => 'nullable|max:500',
+            'department_id' => 'nullable|max:11',
             'file'        => 'nullable|file|max:5120',
         ]);
 
@@ -79,7 +82,7 @@ class NoticeController extends Controller
 
             Notice::create([
                 'title'       => $request->title,
-                'department' => $request->department,
+                'department_id' => $request->department_id,
                 'file'        => $fileName,
                 'created_by'  => auth()->id(),
                 'created_at'  => now(),
@@ -97,7 +100,8 @@ class NoticeController extends Controller
     public function edit($id)
     {
         $notice = Notice::findOrFail($id);
-        return view('backend.notices.create', compact('notice'));
+        $departments = Department::select('id', 'name')->get();
+        return view('backend.notices.create', compact('notice','departments'));
     }
     
     public function show($id)
@@ -110,7 +114,7 @@ class NoticeController extends Controller
     {
         $request->validate([
             'title'       => 'required|max:255',
-            'department' => 'nullable|max:500',
+            'department_id' => 'nullable|max:11',
             'file'        => 'nullable|file|max:5120',
         ]);
 
@@ -146,7 +150,7 @@ class NoticeController extends Controller
 
             $notice->update([
                 'title'       => $request->title,
-                'department' => $request->department,
+                'department_id' => $request->department_id,
                 'file'        => $fileName,
                 'updated_by'  => auth()->id(),
                 'updated_at'  => now(),

@@ -28,6 +28,9 @@
                         <a href="{{ route('contact.index') }}" {{set_active(['contact.index'])}}><i class="fas fa-envelope"></i> <span>Contacts</span></a>
                     </li>
                     <li>
+                        <a href="{{ route('department.index') }}" {{set_active(['department.index'])}}><i class="fas fa-layer-group"></i> <span>Departments</span></a>
+                    </li>
+                    <li>
                         <a href="{{ route('notice.index') }}" {{set_active(['notice.index'])}}><i class="fas fa-file-alt"></i> <span>Notice Board</span></a>
                     </li>
                     <li>
@@ -38,6 +41,9 @@
                     </li>
                     <li>
                         <a href="{{ route('bank.collection') }}" {{set_active(['bank.collection'])}}><i class="fas fa-file-invoice"></i> <span>Bank Collection</span></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('gallery.index') }}" {{set_active(['gallery.index'])}}><i class="fas fa-image"></i> <span>Gallery</span></a>
                     </li>
                     <li>
                         <a href="{{ route('setting.index') }}" {{set_active(['setting.index'])}}><i class="fas fa-cog"></i> <span>Settings</span></a>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Department;
+use App\Models\Gallery;
 use App\Models\Notice;
 use App\Models\Setting;
 use App\Models\Student;
@@ -19,19 +21,17 @@ class FrontendController extends Controller
             ->take(10)
             ->get();
         
-        $events = Notice::where('status', 1)
-            ->where('created_at', '>=', now())
+        $events = Notice::where('created_at', '>=', now())
             ->orWhere('created_at', '>=', now()->subDays(30))
             ->orderBy('created_at', 'asc')
             ->take(6)
             ->get();
         
-        $sliders = Notice::where('status', 1)
-            // ->orderBy('order')
-            ->get();
+        $sliders = Notice::get();
+        $departments = Department::get();
         
-        $teacherCount = Teacher::where('status', 1)->count();
-        $studentCount = Student::where('status', 1)->count();
+        $teacherCount = Teacher::count();
+        $studentCount = Student::count();
         
         return view('frontend.welcome', compact(
             'setting',
@@ -39,7 +39,8 @@ class FrontendController extends Controller
             'events',
             'sliders',
             'teacherCount',
-            'studentCount'
+            'studentCount',
+            'departments'
         ));
     }
     public function about()
@@ -50,11 +51,25 @@ class FrontendController extends Controller
             ->get();
         return view('frontend.about',compact('setting','notices'));
     }
+    public function gallery()
+    {   
+        $setting = Setting::find(1);
+        $galleries = Gallery::get();
+        $notices = Notice::latest()->paginate(3);
+        return view('frontend.gallery',compact('setting','galleries','notices'));
+    }
     public function notice()
     {   
         $setting = Setting::find(1);
         $notices = Notice::latest()->paginate(3);
         return view('frontend.notice',compact('setting', 'notices'));
+    }
+    public function departmentView($id)
+    {   
+        $department = Department::find($id);
+        $setting = Setting::find(1);
+        $notices = Notice::where('department_id', $id)->paginate(3);
+        return view('frontend.department',compact('setting', 'notices','department'));
     }
 
     public function contact(Request $request)

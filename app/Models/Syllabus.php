@@ -11,9 +11,13 @@ class Syllabus extends Model
     protected $table = 'syllabus';
     protected $fillable = [
         'title',
-        'department',
+        'department_id',
         'file',
         'created_by',
         'updated_by',
     ];
+    public function department()
+    {
+        return $this->hasMany(Department::class, 'id', 'department_id');
+    }
 }

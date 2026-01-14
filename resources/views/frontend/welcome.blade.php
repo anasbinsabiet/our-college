@@ -176,52 +176,87 @@
                     <h3>WELCOME TO {{ optional($setting)->title ?? 'Our College' }}</h3>      
                     <p>{{ optional($setting)->welcome_message ?? 'We are committed to providing quality education that combines academic excellence with character building.' }}</p>
                 </div>
-                <div id="accordion" class="rs-accordion-style1">
-                    <div class="card">
-                        <div class="card-header" id="headingOne">
-                            <h3 class="acdn-title" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <div class="accordion" id="collegeAccordion">
+                    {{-- College History --}}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne"
+                                aria-expanded="true"
+                                aria-controls="collapseOne">
                                 College History
-                            </h3>
-                        </div>
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="card-body">
+                            </button>
+                        </h2>
+                        <div id="collapseOne"
+                            class="accordion-collapse collapse show"
+                            aria-labelledby="headingOne"
+                            data-bs-parent="#collegeAccordion">
+                            <div class="accordion-body">
                                 @if(isset($history))
                                     {!! $history->content !!}
                                 @else
-                                    <p>Our college was established with a vision to provide quality education to all sections of society. Over the years, we have grown into one of the leading educational institutions in the region.</p>
-                                    <p>With state-of-the-art infrastructure and dedicated faculty, we continue to uphold our tradition of excellence in education.</p>
+                                    <p>Our college was established with a vision to provide quality education to all sections of society.</p>
+                                    <p>With state-of-the-art infrastructure and dedicated faculty, we continue to uphold our tradition of excellence.</p>
                                 @endif
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                    {{-- Mission --}}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo"
+                                aria-expanded="false"
+                                aria-controls="collapseTwo">
                                 Our Mission
-                            </h3>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="card-body">
+                            </button>
+                        </h2>
+                        <div id="collapseTwo"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingTwo"
+                            data-bs-parent="#collegeAccordion">
+                            <div class="accordion-body">
                                 @if(isset($mission))
                                     {!! $mission->content !!}
                                 @else
-                                    <p>To provide quality education that develops students intellectually, physically, emotionally, and spiritually, preparing them for lifelong learning and responsible citizenship.</p>
+                                    <p>
+                                        To provide quality education that develops students intellectually, emotionally,
+                                        and ethically, preparing them for lifelong learning.
+                                    </p>
                                 @endif
                             </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header mb-0" id="headingThree">
-                            <h3 class="acdn-title collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+                    {{-- Vision --}}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree"
+                                aria-expanded="false"
+                                aria-controls="collapseThree">
                                 Our Vision
-                            </h3>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                            <div class="card-body">
+                            </button>
+                        </h2>
+                        <div id="collapseThree"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="headingThree"
+                            data-bs-parent="#collegeAccordion">
+                            <div class="accordion-body">
                                 @if(isset($vision))
                                     {!! $vision->content !!}
                                 @else
-                                    <p>To be a center of excellence in education that nurtures creativity, innovation, and critical thinking, producing leaders who will make a positive impact on society.</p>
+                                    <p>
+                                        To be a center of excellence in education that nurtures innovation,
+                                        leadership, and social responsibility.
+                                    </p>
                                 @endif
                             </div>
                         </div>
@@ -371,21 +406,23 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Higher Secondary" class="mb-3" height="60">
-                    <h4>Higher Secondary Certificate</h4>
-                    <p>Advanced level education with specialized streams in Science, Commerce, and Arts</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+            @foreach($departments as $department)
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <div class="box text-center p-4 shadow-sm">
+                        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Higher Secondary" class="mb-3" height="60">
+                        <h4>{{ $department->name }}</h4>
+                        <p>{{ $department->description }}</p>
+                        <a href="{{ url('department', $department->id) }}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                    </div>
                 </div>
-            </div>
+            @endforeach
 
-            <div class="col-lg-2 col-md-6 mb-4">
+            {{-- <div class="col-lg-2 col-md-6 mb-4">
                 <div class="box text-center p-4 shadow-sm">
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Secondary School" class="mb-3" height="60">
                     <h4>Degree</h4>
                     <p>Comprehensive secondary education preparing students for higher studies</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>
             </div>
 
@@ -394,7 +431,7 @@
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Junior School" class="mb-3" height="60">
                     <h4>Sociology</h4>
                     <p>Foundational education building strong academic base for young learners</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>
             </div>
 
@@ -403,7 +440,7 @@
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
                     <h4>Plotical Science</h4>
                     <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>
             </div>
             <div class="col-lg-2 col-md-6 mb-4">
@@ -411,7 +448,7 @@
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
                     <h4>Management</h4>
                     <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>
             </div>
             <div class="col-lg-2 col-md-6 mb-4">
@@ -419,9 +456,9 @@
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
                     <h4>Accounting</h4>
                     <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>
+                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -515,7 +552,7 @@
             btn.innerText = 'Sending...';
 
             try {
-                const response = await fetch("{{ url('contact.submit') }}", {
+                const response = await fetch("{{ url('contact') }}", {
                     method: "POST",
                     headers: {
                         "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,

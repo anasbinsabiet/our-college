@@ -36,7 +36,12 @@
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Department</label>
-                                            <input type="text" class="form-control" id="department" name="department" value="{{ optional($syllabus)->department }}">
+                                            <select class="form-control" id="department" name="department_id">
+                                                <option value="">Select Department</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{ $department->id }}" {{ $department->id == optional($syllabus)->department_id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-4">

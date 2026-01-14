@@ -2953,7 +2953,7 @@ footer p {
     align-items: center;
     display: flex;
     justify-content: flex-start;
-    padding: 12px 15px;
+    padding: 6px 15px;
     position: relative;
     transition: all .2s ease-in-out 0s
 }

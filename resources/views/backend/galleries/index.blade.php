@@ -8,9 +8,9 @@
                     <li class="breadcrumb-item">
                         <a href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active">All Notices</li>
+                    <li class="breadcrumb-item active">All Galleries</li>
                 </ul>
-                <a href="{{ route('notice.create') }}">
+                <a href="{{ route('gallery.create') }}">
                     Add New
                 </a>
             </div>
@@ -19,7 +19,7 @@
             <div class="col-sm-12">
                 <div class="card card-table">
                     <div class="card-body">
-                        <form method="GET" action="{{ route('notice.index') }}">
+                        <form method="GET" action="{{ route('gallery.index') }}">
                             <div class="row">
                                 <div class="col-md-3 col-6">
                                     <div class="form-group">
@@ -58,7 +58,7 @@
                                 <!-- Buttons -->
                                 <div class="col-md-3 col-12">
                                     <button type="submit" class="btn btn-primary">Filter</button>
-                                    <a href="{{ route('notice.index') }}" class="btn btn-secondary">Reset</a>
+                                    <a href="{{ route('gallery.index') }}" class="btn btn-secondary">Reset</a>
                                 </div>
                             </div>
                         </form>
@@ -69,50 +69,49 @@
                                 <thead class="student-thread">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Title</th>
-                                        <th>Department</th>
-                                        <th>File</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Image</th>
                                         <th>Publish Date</th>
                                         <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($notices as $notice)
+                                    @foreach($galleries as $gallery)
                                         <tr>
-                                            <td>{{ $notice->id }}</td>
+                                            <td>{{ $gallery->id }}</td>
 
-                                            <td>{{ $notice->title }}</td>
+                                            <td>{{ $gallery->name }}</td>
 
-                                            <td>
-                                                {{ optional($notice->department->first())->name ?? '-' }}
-                                            </td>
+                                            <td>{{ Str::limit($gallery->description, 40) }}</td>
 
                                             <td>
-                                                @if($notice->file)
-                                                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" download>
-                                                        {{ $notice->file }}
+                                                <img src="{{ asset('uploads/galleries/' . $gallery->banner) }}" height="200" alt="single" />
+                                                @if($gallery->banner)
+                                                    <a href="{{ asset('uploads/galleries/' . $gallery->banner) }}" download>
+                                                        {{ $gallery->banner }}
                                                     </a>
                                                 @else
                                                     <span class="text-muted">No File</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $notice->created_at->format('d-m-Y') }}</td>
+                                            <td>{{ $gallery->created_at->format('d-m-Y') }}</td>
                                             <td class="text-end">
                                                 <div class="actions">
-                                                    <a href="{{ route('notice.show', $notice->id) }}"
+                                                    <a href="{{ route('gallery.show', $gallery->id) }}"
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="far fa-eye"></i>
                                                     </a>
-                                                    <a href="{{ asset('uploads/notices/' . $notice->file) }}" download
+                                                    <a href="{{ asset('uploads/galleries/' . $gallery->file) }}" download
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="fas fa-download"></i>
                                                     </a>
-                                                    <a href="{{ route('notice.edit', $notice->id) }}"
+                                                    <a href="{{ route('gallery.edit', $gallery->id) }}"
                                                        class="btn btn-sm bg-primary-light mr-2">
                                                         <i class="far fa-edit"></i>
                                                     </a>
 
-                                                    <form action="{{ route('notice.destroy', $notice->id) }}"
+                                                    <form action="{{ route('gallery.destroy', $gallery->id) }}"
                                                           method="POST"
                                                           style="display:inline-block;">
                                                         @csrf

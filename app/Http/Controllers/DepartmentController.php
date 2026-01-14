@@ -3,21 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
-use App\Models\Syllabus;
 use App\Models\User;
 use Illuminate\Http\Request;
  
 use Illuminate\Support\Facades\DB;
 
-class SyllabusController extends Controller
+class DepartmentController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Syllabus::query()->orderByDesc('id');
+        $query = Department::query()->orderByDesc('id');
 
         // ===== Filters =====
         $query->when($request->id, fn($q) => $q->where('id', $request->id));
-        $query->when($request->title, fn($q) => $q->where('title', 'LIKE', "%{$request->title}%"));
+        $query->when($request->name, fn($q) => $q->where('name', 'LIKE', "%{$request->name}%"));
         $query->when($request->created_by, fn($q) => $q->where('created_by', $request->created_by));
 
         if ($request->date_from) {
@@ -28,18 +27,16 @@ class SyllabusController extends Controller
             $query->whereDate('created_at', '<=', $request->date_to);
         }
 
-        $syllabuses = $query->get();
+        $departments = $query->get();
         $users   = User::select('id', 'name')->get();
 
-        return view('backend.syllabus.index', compact('syllabuses', 'users'));
+        return view('backend.departments.index', compact('departments', 'users'));
     }
 
     public function create()
-    {   
-        $departments = Department::select('id', 'name')->get();
-        return view('backend.syllabus.create', [
-            'syllabus' => null,
-            'departments' => $departments
+    {
+        return view('backend.departments.create', [
+            'department' => null
         ]);
     }
 
@@ -47,86 +44,17 @@ class SyllabusController extends Controller
     {   
         // return $request->all();
         $request->validate([
-            'title'       => 'required|max:255',
-            'department_id' => 'nullable|max:500',
-            'file'        => 'nullable|file|max:5120',
+            'name'       => 'required|max:255',
+            'description' => 'nullable|max:500',
+            'banner'        => 'nullable|file|max:5120',
         ]);
-
         try {
             DB::beginTransaction();
 
             $fileName = null;
 
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
-
-                // Use getClientOriginalExtension() instead of ->extension()
-                $file_extension = $file->getClientOriginalExtension();
-
-                $fileName = sprintf(
-                    'syllabus-%s-%s.%s',
-                    uniqid(),
-                    now()->format('d_m_Y'),
-                    $file_extension
-                );
-
-                // Ensure folder exists
-                $uploadPath = public_path('uploads/syllabuses');
-                if (!file_exists($uploadPath)) {
-                    mkdir($uploadPath, 0755, true);
-                }
-
-                // Move file
-                $file->move($uploadPath, $fileName);
-            }
-
-            Syllabus::create([
-                'title'       => $request->title,
-                'department_id' => $request->department_id,
-                'file'        => $fileName,
-                'created_by'  => auth()->id(),
-                'created_at'  => now(),
-            ]);
-
-            DB::commit();
-            return redirect()->route('Syllabus.index')->with('success', 'Syllabus created successfully!');
-        } catch (\Throwable $e) {
-            // return $e->getMessage();
-            DB::rollBack();
-            return back()->withErrors(['error' => $e->getMessage()]);
-        }
-    }
-
-    public function edit($id)
-    {
-        $syllabus = Syllabus::findOrFail($id);
-        $departments = Department::select('id', 'name')->get();
-        return view('backend.syllabus.create', compact('syllabus','departments'));
-    }
-    
-    public function show($id)
-    {
-        $syllabus = Syllabus::findOrFail($id);
-        return view('backend.syllabus.show', compact('syllabus'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title'       => 'required|max:255',
-            'department_id' => 'nullable|max:11',
-            'file'        => 'nullable|file|max:5120',
-        ]);
-
-        try {
-            DB::beginTransaction();
-
-            $Syllabus  = Syllabus::findOrFail($id);
-            $oldFile = $Syllabus->file;
-            $fileName = $oldFile;
-
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
 
                 // Use getClientOriginalExtension() instead of ->extension()
                 $file_extension = $file->getClientOriginalExtension();
@@ -139,7 +67,7 @@ class SyllabusController extends Controller
                 );
 
                 // Ensure folder exists
-                $uploadPath = public_path('uploads/syllabuses');
+                $uploadPath = public_path('uploads/departments');
                 if (!file_exists($uploadPath)) {
                     mkdir($uploadPath, 0755, true);
                 }
@@ -148,16 +76,85 @@ class SyllabusController extends Controller
                 $file->move($uploadPath, $fileName);
             }
 
-            $Syllabus->update([
-                'title'       => $request->title,
-                'department_id' => $request->department_id,
-                'file'        => $fileName,
+            Department::create([
+                'name'       => $request->name,
+                'description' => $request->description,
+                'status' => $request->status,
+                'banner'        => $fileName,
+                'created_by'  => auth()->id(),
+                'created_at'  => now(),
+            ]);
+
+            DB::commit();
+            return redirect()->route('department.index')->with('success', 'Department created successfully!');
+        } catch (\Throwable $e) {
+            return $e->getMessage();
+            DB::rollBack();
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function edit($id)
+    {
+        $department = Department::findOrFail($id);
+        return view('backend.departments.create', compact('department'));
+    }
+    
+    public function show($id)
+    {
+        $department = Department::findOrFail($id);
+        return view('backend.departments.show', compact('department'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name'       => 'required|max:255',
+            'department' => 'nullable|max:500',
+            'banner'        => 'nullable|file|max:5120',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $department  = Department::findOrFail($id);
+            $oldFile = $department->banner;
+            $fileName = $oldFile;
+
+            if ($request->hasFile('banner')) {
+                $file = $request->file('banner');
+
+                // Use getClientOriginalExtension() instead of ->extension()
+                $file_extension = $file->getClientOriginalExtension();
+
+                $fileName = sprintf(
+                    'collection-%s-%s.%s',
+                    uniqid(),
+                    now()->format('d_m_Y'),
+                    $file_extension
+                );
+
+                // Ensure folder exists
+                $uploadPath = public_path('uploads/departments');
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Move file
+                $file->move($uploadPath, $fileName);
+            }
+
+            $department->update([
+                'name'       => $request->name,
+                'description' => $request->description,
+                'status' => $request->status,
+                'banner'        => $fileName,
                 'updated_by'  => auth()->id(),
                 'updated_at'  => now(),
             ]);
 
             DB::commit();
-            return redirect()->route('syllabus.index')->with('success', 'Syllabus updated successfully!');
+            return redirect()->route('department.index')->with('success', 'department updated successfully!');
         } catch (\Throwable $e) {
 
             DB::rollBack();
@@ -168,15 +165,15 @@ class SyllabusController extends Controller
     public function destroy($id)
     {
         try {
-            $Syllabus = Syllabus::findOrFail($id);
+            $department = Department::findOrFail($id);
 
-            if ($Syllabus->file && file_exists(public_path('uploads/syllabuses/' . $Syllabus->file))) {
-                unlink(public_path('uploads/syllabuses/' . $Syllabus->file));
+            if ($department->file && file_exists(public_path('uploads/departments/' . $department->file))) {
+                unlink(public_path('uploads/departments/' . $department->file));
             }
 
-            $Syllabus->delete();
+            $department->delete();
 
-            return back()->with('success', 'Syllabus deleted!');
+            return back()->with('success', 'Department deleted!');
 
 
         } catch (\Throwable $e) {

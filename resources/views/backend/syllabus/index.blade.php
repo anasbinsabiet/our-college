@@ -85,7 +85,9 @@
 
                                             <td>{{ $syllabus->title }}</td>
 
-                                            <td>{{ Str::limit($syllabus->department, 40) }}</td>
+                                            <td>
+                                                {{ optional($syllabus->department->first())->name ?? '-' }}
+                                            </td>
 
                                             <td>
                                                 @if($syllabus->file)
