@@ -438,7 +438,7 @@
             <div class="col-lg-2 col-md-6 mb-4">
                 <div class="box text-center p-4 shadow-sm">
                     <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
-                    <h4>Plotical Science</h4>
+                    <h4>Political Science</h4>
                     <p>Early childhood education focusing on holistic development and basic skills</p>
                     <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                 </div>

@@ -39,7 +39,7 @@
                                             <select class="form-control" id="department" name="department_id">
                                                 <option value="">Select Department</option>
                                                 @foreach($departments as $department)
-                                                    <option value="{{ $department->id }}" {{ $department->id == optional($notice)->department ? 'selected' : '' }}>{{ $department->name }}</option>
+                                                    <option value="{{ $department->id }}" {{ $department->id == optional($notice)->department_id ? 'selected' : '' }}>{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

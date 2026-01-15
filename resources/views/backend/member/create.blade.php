@@ -113,7 +113,7 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Phone <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($member)->phone }}">
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" name="phone" placeholder="Enter Phone Number" value="{{ optional($member)->phone }}">
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

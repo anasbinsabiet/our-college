@@ -113,7 +113,7 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Phone <span class="text-danger">*</span></label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1').replace(/^0[^.]/, '0');" name="phone" placeholder="Enter Phone Number" value="{{ optional($student)->phone }}">
+                                            <input class="form-control @error('phone') is-invalid @enderror" type="number" name="phone" placeholder="Enter Phone Number" value="{{ optional($student)->phone }}">
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -135,32 +135,13 @@
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Class <span class="text-danger">*</span></label>
-                                            <select class="form-control select @error('class') is-invalid @enderror" name="class">
-                                                <option selected disabled>Select Class </option>
-                                                <option value="12" {{ optional($student)->class == '12' ? "selected" :""}}>12</option>
-                                                <option value="11" {{ optional($student)->class == '11' ? "selected" :""}}>11</option>
-                                                <option value="10" {{ optional($student)->class == '10' ? "selected" :""}}>10</option>
-                                                <option value="9" {{ optional($student)->class == '9' ? "selected" :""}}>9</option>
-                                                <option value="8" {{ optional($student)->class == '8' ? "selected" :""}}>8</option>
-                                                <option value="7" {{ optional($student)->class == '7' ? "selected" :""}}>7</option>
-                                                <option value="6" {{ optional($student)->class == '6' ? "selected" :""}}>6</option>
-                                            </select>
-                                            @error('class')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <input type="text" class="form-control" name="class" value="{{ optional($student)->class }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Session</label>
-                                            <select class="form-control select @error('section') is-invalid @enderror" name="section">
-                                                <option selected disabled>Select section </option>
-                                                <option value="A" {{ optional($student)->section == 'A' ? "selected" :""}}>A</option>
-                                                <option value="B" {{ optional($student)->section == 'B' ? "selected" :""}}>B</option>
-                                                <option value="C" {{ optional($student)->section == 'C' ? "selected" :""}}>C</option>
-                                            </select>
+                                            <input type="text" class="form-control" name="section" value="{{ optional($student)->section }}">
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-3">
