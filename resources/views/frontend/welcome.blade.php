@@ -411,54 +411,11 @@
                     <div class="box text-center p-4 shadow-sm">
                         <img src="{{ asset('frontend/images/icon5.png') }}" alt="Higher Secondary" class="mb-3" height="60">
                         <h4>{{ $department->name }}</h4>
-                        <p>{{ $department->description }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit($department->description ?? '', 30) }}</p>
                         <a href="{{ url('department', $department->id) }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                     </div>
                 </div>
             @endforeach
-
-            {{-- <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Secondary School" class="mb-3" height="60">
-                    <h4>Degree</h4>
-                    <p>Comprehensive secondary education preparing students for higher studies</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Junior School" class="mb-3" height="60">
-                    <h4>Sociology</h4>
-                    <p>Foundational education building strong academic base for young learners</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
-                    <h4>Political Science</h4>
-                    <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
-                    <h4>Management</h4>
-                    <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-6 mb-4">
-                <div class="box text-center p-4 shadow-sm">
-                    <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">
-                    <h4>Accounting</h4>
-                    <p>Early childhood education focusing on holistic development and basic skills</p>
-                    <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Read More</a>
-                </div>
-            </div> --}}
         </div>
     </div>
 </div>
