@@ -86,8 +86,8 @@
         <ul class="menu" style="border-radius: 5px;">
             <li><a href="{{ url('/') }}">Home</a></li>
             <li><a href="{{ route('about') }}">About</a></li>
+            <li><a href="{{ url('member') }}">Members</a></li>
             <li><a href="{{ url('notice') }}">Notice Board</a></li>
-            <li><a href="{{ route('home') }}#courses">Courses</a></li>
             <li><a href="{{ route('gallery') }}">Gallery</a></li>
             <li><a href="{{ route('home') }}#contact">Contact</a></li>
             @auth

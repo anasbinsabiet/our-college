@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Department;
 use App\Models\Gallery;
+use App\Models\Member;
 use App\Models\Notice;
 use App\Models\Setting;
 use App\Models\Student;
@@ -63,6 +64,15 @@ class FrontendController extends Controller
         $setting = Setting::find(1);
         $notices = Notice::latest()->paginate(3);
         return view('frontend.notice',compact('setting', 'notices'));
+    }
+    public function member()
+    {   
+        $setting = Setting::find(1);
+        $members = Member::get();
+        $notices = Notice::orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+        return view('frontend.member',compact('setting', 'members','notices'));
     }
     public function departmentView($id)
     {   

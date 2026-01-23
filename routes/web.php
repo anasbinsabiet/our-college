@@ -52,6 +52,7 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('/about', [FrontendController::class, 'about'])->name('about');
 Route::get('/notice', [FrontendController::class, 'notice'])->name('notice');
+Route::get('/member', [FrontendController::class, 'member'])->name('member');
 Route::get('/department/{id}', [FrontendController::class, 'departmentView'])->name('notice');
 Route::post('/contact', [FrontendController::class, 'contact'])->name('contact');
 
