@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Gallery;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,15 +30,14 @@ class GalleryController extends Controller
 
         $galleries = $query->get();
         $users   = User::select('id', 'name')->get();
-
-        return view('backend.galleries.index', compact('galleries', 'users'));
+        $departmentById = Department::select('id', 'name')->pluck('name', 'id')->toArray();
+        return view('backend.galleries.index', compact('galleries', 'users', 'departmentById'));
     }
 
     public function create()
-    {
-        return view('backend.galleries.create', [
-            'gallery' => null
-        ]);
+    {   
+        $departments = Department::select('id', 'name')->get();
+        return view('backend.galleries.create', compact('departments'));
     }
 
     public function store(Request $request)
@@ -79,6 +79,7 @@ class GalleryController extends Controller
             gallery::create([
                 'name'       => $request->name,
                 'description' => $request->description,
+                'department_id' => $request->department_id,
                 'status' => $request->status,
                 'banner'        => $fileName,
                 'created_by'  => auth()->id(),
@@ -97,7 +98,8 @@ class GalleryController extends Controller
     public function edit($id)
     {
         $gallery = gallery::findOrFail($id);
-        return view('backend.galleries.create', compact('gallery'));
+        $departments = Department::select('id', 'name')->get();
+        return view('backend.galleries.create', compact('gallery', 'departments'));
     }
     
     public function show($id)
@@ -147,6 +149,7 @@ class GalleryController extends Controller
             $gallery->update([
                 'name'       => $request->name,
                 'description' => $request->description,
+                'department_id' => $request->department_id,
                 'status' => $request->status,
                 'banner'        => $fileName,
                 'updated_by'  => auth()->id(),

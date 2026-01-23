@@ -10,6 +10,7 @@ class Teacher extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'is_hod',
         'gender',
         'date_of_birth',
         'phone',
@@ -17,6 +18,8 @@ class Teacher extends Model
         'leaving_date',
         'address',
         'designation',
+        'department_id',
+        'avatar',
         'email',
         'religion',
         'country',

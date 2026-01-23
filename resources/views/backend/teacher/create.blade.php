@@ -21,8 +21,8 @@
                             <form action="{{ optional($teacher)->id 
                                     ? route('teacher.update', $teacher->id) 
                                     : route('teacher.store') }}" 
-                                method="POST" 
-                                @csrf
+                                method="POST"
+                                enctype="multipart/form-data">
                                 @if(optional($teacher)->id)
                                     @method('PUT')
                                 @endif                                
@@ -37,6 +37,23 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
+                                            <label>Designation</label>
+                                            <input class="form-control @error('designation') is-invalid @enderror" type="text" name="designation" placeholder="Enter Designation" value="{{ optional($teacher)->designation }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
+                                            <label>Department</label>
+                                            <select class="form-control" id="department" name="department_id">
+                                                <option value="">Select Department</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{ $department->id }}" {{ $department->id == optional($teacher)->department_id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-12 col-sm-3">
@@ -123,12 +140,6 @@
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
-                                            <label>Designation</label>
-                                            <input class="form-control @error('designation') is-invalid @enderror" type="text" name="designation" placeholder="Enter Designation" value="{{ optional($teacher)->designation }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-3">
-                                        <div class="form-group local-forms">
                                             <label>Address</label>
                                             <input class="form-control @error('address') is-invalid @enderror" type="text" name="address" placeholder="Enter Address" value="{{ optional($teacher)->address }}">
                                         </div>
@@ -147,6 +158,16 @@
                                     </div>
                                     <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
+                                            <label>Is HoD</label>
+                                            <select class="form-control select @error('is_hod') is-invalid @enderror" name="is_hod">
+                                                <option selected disabled>Select Status </option>
+                                                <option value="1" {{ optional($teacher)->is_hod == 1 ? "selected" :""}}>Yes</option>
+                                                <option value="0" {{ optional($teacher)->is_hod == 0 ? "selected" :""}}>No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
                                             <label>Status</label>
                                             <select class="form-control select @error('status') is-invalid @enderror" name="status">
                                                 <option selected disabled>Select Status </option>
@@ -155,6 +176,37 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
+                                            <label>Photo (150px X 150px)</label>
+                                            <input type="file" class="form-control" id="file" name="avatar" accept="image/*" onchange="previewImage(event)">
+                                            <div class="mt-2">
+                                                <img id="file-preview" 
+                                                    src="{{ optional($teacher)->avatar ? asset('uploads/teachers/' . optional($teacher)->avatar) : '#' }}" 
+                                                    alt="Preview" 
+                                                    class="img-thumbnail" 
+                                                    width="150" 
+                                                    height="150" 
+                                                    style="{{ optional($teacher)->avatar ? '' : 'display:none;' }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function previewImage(event) {
+                                            const input = event.target;
+                                            const preview = document.getElementById('file-preview');
+                                            if (input.files && input.files[0]) {
+                                                const reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    preview.src = e.target.result;
+                                                    preview.style.display = 'block';
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            } else {
+                                                preview.style.display = preview.src !== '#' ? 'block' : 'none';
+                                            }
+                                        }
+                                    </script>
                                     <div class="col-12">
                                         <div class="student-submit d-flex">
                                             <a class="btn btn-secondary mr-2" href="{{ route('teacher.index') }}">Cancel</a>

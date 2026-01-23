@@ -6,7 +6,7 @@
 <!-- Slider Area Start -->
 <div id="rs-slider" class="slider-overlay-2">     
     <div id="home-slider" class="owl-carousel">
-        @if($sliders && $sliders->count() > 0)
+        @if($sliders && $sliders->count() > 100)
             @foreach($sliders as $slider)
                 <div class="item">
                     <img src="{{ asset('uploads/sliders/' . $slider->image) }}" alt="{{ $slider->title }}" />
@@ -51,92 +51,6 @@
 </div>
 <!-- Slider Area End -->
 
-<!-- Services Start -->
-<!-- <div class="rs-services rs-services-style1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('principal-message') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">
-                            <img src="{{ optional($setting)->principal_avatar ? asset('uploads/settings/' . $setting->principal_avatar) : asset('assets/img/logo.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Principal Corner</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('faculty-staff') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">
-                            <img src="{{ asset('frontend/images/icons/faculty.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Faculty & Staffs</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('results') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">                             
-                            <img src="{{ asset('frontend/images/icons/results.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Results</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('alumni') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">
-                            <img src="{{ asset('frontend/images/icons/alumni.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Alumni</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('clubs') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">
-                            <img src="{{ asset('frontend/images/icons/clubs.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Clubs</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <a href="{{ url('admission') }}">
-                    <div class="services-item rs-animation-hover">
-                        <div class="services-icon">
-                            <img src="{{ asset('frontend/images/icons/admission.png') }}" class="mb-3" height="60">
-                        </div>
-                        <div class="services-desc">
-                            <h4 class="services-title">Admission Information</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- Services End -->
-
 <!-- Principal Message Start -->
 <div class="rs-history sec-spacer">
     <div class="container">
@@ -151,7 +65,7 @@
                 <div class="abt-title">
                     <h2>Principal Message</h2>
                 </div>
-                <div class="about-desc">
+                <div class="about-desc" style="text-align: justify;">
                     @if(optional($setting)->principal_message)
                         {!! optional($setting)->principal_message !!}
                     @else
@@ -177,6 +91,7 @@
                     <p>{{ optional($setting)->welcome_message ?? 'We are committed to providing quality education that combines academic excellence with character building.' }}</p>
                 </div>
                 <div class="accordion" id="collegeAccordion">
+
                     {{-- College History --}}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">
@@ -203,7 +118,7 @@
                             </div>
                         </div>
                     </div>
-
+                
                     {{-- Mission --}}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
@@ -232,7 +147,7 @@
                             </div>
                         </div>
                     </div>
-
+                
                     {{-- Vision --}}
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
@@ -261,6 +176,7 @@
                             </div>
                         </div>
                     </div>
+                
                 </div>
             </div>
 
@@ -360,43 +276,6 @@
     </div>
 </div>
 <!-- Counter Down Section End -->
-
-<!-- Events Start -->
-<!-- <div id="rs-events" class="rs-events sec-spacer education_bg">
-    <div class="container">
-        <div class="sec-title mb-50 text-center">
-            <h2>Recent and Upcoming Events</h2>      
-            <p>Stay updated with our latest activities and events</p>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="rs-carousel owl-carousel">
-                    @foreach($events as $event)
-                        <div class="event-item">
-                            <div class="event-img">
-                                <img src="{{ asset('uploads/events/' . $event->image) }}" alt="{{ $event->title }}" />
-                                <a class="image-link" href="{{ url('event.details', $event->slug) }}" title="{{ $event->title }}">
-                                    <i class="fa fa-link"></i>
-                                </a>
-                            </div>
-                            <div class="events-details sec-color">
-                                <div class="event-date">
-                                    <i class="fa fa-calendar"></i>
-                                    <span>{{ $event?->date?->format('F d, Y') }}</span>
-                                </div>
-                                <h4 class="event-title">
-                                    <a href="{{ url('event.details', $event->slug) }}">{{ Str::limit($event->title, 50) }}</a>
-                                </h4>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- Events End -->
-
 <!-- Courses Section Start -->
 <div class="services pt-5" id="courses">
     <div class="services-heading text-center mb-5 mt-5">
@@ -411,11 +290,54 @@
                     <div class="box text-center p-4 shadow-sm">
                         <img src="{{ asset('frontend/images/icon5.png') }}" alt="Higher Secondary" class="mb-3" height="60">
                         <h4>{{ $department->name }}</h4>
-                        <p>{{ \Illuminate\Support\Str::limit($department->description ?? '', 30) }}</p>
+                        <p>{{ \Illuminate\Support\Str::limit($department->description ?? '', 55) }}</p>
                         <a href="{{ url('department', $department->id) }}" class="btn btn-primary btn-sm mt-2">Read More</a>
                     </div>
                 </div>
             @endforeach
+
+            <!--<div class="col-lg-2 col-md-6 mb-4">-->
+            <!--    <div class="box text-center p-4 shadow-sm">-->
+            <!--        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Secondary School" class="mb-3" height="60">-->
+            <!--        <h4>Degree</h4>-->
+            <!--        <p>Comprehensive secondary education preparing students for higher studies-B.B.S and B.S.S.</p>-->
+            <!--        <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>-->
+            <!--    </div>-->
+            <!--</div>-->
+
+            <!--<div class="col-lg-2 col-md-6 mb-4">-->
+            <!--    <div class="box text-center p-4 shadow-sm">-->
+            <!--        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Junior School" class="mb-3" height="60">-->
+            <!--        <h4>Sociology</h4>-->
+            <!--        <p>Early childhood education focusing on holistic development and basic skills.</p>-->
+            <!--        <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>-->
+            <!--    </div>-->
+            <!--</div>-->
+
+            <!--<div class="col-lg-2 col-md-6 mb-4">-->
+            <!--    <div class="box text-center p-4 shadow-sm">-->
+            <!--        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">-->
+            <!--        <h4>Plotical Science</h4>-->
+            <!--        <p>Early childhood education focusing on holistic development and basic skills.</p>-->
+            <!--        <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>-->
+            <!--    </div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-2 col-md-6 mb-4">-->
+            <!--    <div class="box text-center p-4 shadow-sm">-->
+            <!--        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">-->
+            <!--        <h4>Management</h4>-->
+            <!--        <p>Early childhood education focusing on holistic development and basic skills.</p>-->
+            <!--        <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>-->
+            <!--    </div>-->
+            <!--</div>-->
+            <!--<div class="col-lg-2 col-md-6 mb-4">-->
+            <!--    <div class="box text-center p-4 shadow-sm">-->
+            <!--        <img src="{{ asset('frontend/images/icon5.png') }}" alt="Primary School" class="mb-3" height="60">-->
+            <!--        <h4>Accounting</h4>-->
+            <!--        <p>Early childhood education focusing on holistic development and basic skills.</p>-->
+            <!--        <a href="{{ url('admission') }}" class="btn btn-primary btn-sm mt-2">Apply Now</a>-->
+            <!--    </div>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

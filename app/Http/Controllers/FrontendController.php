@@ -69,7 +69,11 @@ class FrontendController extends Controller
         $department = Department::find($id);
         $setting = Setting::find(1);
         $notices = Notice::where('department_id', $id)->paginate(3);
-        return view('frontend.department',compact('setting', 'notices','department'));
+        $teachers = Teacher::where('department_id', $id)->whereNot('is_hod', 1)->get();
+        $hod = Teacher::where('department_id', $id)->where('is_hod', 1)->first();
+        $gallery = Gallery::where('department_id', $id)->get();
+        $departmentById = Department::select('id', 'name')->pluck('name', 'id')->toArray();
+        return view('frontend.department',compact('setting', 'notices','department','teachers','hod','gallery','departmentById'));
     }
 
     public function contact(Request $request)

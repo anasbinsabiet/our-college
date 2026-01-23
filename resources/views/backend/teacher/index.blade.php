@@ -47,8 +47,10 @@
                                     <thead class="teacher-thread">
                                         <tr>
                                             <th>ID</th>
+                                            <th>Image</th>
                                             <th>Name</th>
                                             <th>Designation</th>
+                                            <th>Department</th>
                                             <th>Gender</th>
                                             <th>Joining Date</th>
                                             <th>Mobile Number</th>
@@ -60,8 +62,12 @@
                                         @foreach ($teachers as $key=>$list )`
                                         <tr>
                                             <td>{{ $list->id }}</td>
+                                            <td>
+                                                <img src="{{ asset('uploads/teachers/' . $list->avatar) }}" height="100" alt="single" />
+                                            </td>
                                             <td><a href="{{ route('teacher.show', $list->id) }}">{{ $list->name }}</td>
                                             <td>{{ $list->designation }}</td>
+                                            <td>{{ $departmentById[$list->department_id] ?? 'N/A' }}</td>
                                             <td>{{ $list->gender }}</td>
                                             <td>{{ $list->joining_date }}</td>
                                             <td>{{ $list->phone }}</td>

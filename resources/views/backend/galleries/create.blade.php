@@ -27,7 +27,7 @@
                                 @endif                                
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12 col-sm-4">
+                                    <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
                                             <label>Name</label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ optional($gallery)->name }}">
@@ -42,18 +42,48 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-12 col-sm-4">
+                                    <div class="col-12 col-sm-3">
                                         <div class="form-group local-forms">
-                                            <label>Banner</label>
-                                            <input type="file" class="form-control" id="banner" name="banner">
-                                            @if(optional($gallery)->banner)
-                                                <a download href="{{ asset('uploads/' . $gallery->banner) }}" 
-                                                class="mt-2 d-block text-primary">
-                                                    {{ $gallery->banner }}
-                                                </a>
-                                            @endif
+                                            <label>Department</label>
+                                            <select class="form-control" id="department" name="department_id">
+                                                <option value="">Select Department</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{ $department->id }}" {{ $department->id == optional($gallery)->department_id ? 'selected' : '' }}>{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
+                                    <div class="col-12 col-sm-3">
+                                        <div class="form-group local-forms">
+                                            <label>Image</label>
+                                            <input type="file" class="form-control" id="file" name="banner" accept="image/*" onchange="previewImage(event)">
+                                            <div class="mt-2">
+                                                <img id="file-preview" 
+                                                    src="{{ optional($gallery)->banner ? asset('uploads/galleries/' . optional($gallery)->banner) : '#' }}" 
+                                                    alt="Preview" 
+                                                    class="img-thumbnail" 
+                                                    width="150" 
+                                                    height="150" 
+                                                    style="{{ optional($gallery)->banner ? '' : 'display:none;' }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                        function previewImage(event) {
+                                            const input = event.target;
+                                            const preview = document.getElementById('file-preview');
+                                            if (input.files && input.files[0]) {
+                                                const reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    preview.src = e.target.result;
+                                                    preview.style.display = 'block';
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            } else {
+                                                preview.style.display = preview.src !== '#' ? 'block' : 'none';
+                                            }
+                                        }
+                                    </script>
                                     <div class="col-12 col-sm-4">
                                         <div class="form-group local-forms">
                                             <label>Description</label>

@@ -3,68 +3,153 @@
 @section('title', $department->name ?? 'Department Details')
 
 @section('content')
-    {{-- Hero --}}
-    <section class="main"
-        style="background-image:url({{ asset('frontend/images/hero-bg.png') }}); height:220px;">
-        <div class="d-flex align-items-center justify-content-center h-100 text-center">
-            <h1 class="text-white fw-bold about-us-title">
-                {{ $department->name ?? 'Department Details' }}
-            </h1>
-        </div>
-    </section>
 
-    {{-- Overview --}}
-    <section class="container py-5">
-        <div class="row">
-            <div class="col-12 col-lg-10 mx-auto">
-                <div class="card shadow-sm border-0">
-                    <div class="card-body">
-                        <h4 class="mb-3">Overview</h4>
-                        <div class="text-muted">
-                            {!! $department->description ?? '<span class="text-secondary">—</span>' !!}
+{{-- ================= HERO ================= --}}
+<section class="main" style="background-image:url({{ asset('frontend/images/hero-bg.png') }}); height:220px;">
+    <div class="d-flex align-items-center justify-content-center h-100">
+        <h1 class="text-white fw-bold about-us-title">{{ $department->name }}</h1>
+    </div>
+</section>
+
+{{-- ================= MAIN CONTENT ================= --}}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row g-4">
+
+            {{-- ================= LEFT CONTENT ================= --}}
+            <div class="col-lg-8">
+
+                {{-- Overview --}}
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <h4 class="fw-semibold mb-3">Overview</h4>
+                        <div class="text-muted lh-lg">
+                            {!! $department->description
+                                ?? '<span class="fst-italic text-secondary">No description available.</span>' !!}
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    {{-- Notice List --}}
-    <section class="container pb-5">
-        <div class="row">
-            <div class="col-12 col-lg-10 mx-auto">
+                {{-- Notices --}}
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h4 class="fw-semibold mb-4">Recent Notices</h4>
 
-                <h4 class="mb-4">Notice List</h4>
+                        @forelse ($notices as $notice)
+                            <div class="border rounded p-3 mb-3 bg-white">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="fw-semibold mb-1">{{ $notice->title }}</h6>
+                                        <small class="text-muted">
+                                            {{ $notice->created_at->format('d M, Y') }}
+                                        </small>
+                                    </div>
 
-                @forelse ($notices as $notice)
-                    <div class="card mb-3 shadow-sm border-0">
-                        <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3">
-                            <div>
-                                <h6 class="mb-1 fw-semibold">{{ $notice->title }}</h6>
-                                <small class="text-muted">
-                                    {{ $notice->created_at->format('d M, Y') }}
-                                </small>
+                                    @if($notice->file)
+                                        <a href="{{ asset('uploads/notices/' . $notice->file) }}"
+                                           class="btn btn-sm btn-outline-primary"
+                                           download>
+                                            Download
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
+                        @empty
+                            <div class="alert alert-info mb-0">
+                                No notices available.
+                            </div>
+                        @endforelse
 
-                            <a href="{{ asset('uploads/notices/' . $notice->file) }}"
-                               download
-                               class="btn btn-outline-primary btn-sm">
-                                Download
-                            </a>
+                        @if($notices->hasPages())
+                            <div class="mt-4">
+                                {{ $notices->links() }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            {{-- ================= RIGHT SIDEBAR (TEACHERS) ================= --}}
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top:90px">
+                    @if($hod)
+                    <div class="card shadow-sm border-0 h-100">
+                        <div class="card-body p-4 text-center">
+                            <div class="mb-3">
+                                <img src="{{ $hod->avatar
+                                            ? asset('uploads/teachers/' . $hod->avatar)
+                                            : asset('frontend/images/avatar-placeholder.png') }}" 
+                                    class="shadow-sm" 
+                                    alt="Head of Department"
+                                    style="height: 150px;width: 120px;object-fit: contain; border: 4px solid #e5e7eb;" />
+                            </div>
+                            <h5 class="fw-semibold mb-1">{{ $hod->name }}</h5>
+                            <p class="text-primary small mb-2">{{ $hod->designation }}</p>
+                            <p class="text-muted small mb-0">
+                                <strong>Head of the {{ $department->name }}</strong><br>
+                                Department of Sociology<br>
+                                Madhabdi University College<br>
+                                Madhabdi, Narsingdi
+                            </p>
                         </div>
                     </div>
-                @empty
-                    <div class="alert alert-info text-center">
-                        No notices available at the moment.
+                    @endif
+                    <div class="card border-0 shadow-sm mt-4">
+                        <div class="card-body p-4">
+                            @forelse($teachers as $teacher)
+                                <div class="d-flex align-items-center mb-4">
+                                    <img
+                                        src="{{ $teacher->avatar
+                                            ? asset('uploads/teachers/' . $teacher->avatar)
+                                            : asset('frontend/images/avatar-placeholder.png') }}"
+                                        class="me-3"
+                                        style="height: 150px;width: 120px;object-fit: contain; border: 4px solid #e5e7eb;"
+                                        alt="{{ $teacher->name }}"
+                                        loading="lazy"
+                                    />
+
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">{{ $teacher->name }}</h6>
+                                        <small class="text-primary">
+                                            {{ $teacher->designation }}
+                                        </small>
+                                    </div>
+                                </div>
+                            @empty
+                                <p class="text-muted mb-0">No faculty listed.</p>
+                            @endforelse
+                        </div>
                     </div>
-                @endforelse
 
-                {{-- Pagination --}}
-                <div class="d-flex justify-content-center mt-4">
-                    {{ $notices->links() }}
                 </div>
-
             </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
+{{-- ================= GALLERY ================= --}}
+@if($gallery)
+<section class="py-5 bg-white">
+    <div class="container">
+        <h4 class="fw-semibold mb-4">Department Gallery</h4>
+        <div class="row g-4">
+            @foreach($gallery as $item)
+                <div class="col-md-6 col-lg-4">
+                    <div class="card border-0 shadow-sm overflow-hidden">
+                        <img
+                            src="{{ asset("uploads/galleries/{$item->banner}") }}"
+                            class="w-100"
+                            style="height:260px;object-fit:cover"
+                            alt="{{ $item->name }}"
+                            loading="lazy"
+                        >
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 @endsection

@@ -72,8 +72,9 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Image</th>
+                                        <th>Department</th>
                                         <th>Publish Date</th>
-                                        <th class="text-end">Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,15 +87,9 @@
                                             <td>{{ Str::limit($gallery->description, 40) }}</td>
 
                                             <td>
-                                                <img src="{{ asset('uploads/galleries/' . $gallery->banner) }}" height="200" alt="single" />
-                                                @if($gallery->banner)
-                                                    <a href="{{ asset('uploads/galleries/' . $gallery->banner) }}" download>
-                                                        {{ $gallery->banner }}
-                                                    </a>
-                                                @else
-                                                    <span class="text-muted">No File</span>
-                                                @endif
+                                                <img src="{{ asset('uploads/galleries/' . $gallery->banner) }}" height="100" alt="single" />
                                             </td>
+                                            <td>{{ $departmentById[$gallery->department_id] ?? 'N/A' }}</td>
                                             <td>{{ $gallery->created_at->format('d-m-Y') }}</td>
                                             <td class="text-end">
                                                 <div class="actions">
