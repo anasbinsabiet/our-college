@@ -1115,10 +1115,18 @@ ul {
   margin-left: 8px;
 }
 .rs-toolbar .rs-toolbar-right .toolbar-share-icon ul li a {
-    font-size: 18px;
-    padding: 2px 10px;
-    border: 1px solid #4ea1d3;
-    border-radius: 5px;
+  padding: 2px 10px;
+  border: 1px solid #4ea1d3;
+  font-size: 13px;
+  display: block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  line-height: 31px;
+  text-align: center;
+  color: #fff;
+  transition: all .3s ease 0s;
+  background: rgba(255, 255, 255, 0.15);
 }
 .rs-toolbar .rs-toolbar-right .toolbar-share-icon ul li a:hover,
 .rs-toolbar .rs-toolbar-right .toolbar-share-icon ul li a:active,

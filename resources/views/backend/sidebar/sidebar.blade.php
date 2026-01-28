@@ -37,7 +37,7 @@
                         <a href="{{ route('syllabus.index') }}" {{set_active(['syllabus.index'])}}><i class="fas fa-file"></i> <span>Syllabus</span></a>
                     </li>
                     <li>
-                        <a href="{{ route('collection.index') }}" {{set_active(['collection.create'])}}><i class="fas fa-receipt"></i> <span>Office Collection</span></a>
+                        <a href="{{ route('collection.index') }}" {{set_active(['collection.create'])}}><i class="fas fa-receipt"></i> <span>Student Fees</span></a>
                     </li>
                     <li>
                         <a href="{{ route('bank.collection') }}" {{set_active(['bank.collection'])}}><i class="fas fa-file-invoice"></i> <span>Bank Collection</span></a>

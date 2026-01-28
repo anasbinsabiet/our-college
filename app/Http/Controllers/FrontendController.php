@@ -50,7 +50,8 @@ class FrontendController extends Controller
         $notices = Notice::orderBy('created_at', 'desc')
             ->take(10)
             ->get();
-        return view('frontend.about',compact('setting','notices'));
+        $members = Member::get();
+        return view('frontend.about',compact('setting','notices','members'));
     }
     public function gallery()
     {   

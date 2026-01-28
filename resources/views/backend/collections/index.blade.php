@@ -8,7 +8,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
-                        <li class="breadcrumb-item active">Office Collections</li>
+                        <li class="breadcrumb-item active">Student Fees</li>
                     </ul>
                     <a href="{{ route('collection.create') }}">
                         Add New

@@ -31,7 +31,7 @@
                 </div>
 
                 {{-- Notices --}}
-                <div class="card border-0 shadow-sm">
+                <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body p-4">
                         <h4 class="fw-semibold mb-4">Recent Notices</h4>
 
@@ -67,6 +67,30 @@
                         @endif
                     </div>
                 </div>
+
+                {{-- ================= GALLERY ================= --}}
+                @if($gallery)
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <h4 class="fw-semibold mb-4">Department Gallery</h4>
+                        <div class="row g-4">
+                            @foreach($gallery as $item)
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card border-0 shadow-sm overflow-hidden">
+                                        <img
+                                            src="{{ asset("uploads/galleries/{$item->banner}") }}"
+                                            class="w-100"
+                                            style="height:260px;object-fit:cover"
+                                            alt="{{ $item->name }}"
+                                            loading="lazy"
+                                        >
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
 
             {{-- ================= RIGHT SIDEBAR (TEACHERS) ================= --}}
@@ -127,29 +151,5 @@
         </div>
     </div>
 </section>
-
-{{-- ================= GALLERY ================= --}}
-@if($gallery)
-<section class="py-5 bg-white">
-    <div class="container">
-        <h4 class="fw-semibold mb-4">Department Gallery</h4>
-        <div class="row g-4">
-            @foreach($gallery as $item)
-                <div class="col-md-6 col-lg-4">
-                    <div class="card border-0 shadow-sm overflow-hidden">
-                        <img
-                            src="{{ asset("uploads/galleries/{$item->banner}") }}"
-                            class="w-100"
-                            style="height:260px;object-fit:cover"
-                            alt="{{ $item->name }}"
-                            loading="lazy"
-                        >
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
 
 @endsection
